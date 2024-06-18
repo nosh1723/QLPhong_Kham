@@ -1,0 +1,26 @@
+[
+    {
+        "doctor_id": "666840f7849732ae5a2f99e9",
+        "service_id": "Khám răng định kỳ"
+    },
+    {
+        "doctor_id": "666840f7849732ae5a2f99ea",
+        "service_id": "Khám răng định kỳ"
+    },
+    {
+        "doctor_id": "666840f7849732ae5a2f99eb",
+        "service_id": "Lấy cao răng"
+    },
+    {
+        "doctor_id": "666840f7849732ae5a2f99e9",
+        "service_id": "Lấy cao răng"
+    },
+    {
+        "doctor_id": "666840f7849732ae5a2f99ea",
+        "service_id": "Chỉnh nha"
+    },
+    {
+        "doctor_id": "666840f7849732ae5a2f99eb",
+        "service_id": "Chỉnh nha"
+    }
+]

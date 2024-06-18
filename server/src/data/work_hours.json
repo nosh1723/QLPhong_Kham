@@ -1,0 +1,39 @@
+[
+        {
+            "title": "Ca sáng 1",
+            "startTime": "2024-06-06T08:00:00.000Z",
+            "endTime": "2024-06-06T08:50:00.000Z",
+            "typeShiftWork": 1
+        },
+        {
+            "title": "Ca sáng 2",
+            "startTime": "2024-06-06T09:00:00.000Z",
+            "endTime": "2024-06-06T09:50:00.000Z",
+            "typeShiftWork": 1
+        },
+        {
+            "title": "Ca sáng 3",
+            "startTime": "2024-06-06T10:00:00.000Z",
+            "endTime": "2024-06-06T10:50:00.000Z",
+            "typeShiftWork": 1
+        },
+        {
+            "title": "Ca chiều 1",
+            "startTime": "2024-06-06T13:00:00.000Z",
+            "endTime": "2024-06-06T13:50:00.000Z",
+            "typeShiftWork": 2
+        },
+        {
+            "title": "Ca chiều 2",
+            "startTime": "2024-06-06T14:00:00.000Z",
+            "endTime": "2024-06-06T14:50:00.000Z",
+            "typeShiftWork": 2
+        },
+        {
+            "title": "Ca chiều 3",
+            "startTime": "2024-06-06T15:00:00.000Z",
+            "endTime": "2024-06-06T15:50:00.000Z",
+            "typeShiftWork": 2
+        }
+    ]
+

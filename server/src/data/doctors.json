@@ -1,0 +1,35 @@
+[
+    {
+        "code": "BS001",
+        "name": "Nguyễn Văn A",
+        "birth_date": "1980-01-15",
+        "gender": "M",
+        "year_of_experience": 15,
+        "experience": "Chuyên khoa nha khoa tổng quát",
+        "description": "Bác sĩ chuyên khoa nha khoa tổng quát với nhiều năm kinh nghiệm.",
+        "avatar": "link_to_avatar",
+        "branch_code": "BR001"
+    },
+    {
+        "code": "BS002",
+        "name": "Trần Thị B",
+        "birth_date": "1985-05-20",
+        "gender": "F", 
+        "year_of_experience": 10,
+        "experience": "Chuyên khoa chỉnh nha",
+        "description": "Bác sĩ chuyên khoa chỉnh nha với nhiều năm kinh nghiệm.",
+        "avatar": "link_to_avatar",
+        "branch_code": "BR002"
+    },
+    {
+        "code": "BS003",
+        "name": "Lê Văn C",
+        "birth_date": "1975-09-30",
+        "gender": "M", 
+        "year_of_experience": 20,
+        "experience": "Chuyên khoa nha khoa chỉnh hình ",
+        "description": "Bác sĩ chuyên khoa nha chỉnh hình với nhiều năm kinh nghiệm.",
+        "avatar": "link_to_avatar",
+        "branch_code": "BR003"
+    }
+]

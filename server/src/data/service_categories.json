@@ -1,0 +1,17 @@
+[
+    {
+        "code": "DM001",
+        "name": "Dịch vụ răng miệng",
+        "services": ["DV001", "DV002"]
+    },
+    {
+        "code": "DM002",
+        "name": "Dịch vụ chỉnh nha",
+        "services": ["DV003", "DV004"]
+    },
+    {
+        "code": "DM003",
+        "name": "Dịch vụ mới",
+        "services": ["DV005", "DV006"]
+    }
+]

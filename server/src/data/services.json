@@ -1,0 +1,44 @@
+[
+    {
+        "code": "DV001",
+        "name": "Khám răng định kỳ",
+        "price": 200000,
+        "description": "Dịch vụ khám răng định kỳ để kiểm tra sức khỏe răng miệng.",
+        "category_Id": "666b49ff635c59ac545a773c"
+    },
+    {
+        "code": "DV002",
+        "name": "Lấy cao răng",
+        "price": 300000,
+        "description": "Dịch vụ lấy cao răng và làm sạch răng.",
+        "category_Id": "666b49ff635c59ac545a773c"
+    },
+    {
+        "code": "DV003",
+        "name": "Chỉnh nha",
+        "price": 1000000,
+        "description": "Dịch vụ chỉnh nha để điều chỉnh răng.",
+        "category_Id": "666b49ff635c59ac545a773d"
+    },
+    {
+        "code": "DV004",
+        "name": "Tẩy trắng răng",
+        "price": 500000,
+        "description": "Dịch vụ tẩy trắng răng để làm răng trắng sáng.",
+        "category_Id": "666b49ff635c59ac545a773d"
+    },
+    {
+        "code": "DV005",
+        "name": "Nhổ răng thông thường và tiểu phẫu răng khôn.",
+        "price": 1000000,
+        "description": "Nhổ răng thông thường và tiểu phẫu răng khôn.",
+        "category_Id": "666b49ff635c59ac545a773e"
+    },
+    {
+        "code": "DV006",
+        "name": "Điều trị tủy",
+        "price": 500000,
+        "description": "Điều trị tủy",
+        "category_Id": "666b49ff635c59ac545a773e"
+    }
+]

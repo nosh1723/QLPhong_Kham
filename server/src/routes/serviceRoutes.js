@@ -19,4 +19,6 @@ router.put('/services/:id', serviceController.updateServiceById);
 // Route để xóa một dịch vụ theo ID
 router.delete('/services/:id', serviceController.deleteServiceById);
 
+router.get('/servicesCategoryById/:id', serviceController.getServiceCatogeryById)
+
 module.exports = router;

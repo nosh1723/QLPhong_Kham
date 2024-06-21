@@ -33,8 +33,21 @@ exports.createService = async (req, res) => {
 exports.getAllServices = async (req, res) => {
     try {
         // Lấy danh sách các dịch vụ và điền thông tin của danh mục dịch vụ
-        const services = await Service.find().populate('category_Id');
-        res.status(200).json(services);
+        const services = await (await Service.find().populate('category_Id'))
+        const serviceCats = await ServiceCategory.find()
+
+        const result = serviceCats.map(i => {
+            const res = services.filter(s => {
+                return s.category_Id._id + "" === i._id + ""
+            })
+            return {
+                _id: i._id,
+                name: i.name,
+                services: res
+            }
+        })
+
+        res.status(200).json(result);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -93,6 +106,24 @@ exports.deleteServiceById = async (req, res) => {
             return res.status(404).json({ error: 'Không tìm thấy dịch vụ để xóa' });
         }
         res.status(200).json({ message: 'Đã xóa dịch vụ thành công' });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// lấy dịch vụ theo cat Id
+exports.getServiceCatogeryById = async (req, res) => {
+    try {
+        const {id} = req.params
+        const serviceCatogery = await (await Service.find({category_Id: id}).populate("category_Id")).map(i => ({
+            _id: i._id,
+            code: i.code,
+            name: i.name,
+            price: i.price,
+            description: i.description,
+            category: i.category_Id
+        }))
+        res.status(200).json({ message: 'success', data: serviceCatogery });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

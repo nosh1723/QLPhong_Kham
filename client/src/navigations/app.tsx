@@ -5,38 +5,40 @@ import SplashScreen from '../components/SplashScreen';
 import { addAuth, authSelector } from '../redux/reducers/authReducer';
 import AuthRoute from './auth';
 import MainRoute from './main';
+import Toast from 'react-native-toast-message';
+import { useStore } from '../root-store';
+import { observer } from 'mobx-react';
 
 const RootRoute = () => {
-    const [isShowSplash, setIsShowSplash] = useState(true);
+  const [isShowSplash, setIsShowSplash] = useState(true);
   const auth = useSelector(authSelector)
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  
+  const { getItem } = useAsyncStorage("auth")
 
-    console.log('auth', auth?.token);
+  useEffect(() => {
+    checkLogin()
 
-    const { getItem } = useAsyncStorage("auth")
+    const timeout = setTimeout(() => {
+      setIsShowSplash(false);
+    }, 1500);
 
-    useEffect(() => {
-        checkLogin()
-        const timeout = setTimeout(() => {
-          setIsShowSplash(false);
-        }, 1500);
+    return () => clearTimeout(timeout);
+  }, [])
+  const checkLogin = async () => {
+    const res = await getItem()
     
-        return () => clearTimeout(timeout);
-    }, [])
-    const checkLogin = async () => {
-        const res = await getItem()
-
-        res && dispatch(
-            addAuth(JSON.parse(res))
-        )
-    }
+    res && dispatch(
+      addAuth(JSON.parse(res))
+    )
+  }
   return (
     <>
-        {isShowSplash ? <SplashScreen /> : auth?.token ? <MainRoute /> : <AuthRoute />}
-        
+      {isShowSplash ? <SplashScreen /> : auth?.token ? <MainRoute /> : <AuthRoute />}
+      <Toast/>
     </>
-   
+
   )
 }
 
-export default RootRoute
+export default observer(RootRoute) 

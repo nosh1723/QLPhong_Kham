@@ -9,13 +9,17 @@ import { useStore } from '@/src/root-store';
 import Loading from '@/src/components/Loading';
 import { observer } from 'mobx-react';
 import { getDate, getGenderFomat } from '@/src/constants/LocalFunction';
+import { authSelector } from '@/src/redux/reducers/authReducer';
+import { useSelector } from 'react-redux';
 
 const UserInfo = () => {
+    const auth = useSelector(authSelector)
     const navigation = useNavigation()
-    const { patient, getPatient, isLoading } = useStore().user
+
+    const { patient, isLoading, getPatient } = useStore().user
 
     useEffect(() => {
-        getPatient("0702201088abc@gmail.com")
+        getPatient(auth?.user?.email)
     },[])
     return (
         <>

@@ -35,5 +35,6 @@ export const colors = {
   red: "",
   black: "#000",
   textGray: "#9eabb9",
-  bgGray: "#f2f2f2"
+  bgGray: "#f2f2f2",
+  orange: "#e77a34"
 }

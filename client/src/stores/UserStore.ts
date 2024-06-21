@@ -20,6 +20,7 @@ export default class UserStore {
         });
         this.setIsLoading(false)
     } catch (error) {
+      this.setIsLoading(false)
         console.log("get patient failed!", error);
     }
   };
@@ -31,6 +32,7 @@ export default class UserStore {
       this.getPatient(obj.email)
       this.setIsLoading(false)
     } catch (error) {
+      this.setIsLoading(false)
       console.log("create or update failed!", error);
     }
   }

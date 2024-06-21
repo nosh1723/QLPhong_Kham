@@ -13,7 +13,7 @@ exports.getAllDoctorServices = async (req, res) => {
 // Lấy danh sách dịch vụ của một bác sĩ dựa trên ID bác sĩ
 exports.getDoctorServicesByDoctorId = async (req, res) => {
     try {
-        const doctorServices = await DoctorService.find({ doctor_id: req.params.doctorId }).populate('doctor_id').populate('service_id');
+        const doctorServices = await (await DoctorService.find({ doctor_id: req.params.doctorId }).populate('service_id')).map(i => (i?.service_id))
         res.json(doctorServices);
     } catch (error) {
         res.status(500).json({ message: 'Lỗi server' });

@@ -6,9 +6,12 @@ const doctorServiceController = require('../controllers/doctorServiceController'
 router.get('/', doctorServiceController.getAllDoctorServices);
 
 // Lấy danh sách dịch vụ của một bác sĩ dựa trên ID bác sĩ
-router.get('/doctor/:doctorId', doctorServiceController.getDoctorServicesByDoctorId);
+router.get('/getDoctorServices/:doctorId', doctorServiceController.getDoctorServicesByDoctorId);
 
 // Lấy thông tin một dịch vụ theo ID
+router.get('/id/:id', doctorServiceController.getDoctorServiceById);
+
+// Lấy thông tin một dịch vụ theo ID 
 router.get('/id/:id', doctorServiceController.getDoctorServiceById);
 
 module.exports = router;

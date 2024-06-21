@@ -92,3 +92,15 @@ exports.getWorkHouseById = async (req, res) => {
         res.status(500).json({ success: false, message: 'Không thể lấy bản ghi lịch làm việc.' });
     }
 };
+
+// Lấy lịch làm việc theo id doctor
+exports.getWorkHouseByDoctorId = async(req, res) => {
+    try {
+        const {id} = req.params
+        const workHouse = await (await WorkHouseDoctor.find({doctorId: id}).populate("workHourId")).map(i => i.workHourId)
+        res.status(200).json(workHouse)
+    } catch (error) {
+        console.log(err);
+        res.status(500).json({success: false, message: 'Không thể lấy bản ghi lịch làm việc.'})
+    }
+}

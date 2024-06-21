@@ -30,7 +30,7 @@ app.use('/api/workhours', workHourRoutes);
 app.use('/api/branch', branchRoutes);
 app.use('/api/appointments', appointmentRoutes); 
 app.use('/api/patient', patientRoutes);
-app.use('/api/workhouses', workHouseDoctorRoutes);
+app.use('/api/workhouseDoctors', workHouseDoctorRoutes);
 
 app.use(errorMiddleware);
 

@@ -6,28 +6,27 @@ import { View } from 'react-native';
 import ServiceList from './ServiceList';
 import { useStore } from '@/src/root-store';
 import Header from '@/src/components/Header';
+import Loading from '@/src/components/Loading';
+import { observer } from 'mobx-react';
 
 const Service = () => {
-    const { pagingService, pageService } = useStore().service
-
-    useEffect(() => {
-        pagingService()
-    }, [])
+    const { pagingService, pageService, isLoading } = useStore().service
 
     return (
-        <ViewComponent>
-            <>
-            <Header textHeaderBack='Dịch vụ'/>
-                <ScrollView showsVerticalScrollIndicator={false} style={{paddingTop: -10}}>
+        <>
+        <Loading visible={isLoading}/>
+        <Header textHeaderBack='Dịch vụ'/>
+            <View style={{flex: 1}}>
+                <ScrollView showsVerticalScrollIndicator={false} style={{paddingTop: -10, flexGrow: 1}}>
                     {pageService?.length > 0 && 
-                        pageService?.map(item => (
-                            <ServiceList data={item} key={"service" + item?._id}/>
-                        ))
+                        pageService?.map(item => {
+                            return <ServiceList data={item} key={"service" + item?._id}/>
+                        })
                     }
                 </ScrollView>
-            </>
-        </ViewComponent>
+            </View>
+        </>
     );
 };
 
-export default Service;
+export default observer(Service);

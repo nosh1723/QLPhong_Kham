@@ -3,13 +3,15 @@ import React from 'react';
 import AppointmentIndex from '../views/Appointment';
 import ChangePassword from '../views/Auth/ChangePassword';
 import DoctorIndex from '../views/Doctor';
-import Makeappointment from '../views/MakeAppointment';
 import Service from '../views/Service';
 import Setting from '../views/Setting';
 import UserEdit from '../views/User/UserEdit';
 import UserInfo from '../views/User/UserInfo';
 import MyTabs from './tabs';
 import MessageScreen from '../views/Message/MessageScreen';
+import Makeappointment from '../views/MakeAppointment/MakeAppointMentInfo';
+import MakeAppointMentComfirm from '../views/MakeAppointment/MakeAppointMentComfirm';
+import MakeAppointMentIndex from '../views/MakeAppointment/MakeAppointMentIndex';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +22,9 @@ const MainRoute = () => {
           <Stack.Screen name="tabs" component={MyTabs} options={{headerShown: false}}/>
           <Stack.Screen name="appointment" component={AppointmentIndex} options={{headerShown: false}}/>
           <Stack.Screen name="doctor" component={DoctorIndex} options={{headerShown: false}}/>
-          <Stack.Screen name="makeAppointment" component={Makeappointment} options={{headerShown: false}}/>
+          <Stack.Screen name="makeAppointmentIndex" component={MakeAppointMentIndex} options={{headerShown: false}}/>
+          <Stack.Screen name="makeAppointmentInfo" component={Makeappointment} options={{headerShown: false}}/>
+          <Stack.Screen name="makeAppointmentComfirm" component={MakeAppointMentComfirm} options={{headerShown: false}}/>
           <Stack.Screen name="service" component={Service} options={{headerShown: false}}/>
           <Stack.Screen name="setting" component={Setting} options={{headerShown: false}}/>
           <Stack.Screen name="userEdit" component={UserEdit} options={{headerShown: false}}/>

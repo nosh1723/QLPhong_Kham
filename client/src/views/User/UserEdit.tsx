@@ -27,27 +27,13 @@ const UserEdit = () => {
 
     const isIos = Platform.OS === "ios"
 
-    const [date, setDate] = useState(new Date());
     const [selectedIndex, setIndex] = useState<number>();
     const [showCalendar, setShowCalendar] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    const onChange = (event: any, selectedDate: any) => {
-        if (!isIos) {
-            const currentDate = selectedDate;
-            setShowCalendar(false);
-            setDate(currentDate);
-            return
-        }
-
-        setSelectedDate(selectedDate)
-
-    };
-
     const handleComfirmCalendar = (setFieldValue: Function) => {
         const currentDate = selectedDate;
         setShowCalendar(false);
-        setDate(currentDate);
         setFieldValue("birth_date", currentDate)
         bottomSheetCalendarRef.current?.close()
     }
@@ -89,7 +75,7 @@ const UserEdit = () => {
                                         <TouchableOpacity onPress={() => {
                                             setFieldValue("gender", "M")
                                             setIndex(0)
-                                        }} style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: values?.gender === "F" || selectedIndex === 1 ? "#fff" : "#e7f1fd", padding: 10, paddingRight: 15, justifyContent: "space-between", flex: 1, borderRadius: 8, borderWidth:  values?.gender === "M" || selectedIndex === 0 ? 2 : 1, borderColor: values?.gender === "M" ||  selectedIndex === 0 ? "#007bfc" : "#ccc" }}>
+                                        }} style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: values?.gender === "F" || selectedIndex === 1 ? "#fff" : "#e7f1fd", padding: 10, paddingRight: 15, justifyContent: "space-between", flex: 1, borderRadius: 8, borderWidth: values?.gender === "M" || selectedIndex === 0 ? 2 : 1, borderColor: values?.gender === "M" || selectedIndex === 0 ? "#007bfc" : "#ccc" }}>
                                             <CheckBox
                                                 checked={values?.gender === "M" || selectedIndex === 0}
                                                 // onPress={() => {
@@ -142,6 +128,28 @@ const UserEdit = () => {
                             {showCalendar ? <Backdrop /> : <></>}
 
                         </ScrollView>
+                        {!isIos && showCalendar &&
+                            <DateTimePicker
+                                testID="dateTimePicker"
+                                value={new Date(values?.birth_date)}
+                                mode={'date'}
+                                is24Hour={true}
+                                onChange={(event: any, selectedDate: any) => {
+                                    if (!isIos) {
+                                        const currentDate = selectedDate;
+                                        setShowCalendar(false);
+                                        setFieldValue("birth_date", currentDate)
+                                        return
+                                    }
+                            
+                                    setSelectedDate(selectedDate)
+                            
+                                }}
+                                display='spinner'
+                                style={{ height: 150 }}
+                            />
+                        }
+                        {isIos &&
                             <BottomSheet
                                 ref={bottomSheetCalendarRef}
                                 snapPoints={['45%']}
@@ -155,18 +163,18 @@ const UserEdit = () => {
                                     </View>
                                     <DateTimePicker
                                         testID="dateTimePicker"
-                                        value={date}
+                                        value={new Date(values?.birth_date)}
                                         mode={'date'}
                                         is24Hour={true}
-                                        onChange={onChange}
                                         display='spinner'
                                         style={{ height: 150 }}
+                                        
                                     />
                                     <View style={{ flexDirection: 'row', padding: 10, gap: 10, marginTop: 10, position: "absolute", bottom: 30, borderTopWidth: .8, borderColor: colors.gray }}>
-                                        <TouchableOpacity style={{ backgroundColor: "#e6e6e6", padding: 15, borderRadius: 10, flex: 1 }} onPress={() => { 
-                                            setShowCalendar(false); 
+                                        <TouchableOpacity style={{ backgroundColor: "#e6e6e6", padding: 15, borderRadius: 10, flex: 1 }} onPress={() => {
+                                            setShowCalendar(false);
                                             bottomSheetCalendarRef.current?.close()
-                                         }}><Text style={{ color: "#000", fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Hủy</Text></TouchableOpacity>
+                                        }}><Text style={{ color: "#000", fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Hủy</Text></TouchableOpacity>
                                         <TouchableOpacity style={{ backgroundColor: "#006778", padding: 15, borderRadius: 10, flex: 1 }} onPress={() => {
                                             handleComfirmCalendar(setFieldValue)
                                         }}><Text style={{ color: "#fff", fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Xác nhận</Text></TouchableOpacity>
@@ -174,7 +182,8 @@ const UserEdit = () => {
 
                                 </BottomSheetView>
                             </BottomSheet>
-                            <Loading visible={isLoading}/>
+                        }
+                        <Loading visible={isLoading} />
                     </ViewComponent>
 
                 )}

@@ -6,7 +6,7 @@ const ServiceSchema = new Schema({
     name: { type: String, required: true },
     price: { type: Number, required: true },
     description: { type: String },
-    category_Id: { type: Schema.Types.ObjectId, required: true, ref: 'ServiceCategory' }  
+    category_Id: { type: String, required: true, ref: 'ServiceCategory' }  
 }, {
     timestamps: true
 });

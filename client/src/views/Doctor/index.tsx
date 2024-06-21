@@ -13,8 +13,11 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useStore } from '@/src/root-store';
 import { useNavigation } from '@react-navigation/native';
 import Header from '@/src/components/Header';
+import { useSelector } from 'react-redux';
+import { authSelector } from '@/src/redux/reducers/authReducer';
 
 const DoctorIndex = () => {
+    const auth = useSelector(authSelector)
     const navigation = useNavigation()
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
@@ -24,9 +27,14 @@ const DoctorIndex = () => {
     const isIos = Platform.OS === "ios"
 
     const {  doctor } = useStore().home
+    const {  getPatient } = useStore().user
+
+    useEffect(() => {
+        getPatient(auth?.user?.email)
+    },[])
 
 
-    const onChange = (event, selectedDate) => {
+    const onChange = (event: any, selectedDate: any) => {
         if (!isIos) {
             const currentDate = selectedDate;
             setShow(false);
@@ -46,9 +54,8 @@ const DoctorIndex = () => {
 
     return (
         <GestureHandlerRootView >
+            <View style={{flex: 1}}>
                     <Header textHeaderBack='Bác sĩ' />
-            <ViewComponent style={{flex: 1}}>
-                <>
                     <ScrollView showsVerticalScrollIndicator={false} style={{flexGrow: 1}}>
 
                         <View style={{flexDirection: "row", padding: 12, backgroundColor: bg, marginBottom: 5, alignItems: 'center'}}>
@@ -167,7 +174,9 @@ const DoctorIndex = () => {
                     </ScrollView>
                     <View style={{ position: 'absolute', bottom: 0, padding: 12, backgroundColor: "#fff", paddingBottom: isIos ? 40 : 15, borderTopWidth: .5, borderTopColor: "#e7ebed", flexDirection: 'row', gap: 10 }}>
                         <TouchableOpacity onPress={() => navigation.navigate("(tabs)/message")} style={{ backgroundColor: "#007bfc", padding: 15, borderRadius: 10, flex: 1 }}><Text style={{ color: "#fff", fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Chat với bác sĩ</Text></TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate("makeAppointment")} style={{ backgroundColor: "#006778", padding: 15, borderRadius: 10, flex: 1 }}><Text style={{ color: "#fff", fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Đặt khám</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => {
+                            navigation.navigate("makeAppointmentIndex")
+                        }} style={{ backgroundColor: "#006778", padding: 15, borderRadius: 10, flex: 1 }}><Text style={{ color: "#fff", fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Đặt khám</Text></TouchableOpacity>
                     </View>
                     {show && isIos && <View style={{ height: "100%", width: "100%", backgroundColor: "#ddd", opacity: .5, position: "absolute" }}></View>}
                     {isIos &&
@@ -197,8 +206,7 @@ const DoctorIndex = () => {
                             </BottomSheetView>
                         </BottomSheet>
                     }
-                </>
-            </ViewComponent>
+            </View>
         </GestureHandlerRootView>
     );
 };

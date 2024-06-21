@@ -2,22 +2,20 @@ const express = require('express');
 const router = express.Router();
 const serviceController = require('../controllers/serviceController');
 
-// Định nghĩa các route cho các hoạt động liên quan đến dịch vụ
-
 // Route để tạo mới một dịch vụ
-router.post('/services', serviceController.createService);
+router.post('/', serviceController.createService);
 
 // Route để lấy tất cả các dịch vụ
-router.get('/services', serviceController.getAllServices);
+router.get('/', serviceController.getAllServices);
 
 // Route để lấy thông tin của một dịch vụ theo ID
-router.get('/services/:id', serviceController.getServiceById);
+router.get('/:id', serviceController.getServiceById);
 
 // Route để cập nhật thông tin của một dịch vụ theo ID
-router.put('/services/:id', serviceController.updateServiceById);
+router.put('/:id', serviceController.updateServiceById);
 
 // Route để xóa một dịch vụ theo ID
-router.delete('/services/:id', serviceController.deleteServiceById);
+router.delete('/:id', serviceController.deleteServiceById);
 
 router.get('/servicesCategoryById/:id', serviceController.getServiceCatogeryById)
 

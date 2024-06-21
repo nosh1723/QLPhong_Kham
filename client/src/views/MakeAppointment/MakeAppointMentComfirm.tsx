@@ -11,12 +11,13 @@ import { Image } from '@rneui/themed'
 import { useStore } from '@/src/root-store'
 import { observer } from 'mobx-react'
 import { useFormikContext } from 'formik'
-import { getDate, getGenderFomat } from '@/src/constants/LocalFunction'
+import { formatCurrency, getDate, getGenderFomat, getTime } from '@/src/constants/LocalFunction'
 
 const MakeAppointMentComfirm = () => {
     const navigation = useNavigation()
     const { setSubmitting, submitForm, values } = useFormikContext()
     const { doctor } = useStore().home
+    const { patient } = useStore().user
     const [extend, setExtend] = useState(true)
 
     return (
@@ -42,22 +43,22 @@ const MakeAppointMentComfirm = () => {
                             <View style={{ flex: 1, flexDirection: 'row', gap: 20 }}>
                                 <View style={{flex: 1}}>
                                     <Text style={{ paddingBottom: 8, fontSize: 16 }}>Giờ khám</Text>
-                                    <Text style={{ fontSize: 18, fontWeight: 500 }}>18:00-19:00</Text>
+                                    <Text style={{ fontSize: 18, fontWeight: 500 }}>{getTime(values.appointmentTime.startTime)}-{getTime(values.appointmentTime.endTime)}</Text>
                                     <Text style={{ color: colors.orange }}>Buổi chiều</Text>
                                 </View>
                                 <View style={{flex: 1}}>
                                     <Text style={{ paddingBottom: 8, fontSize: 16 }}>Ngày khám</Text>
-                                    <Text style={{ fontSize: 18, fontWeight: 500 }}>T6-21</Text>
+                                    <Text style={{ fontSize: 18, fontWeight: 500 }}>{getDate(values.date)}</Text>
                                 </View>
                             </View>
                             <View style={{ flex: 1, flexDirection: 'row', gap: 20 }}>
                                 <View style={{flex: 1}}>
                                     <Text style={{ paddingBottom: 8, fontSize: 16 }}>Dịch vụ</Text>
-                                    <Text style={{ fontSize: 18, fontWeight: 500 }}>Nhổ răng</Text>
+                                    <Text style={{ fontSize: 18, fontWeight: 500 }}>{values.service.name}</Text>
                                 </View>
                                 <View style={{flex: 1}}>
                                     <Text style={{ paddingBottom: 8, fontSize: 16 }}>Phí dịch vụ</Text>
-                                    <Text style={{ fontSize: 18, fontWeight: 500 }}>0$</Text>
+                                    <Text style={{ fontSize: 18, fontWeight: 500 }}>{formatCurrency(values.service.price)}</Text>
                                 </View>
                             </View>
                            
@@ -77,31 +78,31 @@ const MakeAppointMentComfirm = () => {
                             <View style={{ flexGrow: 1, flexDirection: 'column', gap: 15, paddingVertical: extend ? 10 : 0, height: extend ? 'auto' : 0, overflow: "hidden" }}>
                                 <View>
                                     <Text style={{ paddingBottom: 8, fontSize: 16 }}>Họ và tên</Text>
-                                    <Text style={{ fontSize: 18, fontWeight: 500 }}>{values?.patient?.name ? values?.patient?.name :  "--"}</Text>
+                                    <Text style={{ fontSize: 18, fontWeight: 500 }}>{patient?.name ? patient?.name :  "--"}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', flexGrow: 1 }}>
                                     <View style={{ flex: 1 }}>
                                         <Text style={{ paddingBottom: 8, fontSize: 16 }}>Giới tính</Text>
-                                        <Text style={{ fontSize: 18, fontWeight: 500 }}>{values?.patient?.gender ? getGenderFomat(values?.patient?.gender)  :  "--"}</Text>
+                                        <Text style={{ fontSize: 18, fontWeight: 500 }}>{patient?.gender ? getGenderFomat(patient?.gender)  :  "--"}</Text>
                                     </View>
                                     <View style={{ flex: 1 }}>
                                         <Text style={{ paddingBottom: 8, fontSize: 16 }}>Ngày sinh</Text>
-                                        <Text style={{ fontSize: 18, fontWeight: 500 }}>{values?.patient?.birth_date ? getDate(values?.patient?.birth_date)  :  "--"}</Text>
+                                        <Text style={{ fontSize: 18, fontWeight: 500 }}>{patient?.birth_date ? getDate(patient?.birth_date)  :  "--"}</Text>
                                     </View>
                                 </View>
                                 <View style={{ flexDirection: 'row', flexGrow: 1 }}>
                                     <View style={{ flex: 1 }}>
                                         <Text style={{ paddingBottom: 8, fontSize: 16 }}>Điện thoại liên hệ</Text>
-                                        <Text style={{ fontSize: 18, fontWeight: 500 }}>{values?.patient?.phone_number ? values?.patient?.phone_number :  "--"}</Text>
+                                        <Text style={{ fontSize: 18, fontWeight: 500 }}>{patient?.phone_number ? patient?.phone_number :  "--"}</Text>
                                     </View>
                                     <View style={{ flex: 1 }}>
                                         <Text style={{ paddingBottom: 8, fontSize: 16 }}>Mã bảo hiểm y tế</Text>
-                                        <Text style={{ fontSize: 18, fontWeight: 500 }}>{values?.patient?.health_insurance_code ? values?.patient?.health_insurance_code :  "--"}</Text>
+                                        <Text style={{ fontSize: 18, fontWeight: 500 }}>{patient?.health_insurance_code ? patient?.health_insurance_code :  "--"}</Text>
                                     </View>
                                 </View>
                                 <View>
                                     <Text style={{ paddingBottom: 8, fontSize: 16 }}>Địa chỉ</Text>
-                                    <Text style={{ fontSize: 18, fontWeight: 500 }}>{values?.patient?.address ? values?.patient?.address :  "--"}</Text>
+                                    <Text style={{ fontSize: 18, fontWeight: 500 }}>{patient?.address ? patient?.address :  "--"}</Text>
                                 </View>
                             </View>
                         </View>

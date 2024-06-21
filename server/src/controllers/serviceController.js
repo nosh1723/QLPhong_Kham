@@ -29,8 +29,20 @@ exports.createService = async (req, res) => {
     }
 };
 
-// Lấy tất cả các dịch vụ
+//lấy tất cả dv
 exports.getAllServices = async (req, res) => {
+    try {
+        // Lấy danh sách các dịch vụ và điền thông tin của danh mục dịch vụ
+        const services = await Service.find()
+
+        res.status(200).json(services);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// Lấy tất cả các dịch vụ theo thể laoij
+exports.getAllServicesByCate = async (req, res) => {
     try {
         // Lấy danh sách các dịch vụ và điền thông tin của danh mục dịch vụ
         const services = await (await Service.find().populate('category_Id'))

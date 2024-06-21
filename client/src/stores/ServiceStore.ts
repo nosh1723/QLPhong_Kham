@@ -1,9 +1,11 @@
 import { pagingService } from "@/src/services/ServiceServices";
 import { makeAutoObservable, runInAction } from "mobx";
+import { Service } from "../models/service";
 
 export default class ServiceStore {
-    pageService = []
+    pageService: Service[] = []
     service = null
+    listServiceByCate = []
     isLoading = false
 
     constructor() {
@@ -20,7 +22,6 @@ export default class ServiceStore {
             this.pageService = res.data
         })
         
-        this.setService(res.data)
         this.setIsLoading(false)
 
        } catch (error) {

@@ -27,3 +27,7 @@ export function getDateFormat(date: any) {
 export function getGenderFomat(gender: string) {
     return gender === "M" ? "Nam" : "Nữ"
 }
+
+export function formatCurrency(amount: number) {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+  }

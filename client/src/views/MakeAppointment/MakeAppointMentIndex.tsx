@@ -16,16 +16,14 @@ import { Formik } from "formik";
 export default observer(function MakeappointmentIndex() {
     const navigation = useNavigation()
     
-    const {next, setNext, getWorkhours} = useStore().apointment
+    const {next, setNext, getWorkhours, searchObject} = useStore().apointment
     const { patient } = useStore().user
     const { doctor } = useStore().home
 
     const inittialValues = {
-        patient,
-        doctor,
-        date: new Date(),
-        startTime: "",
-        endTime: "",
+        ...searchObject,
+        doctorId: doctor?.id,
+        patientId: patient?._id,
     }
 
     useEffect(() => {

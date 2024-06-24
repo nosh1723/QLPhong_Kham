@@ -1,9 +1,10 @@
 
-import { makeAutoObservable, runInAction } from "mobx";
+import { isAction, makeAutoObservable, runInAction } from "mobx";
 import { workhourDoctor } from "../services/DoctorServices";
-import { Workhour } from "../models/workhour";
+import { Workhour, WorkhourDoctor } from "../models/workhour";
 import { Service } from "../models/service";
-import { checkDateTime } from "../services/AppointmentServices";
+import { bookAppointment, checkDateTime } from "../services/AppointmentServices";
+import Toast from "react-native-toast-message";
 
 interface initialValues {
     doctorId: string,
@@ -12,6 +13,11 @@ interface initialValues {
     date: Date,
     appointmentTime: Workhour,
     note: string
+}
+
+interface workhourResult{
+    status: number,
+    workhour: WorkhourDoctor[]
 }
 
 export default class ApointmentStore {
@@ -26,9 +32,33 @@ export default class ApointmentStore {
         appointmentTime: new Workhour,
         note: ""
     }
+    workhourResult: workhourResult = {
+        status: 0,
+        workhour: []
+    }
+    bookAppointment = {}
 
     constructor() {
         makeAutoObservable(this)
+    }
+
+    handleBookAppointment = async (obj: object) => {
+        try {
+            this.setIsLoading(true)
+            const res = await bookAppointment(obj)
+            runInAction(() => {
+                this.bookAppointment = res.data
+            }) 
+            Toast.show({
+                type: "success",
+                text1: res.data.message
+            })
+            this.setIsLoading(false)
+            return res.data
+        } catch (error) {
+            this.setIsLoading(false)
+            console.log('book appointment failed', error);
+        }
     }
 
     getWorkhours = async (id: string) => {
@@ -39,14 +69,6 @@ export default class ApointmentStore {
             runInAction(() => {
                 this.workhourDoctor = res.data
             })
-
-            runInAction(() => {
-                this.searchObject = {
-                    ...this.searchObject,
-                    appointmentTime: res.data[0]
-                }
-            })
-            
             this.setIsLoading(false)
         } catch (error) {
             this.setIsLoading(false)
@@ -56,9 +78,14 @@ export default class ApointmentStore {
 
     checkDateTime = async (date: Date) => {
         try {
+            this.setIsLoading(true)
             const res = await checkDateTime({date})
-            console.log(res);
+            runInAction(() => {
+                this.workhourResult = res.data
+            })
+            this.setIsLoading(false)
         } catch (error) {
+            this.setIsLoading(false)
             console.log('check date time failed', error);
         }
     } 
@@ -73,7 +100,10 @@ export default class ApointmentStore {
 
     resetStore = () => {
         this.isLoading = false
-        this.next = 0
-        this.workhourDoctor = []
+        this.workhourResult = {
+            status: 0,
+            workhour: []
+        }
+        this.bookAppointment = {}
     }
 }

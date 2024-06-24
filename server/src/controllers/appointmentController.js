@@ -23,6 +23,9 @@ exports.bookAppointment = async (req, res) => {
             return res.status(404).json({ success: 0, message: 'Không tìm thấy bệnh nhân.' });
         }
         
+        // const checkAppointment = await Appointment.findOne({workHourId: appointmentTime?._id})
+        // if(checkAppointment) return res.status(201).json({message: "Lịch hẹn đã tồn tại", status: 0})
+
         // Tạo mới lịch hẹn và lưu vào cơ sở dữ liệu
         const appointment = new Appointment({
             doctorId,
@@ -37,7 +40,7 @@ exports.bookAppointment = async (req, res) => {
 
         // Trả về thông tin lịch hẹn đã được đặt thành công, bao gồm branch_id từ doctor và price từ service
         res.status(201).json({
-            success: 1,
+            status: 1,
             message: 'Lịch hẹn đã được đặt thành công.',
             appointment: {
                 ...appointment.toObject(),
@@ -52,10 +55,6 @@ exports.bookAppointment = async (req, res) => {
                 note
             }
         });
-
-        // console.log(new Date(date));
-
-        // res.send('heh')
 
         // Chỉ xét phần ngày của 'date' để kiểm tra tính khả dụng
         // const appointmentDate = new Date(date);
@@ -91,13 +90,16 @@ exports.checkDateTime = async (req, res) => {
 
         const newDate = normalizeDate(date)
         
-        const appointment = await Appointment.findOne({date: newDate})
-        const workhour = await WorkHour.findById(appointment.workHourId)
-        console.log(workhour);
-        // if(workhour._id + "" === appointment.workHourId) {
-        //     return res.status(200).json({status: 1})
-        // }
-        // res.status(200).json({status: 0})
+        const appointment = await Appointment.find({date: newDate})
+        const workhour = await WorkHouseDoctor.find()
+        if(!workhour) return res.status(400).json({message: "workhour not exist!"}) 
+
+        const newWorkhour = workhour.filter( i => {
+            const result = appointment.some(id => id.workHourId === i.workHourId)
+            return result
+        })
+        
+        return res.status(200).json({status: 1, workhour: newWorkhour})
     } catch (error) {
         res.status(500).json({ message: 'Đã xảy ra lỗi kiểm tra ngày đặt khám.' });
     }

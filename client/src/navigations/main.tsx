@@ -12,6 +12,7 @@ import MessageScreen from '../views/Message/MessageScreen';
 import Makeappointment from '../views/MakeAppointment/MakeAppointMentInfo';
 import MakeAppointMentComfirm from '../views/MakeAppointment/MakeAppointMentComfirm';
 import MakeAppointMentIndex from '../views/MakeAppointment/MakeAppointMentIndex';
+import ScheduleExamDetailIndex from '../views/ScheduleExam/ScheduleExamDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ const MainRoute = () => {
           <Stack.Screen name="userInfo" component={UserInfo} options={{headerShown: false}}/>
           <Stack.Screen name="changePassword" component={ChangePassword} options={{headerShown: false}}/>
           <Stack.Screen name="messageScreen" component={MessageScreen} options={{headerShown: false}}/>
+          <Stack.Screen name="scheduleExamDetailIndex" component={ScheduleExamDetailIndex} options={{headerShown: false}}/>
         </Stack.Navigator>
     </>
    

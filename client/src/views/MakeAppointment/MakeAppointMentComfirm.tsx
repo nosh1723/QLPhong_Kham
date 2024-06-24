@@ -12,14 +12,19 @@ import { useStore } from '@/src/root-store'
 import { observer } from 'mobx-react'
 import { useFormikContext } from 'formik'
 import { formatCurrency, getDate, getGenderFomat, getTime } from '@/src/constants/LocalFunction'
+import Loading from '@/src/components/Loading'
+import Toast from 'react-native-toast-message'
 
 const MakeAppointMentComfirm = () => {
     const navigation = useNavigation()
     const { setSubmitting, submitForm, values } = useFormikContext()
+    
+    const [extend, setExtend] = useState(true)
+    
     const { doctor } = useStore().home
     const { patient } = useStore().user
-    const [extend, setExtend] = useState(true)
-
+    const { handleBookAppointment, isLoading, bookAppointment } = useStore().apointment
+    
     return (
         <>
 
@@ -111,8 +116,9 @@ const MakeAppointMentComfirm = () => {
             </ScrollView>
 
             <View style={{ padding: 10, borderTopWidth: .8, borderTopColor: colors.gray, backgroundColor: colors.white, paddingVertical: 15, paddingBottom: isIos ? 30 : 15 }}>
-                <CommonButton onPress={() => submitForm()} title="Xác nhận đặt lịch" style={{ borderRadius: 8, }}></CommonButton>
+                <CommonButton onPress={() => handleBookAppointment(values)} title="Xác nhận đặt lịch" style={{ borderRadius: 8, }}></CommonButton>
             </View>
+            <Loading visible={isLoading}/>
         </>
     )
 }

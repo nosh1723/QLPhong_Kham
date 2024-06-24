@@ -5,3 +5,9 @@ export class Workhour {
     title = ""
     typeShiftWork = 1
 }
+
+export class WorkhourDoctor {
+    _id = ""
+    workHourId = ""
+    doctorId = ""
+}

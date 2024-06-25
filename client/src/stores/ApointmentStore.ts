@@ -3,7 +3,7 @@ import { isAction, makeAutoObservable, runInAction } from "mobx";
 import { workhourDoctor } from "../services/DoctorServices";
 import { Workhour, WorkhourDoctor } from "../models/workhour";
 import { Service } from "../models/service";
-import { bookAppointment, checkDateTime } from "../services/AppointmentServices";
+import { bookAppointment, checkDateTime, getAppointment, pagingAppointment } from "../services/AppointmentServices";
 import Toast from "react-native-toast-message";
 
 interface initialValues {
@@ -37,9 +37,42 @@ export default class ApointmentStore {
         workhour: []
     }
     bookAppointment = {}
+    pageAppointment = []
+    selectAppointment = {}
 
     constructor() {
         makeAutoObservable(this)
+    }
+
+    getAppointment = async (id: string) => {
+        try {
+            this.setIsLoading(true)
+            const res = await getAppointment(id)
+
+            runInAction(() => {
+                this.selectAppointment = res.data
+            })
+            this.setIsLoading(false)
+        } catch (error) {
+            this.setIsLoading(false)
+            console.log('lấy lịch khám có lỗi', error);
+        }
+    }
+
+    pagingAppointment = async () => {
+        try {
+            this.setIsLoading(true)
+            const res = await pagingAppointment()
+
+            runInAction(() => {
+                this.pageAppointment = res.data
+            })
+
+            this.setIsLoading(false)
+        } catch (error) {
+            this.setIsLoading(false)
+            console.log("Lấy lịch hẹn thất bại", error);
+        }
     }
 
     handleBookAppointment = async (obj: object) => {
@@ -49,10 +82,6 @@ export default class ApointmentStore {
             runInAction(() => {
                 this.bookAppointment = res.data
             }) 
-            Toast.show({
-                type: "success",
-                text1: res.data.message
-            })
             this.setIsLoading(false)
             return res.data
         } catch (error) {
@@ -105,5 +134,13 @@ export default class ApointmentStore {
             workhour: []
         }
         this.bookAppointment = {}
+        this.searchObject = {
+            doctorId: "",
+            patientId: "",
+            service: new Service,
+            date: new Date(),
+            appointmentTime: new Workhour,
+            note: ""
+        }
     }
 }

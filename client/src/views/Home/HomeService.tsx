@@ -9,16 +9,12 @@ import { ScrollView, Text, View } from 'react-native';
 const HomeService = () => {
     const navigation = useNavigation()
 
-    const { pagingService, pageService, isLoading } = useStore().service
-
-    useEffect(() => {
-        pagingService()
-    }, [])
+    const { listServiceByCate, isLoading } = useStore().service
 
     return (
         <ViewContainer onPress={() => navigation.navigate("service")} title='Dịch vụ' >
             <>
-                {pageService?.map((i, index) => {
+                {listServiceByCate?.map((i, index) => {
                     if(index > 1) return
                     return (
                         <CommonButton key={"homesv" + i?._id} style={{width: "100%", flexDirection: "column", alignItems: "start", borderBottomWidth: index === 1 ? 0 : 1, borderColor: "#ddd", paddingBottom: 10, marginBottom: 10 }} color='transparent' onPress={() => navigation.navigate("appointment")}>

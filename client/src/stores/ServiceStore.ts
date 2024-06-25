@@ -1,4 +1,4 @@
-import { pagingService } from "@/src/services/ServiceServices";
+import { getAllServiceByCate, pagingService } from "@/src/services/ServiceServices";
 import { makeAutoObservable, runInAction } from "mobx";
 import { Service } from "../models/service";
 
@@ -28,6 +28,24 @@ export default class ServiceStore {
         this.setIsLoading(false)
         console.log(error);
        }
+    }
+
+    pagingServiceByCate = async() => {
+        try {
+            this.setIsLoading(true)
+    
+            const res = await getAllServiceByCate()
+    
+            runInAction(() => {
+                this.listServiceByCate = res.data
+            })
+            
+            this.setIsLoading(false)
+            
+        } catch (error) {
+            this.setIsLoading(false)
+            console.log(error);
+        }
     }
 
     setService = (data: any) => {

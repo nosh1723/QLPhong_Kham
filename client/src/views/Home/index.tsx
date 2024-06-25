@@ -10,17 +10,21 @@ import Header from "@/src/components/Header";
 import HomeHeader from "./HomeHeader";
 import { StatusBar } from "expo-status-bar";
 import CommonButton from "@/src/components/CommonButton";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 export default observer(function HomeScreen() {
   const navigation = useNavigation()
+  const isFocused = useIsFocused();
   const { pagingDoctor, resetStore } = useStore().home
   const { user, reset} = useStore().auth
+  const { pagingServiceByCate } = useStore().service
   
   useEffect(() => {
     pagingDoctor()
-    return () => resetStore()
-  },[])
+    pagingServiceByCate()
+
+    // return () => resetStore()
+  },[isFocused])
 
   return (
     <>

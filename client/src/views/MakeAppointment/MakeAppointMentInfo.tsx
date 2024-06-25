@@ -48,6 +48,7 @@ export default observer(function Makeappointment() {
             setShowCalendar(false);
             setDate(currentDate);
             setFieldValue("date", currentDate)
+            checkDateTime(currentDate)
             return
         }
 
@@ -67,7 +68,14 @@ export default observer(function Makeappointment() {
     useEffect(() => {
         setDate(values.date)
         setActiveTimeWork(values.appointmentTime._id)
-        checkDateTime(new Date())
+
+        if(new Date().getTime() === new Date(values.date).getTime()){
+            checkDateTime(new Date())
+        }else {
+            checkDateTime(values.date)
+        }
+
+        return () => resetStore()
     }, [])
 
     useEffect(() => {
@@ -389,7 +397,7 @@ export default observer(function Makeappointment() {
             <BottomSheet
                 ref={bottomSheetServiceRef}
                 // onChange={handleSheetChanges}
-                snapPoints={['50%']}
+                snapPoints={[isIos ? '50%' : '70']}
                 enablePanDownToClose
                 index={-1}
                 onClose={() => { setShowService(false) }}

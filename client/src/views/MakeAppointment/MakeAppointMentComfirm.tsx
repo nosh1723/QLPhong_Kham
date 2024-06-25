@@ -23,7 +23,7 @@ const MakeAppointMentComfirm = () => {
     
     const { doctor } = useStore().home
     const { patient } = useStore().user
-    const { handleBookAppointment, isLoading, bookAppointment } = useStore().apointment
+    const { handleBookAppointment, isLoading, getAppointment, resetStore, setNext } = useStore().apointment
     
     return (
         <>
@@ -116,7 +116,15 @@ const MakeAppointMentComfirm = () => {
             </ScrollView>
 
             <View style={{ padding: 10, borderTopWidth: .8, borderTopColor: colors.gray, backgroundColor: colors.white, paddingVertical: 15, paddingBottom: isIos ? 30 : 15 }}>
-                <CommonButton onPress={() => handleBookAppointment(values)} title="Xác nhận đặt lịch" style={{ borderRadius: 8, }}></CommonButton>
+                <CommonButton onPress={() => {
+                    handleBookAppointment(values).then(data => {
+                        getAppointment(data.appointment._id).then(() => {
+                            resetStore()
+                            setNext(0)
+                            if(data.status === 1) navigation.navigate("makeAppointmentDetail")
+                        })
+                    })
+                }} title="Xác nhận đặt lịch" style={{ borderRadius: 8, }}></CommonButton>
             </View>
             <Loading visible={isLoading}/>
         </>

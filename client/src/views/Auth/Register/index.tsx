@@ -49,7 +49,7 @@ export default observer(function LoginRes() {
                             password: values.password
                         } 
                         await handleRegister(newValues)
-                        navigation.navigate('index')
+                        navigation.navigate('login')
                     }else Toast.show({
                         type: 'error',
                         text1: "Mã xác thực sai!!"
@@ -94,7 +94,7 @@ export default observer(function LoginRes() {
                                 <CommonButton onPress={handleSubmit} title="Đăng ký" style={{borderRadius: 12, paddingVertical: 16, marginVertical: 20, marginTop: 12}}/>
                                 <View style={{flexDirection: "row", justifyContent: "center"}}>
                                     <Text style={{fontWeight: 500}}>Đã có tài khoản? </Text> 
-                                    <TouchableOpacity onPress={() => navigation.navigate("index")}><Text style={{fontWeight: 600, textDecorationLine: "underline"}}>Đăng nhập</Text></TouchableOpacity>
+                                    <TouchableOpacity onPress={() => navigation.navigate("login")}><Text style={{fontWeight: 600, textDecorationLine: "underline"}}>Đăng nhập</Text></TouchableOpacity>
                                 </View>
                             </View>
                         </View>

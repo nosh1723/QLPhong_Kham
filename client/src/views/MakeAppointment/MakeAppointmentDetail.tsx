@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Header from '@/src/components/Header'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { style } from '@/src/styles'
@@ -14,19 +14,27 @@ import { useStore } from '@/src/root-store'
 import { formatCurrency, getDate, getTime } from '@/src/constants/LocalFunction'
 import Backdrop from '@/src/components/Backdrop'
 import { useNavigation } from '@react-navigation/native'
+import { StatusBar } from 'expo-status-bar'
 
-const ScheduleExamDetailIndex = () => {
+const MakeAppointmentDetail = () => {
     const navigation = useNavigation()
     const bottomSheetDetailInfoRef = useRef<BottomSheet>(null);
 
     const [showDetailInfo, setShowDetailInfo] = useState(false);
 
-    const {  selectAppointment } = useStore().apointment
+    const {  selectAppointment, pagingAppointment } = useStore().apointment
+
+    useEffect(() => {
+        pagingAppointment()
+    }, [])
 
     return (
         <GestureHandlerRootView>
-            <Header handleBack={() => navigation.navigate("tabs")} textHeaderBack='Phiếu khám' />
             <View style={{ flex: 1 }}>
+                <StatusBar style='dark'/>
+                <TouchableOpacity onPress={() => navigation.navigate("tabs")} style={{marginTop: isIos ? 45 : 30, paddingHorizontal: 20}}>
+                    <Ionicons name="close" size={24} color="black" />
+                </TouchableOpacity>
                 <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
                     <View style={{ paddingVertical: 16 }}>
                         {/* thông tin phiếu khám */}
@@ -35,9 +43,15 @@ const ScheduleExamDetailIndex = () => {
 
                             <View style={{ marginHorizontal: 12, flexDirection: 'column' }}>
                                 <View>
-                                    <View style={{ padding: 18, borderRadius: 10, flexDirection: 'row', backgroundColor: colors.white }}>
-                                        <Text style={{ fontSize: 24, fontWeight: 500 }}>STT: </Text>
-                                        <Text style={{ fontSize: 24, fontWeight: 900, color: colors['green-200'] }}>1</Text>
+                                    <View style={{ padding: 18, borderRadius: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: colors.white }}>
+                                        <View style={{flexDirection: 'row',}}>
+                                            <Text style={{ fontSize: 24, fontWeight: 500 }}>STT: </Text>
+                                            <Text style={{ fontSize: 24, fontWeight: 900, color: colors['green-200'] }}>1</Text>
+                                        </View>
+                                        <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 5}}>
+                                            <Text style={{color: colors['green-200'], fontSize: 16, fontWeight: 500}}>Đã đặt lịch</Text>
+                                            <Text style={{fontSize: 16}}> {getTime(new Date())} {getDate(new Date())} </Text>
+                                        </View>
                                     </View>
                                     <View style={{ marginHorizontal: 10, backgroundColor: colors.white }}><DashedLine dashLength={6} dashGap={4} dashThickness={1} dashColor={colors.gray} /></View>
                                 </View>
@@ -162,16 +176,18 @@ const ScheduleExamDetailIndex = () => {
                 </ScrollView>
 
             </View>
-            <View style={{ padding: 10, borderTopWidth: .8, borderTopColor: colors.gray, backgroundColor: colors.white, paddingVertical: 15, paddingBottom: isIos ? 30 : 15 }}>
-                <CommonButton onPress={() => {
-                }} title="Đặt lịch khám khác" style={{ borderRadius: 8, }}></CommonButton>
+            <View style={{  padding: 12, backgroundColor: "#fff", paddingBottom: isIos ? 40 : 15, borderTopWidth: .5, borderTopColor: "#e7ebed", flexDirection: 'row', gap: 10 }}>
+                <TouchableOpacity onPress={() => navigation.navigate("tabs")} style={{borderWidth: .7, borderColor: colors.gray, padding: 15, borderRadius: 10, flex: 1 }}><Text style={{  fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Về trang chủ</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    // navigation.navigate("")
+                }} style={{ backgroundColor: colors.blue, padding: 15, borderRadius: 10, flex: 1 }}><Text style={{ color: colors.white, fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Chat với bác sĩ</Text></TouchableOpacity>
             </View>
 
             {showDetailInfo ? <Backdrop /> : <></>}
 
             <BottomSheet
                 ref={bottomSheetDetailInfoRef}
-                snapPoints={['55%']}
+                snapPoints={[isIos ? '55%' : '70%']}
                 enablePanDownToClose
                 index={-1}
                 onClose={() => { setShowDetailInfo(false) }}
@@ -244,4 +260,4 @@ const ScheduleExamDetailIndex = () => {
     )
 }
 
-export default ScheduleExamDetailIndex
+export default MakeAppointmentDetail

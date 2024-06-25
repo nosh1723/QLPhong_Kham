@@ -8,6 +8,8 @@ import { TouchableOpacity } from 'react-native';
 import { observer } from 'mobx-react';
 import { useStore } from '@/src/root-store';
 import Loading from '@/src/components/Loading';
+import { FontAwesome6 } from '@expo/vector-icons';
+import { colors } from '@/src/constants/Colors';
 
 const HomeDoctor = () => {
     const navigation = useNavigation()
@@ -15,7 +17,7 @@ const HomeDoctor = () => {
 
     return (
         <>
-            <ViewContainer title='Bác sĩ' onPress={() => navigation.navigate("appointment")}>
+            <ViewContainer iconLeft={<FontAwesome6 name="user-doctor" size={16} color={colors.green} />} title='Bác sĩ' onPress={() => navigation.navigate("appointment")}>
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal >
                     {pageDoctor?.length > 0 && pageDoctor?.map(i => (
                         <TouchableOpacity key={"name doctor" + i?._id} onPress={async () => {

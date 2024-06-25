@@ -27,11 +27,6 @@ const DoctorIndex = () => {
     const isIos = Platform.OS === "ios"
 
     const { doctor } = useStore().home
-    const { getPatient } = useStore().user
-
-    useEffect(() => {
-        getPatient(auth?.user?.email)
-    }, [])
 
 
     const onChange = (event: any, selectedDate: any) => {

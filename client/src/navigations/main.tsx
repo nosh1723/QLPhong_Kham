@@ -3,17 +3,17 @@ import React from 'react';
 import AppointmentIndex from '../views/Appointment';
 import ChangePassword from '../views/Auth/ChangePassword';
 import DoctorIndex from '../views/Doctor';
+import MakeAppointMentComfirm from '../views/MakeAppointment/MakeAppointMentComfirm';
+import MakeAppointMentIndex from '../views/MakeAppointment/MakeAppointMentIndex';
+import Makeappointment from '../views/MakeAppointment/MakeAppointMentInfo';
+import MakeAppointmentDetail from '../views/MakeAppointment/MakeAppointmentDetail';
+import MessageScreen from '../views/Message/MessageScreen';
+import ScheduleExamDetailIndex from '../views/ScheduleExam/ScheduleExamDetail';
 import Service from '../views/Service';
 import Setting from '../views/Setting';
 import UserEdit from '../views/User/UserEdit';
 import UserInfo from '../views/User/UserInfo';
 import MyTabs from './tabs';
-import MessageScreen from '../views/Message/MessageScreen';
-import Makeappointment from '../views/MakeAppointment/MakeAppointMentInfo';
-import MakeAppointMentComfirm from '../views/MakeAppointment/MakeAppointMentComfirm';
-import MakeAppointMentIndex from '../views/MakeAppointment/MakeAppointMentIndex';
-import ScheduleExamDetailIndex from '../views/ScheduleExam/ScheduleExamDetail';
-import MakeAppointmentDetail from '../views/MakeAppointment/MakeAppointmentDetail';
 
 const Stack = createNativeStackNavigator();
 

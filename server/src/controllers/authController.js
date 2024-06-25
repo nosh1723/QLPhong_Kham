@@ -77,7 +77,7 @@ exports.register = asyncHandle(async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10); // Mã hóa mật khẩu
         const user = new User({ email, password: hashedPassword, role });
         await user.save();
-        res.status(201).json({ email: user.email, message: 'Đăng ký người dùng thành công.', status: 1, role });
+        res.status(201).json({ user, message: 'Đăng ký người dùng thành công.', status: 1, role });
     } catch (err) {
         res.status(400).json({ error: err.message, status: 0 });
     }
@@ -110,11 +110,7 @@ exports.login = async (req, res) => {
         res.json({
             token,
             status: 1,
-            user: {
-                email: user.email,
-                token: user.token,
-                tokenExpiryDate: tokenExpiryDate.toISOString(), // Định dạng ISO của thời gian hết hạn
-            }
+            user
         });
     } catch (err) {
         res.status(500).json({ error: err.message, status: 0 });

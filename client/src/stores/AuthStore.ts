@@ -36,6 +36,7 @@ export default class AuthStore {
             })
 
             this.setIsLoading(false)
+            return data
         } catch (error) {
             this.setIsLoading(false)
             console.log('Tạo tài khoản thất bại!!', error);

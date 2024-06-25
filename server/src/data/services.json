@@ -1,44 +1,98 @@
 [
     {
-        "code": "DV001",
-        "name": "Khám răng định kỳ",
+        "name": "Khám tổng quát",
         "price": 200000,
-        "description": "Dịch vụ khám răng định kỳ để kiểm tra sức khỏe răng miệng.",
-        "category_Id": "666b49ff635c59ac545a773c"
+        "description": "Đánh giá sức khỏe răng miệng, phát hiện sớm các vấn đề.",
+        "category_Id": "667ab9bd0bca78167cd8c0e0"
     },
     {
-        "code": "DV002",
-        "name": "Lấy cao răng",
+        "name": "Chụp X-quang răng",
+        "price": 400000,
+        "description": " Phát hiện sâu răng, các vấn đề với chân răng và cấu trúc xương hàm.",
+        "category_Id": "667ab9bd0bca78167cd8c0e0"
+    },
+    {
+        "name": "Tư vấn vệ sinh răng miệng",
+        "price": 0,
+        "description": "Hướng dẫn cách chăm sóc răng miệng hàng ngày.",
+        "category_Id": "667ab9bd0bca78167cd8c0e0"
+    },
+    {
+        "name": "Trám răng (Fillings)",
+        "price": 1000000,
+        "description": "Sửa chữa các lỗ hổng do sâu răng gây ra.",
+        "category_Id": "667ab9bd0bca78167cd8c0e1"
+    },
+    {
+        "name": "Điều trị viêm nướu (Gingivitis) và viêm nha chu (Periodontitis)",
+        "price": 2000000,
+        "description": "Làm sạch sâu và điều trị các bệnh liên quan đến nướu.",
+        "category_Id": "667ab9bd0bca78167cd8c0e1"
+    },
+    {
+        "name": "Lấy cao răng (Scaling)",
         "price": 300000,
-        "description": "Dịch vụ lấy cao răng và làm sạch răng.",
-        "category_Id": "666b49ff635c59ac545a773c"
+        "description": "Loại bỏ cao răng và mảng bám.",
+        "category_Id": "667ab9bd0bca78167cd8c0e2"
     },
     {
-        "code": "DV003",
-        "name": "Chỉnh nha",
-        "price": 1000000,
-        "description": "Dịch vụ chỉnh nha để điều chỉnh răng.",
-        "category_Id": "666b49ff635c59ac545a773d"
+        "name": "Đánh bóng răng (Polishing)",
+        "price": 100000,
+        "description": "Làm sạch và làm bóng bề mặt răng.",
+        "category_Id": "667ab9bd0bca78167cd8c0e2"
     },
     {
-        "code": "DV004",
-        "name": "Tẩy trắng răng",
+        "name": "Niềng răng (Braces)",
+        "price": 45000000,
+        "description": "Sử dụng mắc cài hoặc khay trong suốt để chỉnh hình răng.",
+        "category_Id": "667ab9bd0bca78167cd8c0e3"
+    },
+    {
+        "name": "Khay niềng trong suốt (Clear Aligners)",
+        "price": 80000000,
+        "description": "Các loại như Invisalign để điều chỉnh vị trí răng.",
+        "category_Id": "667ab9bd0bca78167cd8c0e3"
+    },
+    {
+        "name": "Cầu răng (Bridges)",
+        "price": 4000000,
+        "description": "Phục hồi răng bị mất bằng cách gắn vào răng kế bên.",
+        "category_Id": "667ab9bd0bca78167cd8c0e4"
+    },
+    {
+        "name": "Răng giả (Dentures)",
+        "price": 2000000,
+        "description": "Răng giả toàn phần hoặc một phần.",
+        "category_Id": "667ab9bd0bca78167cd8c0e4"
+    },
+    {
+        "name": "Răng sứ (Crowns)",
+        "price": 5000000,
+        "description": "Bọc răng bị hỏng hoặc yếu.",
+        "category_Id": "667ab9bd0bca78167cd8c0e4"
+    },
+    {
+        "name": "Tẩy trắng răng (Teeth Whitening)",
+        "price": 5000000,
+        "description": "Làm sáng màu răng.",
+        "category_Id": "667ab9bd0bca78167cd8c0e5"
+    },
+    {
+        "name": "Dán sứ Veneer",
+        "price": 10000000,
+        "description": "Dán lớp sứ mỏng lên bề mặt răng để cải thiện hình dạng và màu sắc.",
+        "category_Id": "667ab9bd0bca78167cd8c0e5"
+    },
+    {
+        "name": "Bonding",
         "price": 500000,
-        "description": "Dịch vụ tẩy trắng răng để làm răng trắng sáng.",
-        "category_Id": "666b49ff635c59ac545a773d"
+        "description": "Sử dụng vật liệu composite để sửa chữa và cải thiện vẻ ngoài của răng.",
+        "category_Id": "667ab9bd0bca78167cd8c0e5"
     },
     {
-        "code": "DV005",
-        "name": "Nhổ răng thông thường và tiểu phẫu răng khôn.",
-        "price": 1000000,
-        "description": "Nhổ răng thông thường và tiểu phẫu răng khôn.",
-        "category_Id": "666b49ff635c59ac545a773e"
-    },
-    {
-        "code": "DV006",
-        "name": "Điều trị tủy",
-        "price": 500000,
-        "description": "Điều trị tủy",
-        "category_Id": "666b49ff635c59ac545a773e"
+        "name": "Khám và điều trị cho trẻ em",
+        "price": 300000,
+        "description": "Bao gồm các biện pháp phòng ngừa và điều trị các vấn đề răng miệng của trẻ.",
+        "category_Id": "667ab9bd0bca78167cd8c0e6"
     }
 ]

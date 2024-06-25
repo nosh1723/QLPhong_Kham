@@ -12,4 +12,5 @@ export class Patient {
     ethnic = ""
     email = ""
     phone_number= ""
+    user_id = ""
 }

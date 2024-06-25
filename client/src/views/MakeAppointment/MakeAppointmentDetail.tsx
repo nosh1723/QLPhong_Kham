@@ -22,7 +22,7 @@ const MakeAppointmentDetail = () => {
 
     const [showDetailInfo, setShowDetailInfo] = useState(false);
 
-    const {  selectAppointment, pagingAppointment } = useStore().apointment
+    const {  selectAppointment, pagingAppointment, setNext } = useStore().apointment
 
     useEffect(() => {
         pagingAppointment()
@@ -32,7 +32,7 @@ const MakeAppointmentDetail = () => {
         <GestureHandlerRootView>
             <View style={{ flex: 1 }}>
                 <StatusBar style='dark'/>
-                <TouchableOpacity onPress={() => navigation.navigate("tabs")} style={{marginTop: isIos ? 45 : 30, paddingHorizontal: 20}}>
+                <TouchableOpacity onPress={() => navigation.navigate("tabs")} style={{marginTop: isIos ? 45 : 40, paddingHorizontal: 20}}>
                     <Ionicons name="close" size={24} color="black" />
                 </TouchableOpacity>
                 <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
@@ -46,7 +46,7 @@ const MakeAppointmentDetail = () => {
                                     <View style={{ padding: 18, borderRadius: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: colors.white }}>
                                         <View style={{flexDirection: 'row',}}>
                                             <Text style={{ fontSize: 24, fontWeight: 500 }}>STT: </Text>
-                                            <Text style={{ fontSize: 24, fontWeight: 900, color: colors['green-200'] }}>1</Text>
+                                            <Text style={{ fontSize: 24, fontWeight: 900, color: colors['green-200'] }}>{selectAppointment.appointment.serialNumber}</Text>
                                         </View>
                                         <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 5}}>
                                             <Text style={{color: colors['green-200'], fontSize: 16, fontWeight: 500}}>Đã đặt lịch</Text>
@@ -59,7 +59,7 @@ const MakeAppointmentDetail = () => {
                                     <View style={[style.row]}>
                                         <Text style={{ opacity: .7 }}>Mã phiếu khám</Text>
                                         <View style={style.row}>
-                                            <Text style={{ fontWeight: 500, paddingRight: 4 }}>bnabanbnab</Text>
+                                            <Text style={{ fontWeight: 500, paddingRight: 4 }}>{selectAppointment.appointment.code}</Text>
                                             <TouchableOpacity ><Ionicons name="copy-outline" size={18} color={colors.black} style={{ opacity: .6 }} /></TouchableOpacity>
                                         </View>
                                     </View>
@@ -144,17 +144,17 @@ const MakeAppointmentDetail = () => {
                             <Text style={{ padding: 10, fontWeight: 500, fontSize: 16 }}>Thông tin thanh toán</Text>
                             <View style={{ marginHorizontal: 12, flexDirection: 'column' }}>
                                 <View style={{ backgroundColor: colors.white, padding: 14, paddingVertical: 16, borderRadius: 10, flexDirection: "column", gap: 10 }}>
-                                    <View style={[style.row]}>
+                                    {/* <View style={[style.row]}>
                                         <Text style={{ opacity: .7 }}>Mã thanh toán</Text>
                                         <View style={style.row}>
                                             <Text style={{ fontWeight: 500, paddingRight: 4 }}>bnabanbnab</Text>
                                             <TouchableOpacity ><Ionicons name="copy-outline" size={18} color={colors.black} style={{ opacity: .6 }} /></TouchableOpacity>
                                         </View>
-                                    </View>
+                                    </View> */}
                                     <View style={[style.row]}>
                                         <Text style={{ opacity: .7 }}>Trạng thái</Text>
                                         <View style={style.row}>
-                                            <Text style={{ fontWeight: 500, paddingRight: 4 }}>bnabanbnab</Text>
+                                            <Text style={{ fontWeight: 500, paddingRight: 4 }}>{selectAppointment.appointment.status === 1 ? <Text style={{color: colors['green-200']}}>Đã đặt lịch</Text> : <Text style={{color: colors.red}}>Đã hủy</Text>}</Text>
                                         </View>
                                     </View>
                                     <View style={[style.row]}>

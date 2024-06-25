@@ -17,6 +17,7 @@ export default observer(function LoginRes() {
     const isIos = Platform.OS === "ios"
 
     const { isLoading, code, searchObject, handleSendEmailCode, handleRegister} = useStore().auth
+    const { createOrUpdatePatient } = useStore().user
 
     useEffect(() => {
         if(limit > 0) {
@@ -48,8 +49,15 @@ export default observer(function LoginRes() {
                             email: values.email,
                             password: values.password
                         } 
-                        await handleRegister(newValues)
-                        navigation.navigate('login')
+                        handleRegister(newValues).then(data => {
+                            const patient = {
+                                email: data?.user?.email,
+                                user_id: data?.user?._id
+                            }
+                            createOrUpdatePatient(patient)
+                            if(data?.status === 1) navigation.navigate('login')
+                        }).catch(er => console.log(er))
+                        
                     }else Toast.show({
                         type: 'error',
                         text1: "Mã xác thực sai!!"
@@ -74,7 +82,7 @@ export default observer(function LoginRes() {
                                     <View style={[style.input, {borderRadius: 0,  borderWidth:  0, padding: 16, paddingHorizontal: 0,  borderBottomWidth: 2, paddingBottom: 5, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}]}>
                                         <TextInput value={values?.code} onChangeText={handleChange("code")} keyboardType="number-pad" placeholder="Nhập mã xác thực của bạn" style={{ fontSize: 18,}}/>
                                         <TouchableOpacity disabled={limit > 0 } style={{ borderLeftWidth: 1.5, borderColor: "#ccc", width: 50, flexDirection: "row", justifyContent: "center"}} onPress={() => {
-                                            setLimit(120)
+                                            setLimit(80)
                                             handleSendEmailCode(values)
                                         }}>
                                             <Text style={{ fontSize: 18, color: limit > 0 ? "#ccc" : "#006778", fontWeight: 500, textDecorationLine: limit > 0 ? "none" : "underline", paddingVertical: 3}}>
@@ -98,6 +106,7 @@ export default observer(function LoginRes() {
                                 </View>
                             </View>
                         </View>
+                        <Toast position="top" topOffset={70} visibilityTime={2000}/>
                         <Loading visible={isLoading} />
                     </View>
                 </ViewComponent>

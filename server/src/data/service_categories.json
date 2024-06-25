@@ -1,11 +1,23 @@
 [
     {
-        "name": "Dịch vụ răng miệng"
+        "name": "Khám và Tư Vấn Răng Miệng"
     },
     {
-        "name": "Dịch vụ chỉnh nha"
+        "name": "Điều Trị Sâu Răng và Viêm Nướu"
     },
     {
-        "name": "Dịch vụ mới"
+        "name": "Lấy Cao Răng và Đánh Bóng Răng"
+    },
+    {
+        "name": "Chỉnh Nha (Orthodontics)"
+    },
+    {
+        "name": "Phục Hình Răng (Prosthodontics)"
+    },
+    {
+        "name": "Nha Khoa Thẩm Mỹ (Cosmetic Dentistry)"
+    },
+    {
+        "name": "Nha Khoa Trẻ Em (Pediatric Dentistry)"
     }
 ]

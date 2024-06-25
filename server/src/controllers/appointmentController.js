@@ -5,6 +5,20 @@ const Doctor = require('../models/Doctor');
 const Patient = require('../models/Patient');
 const WorkHouseDoctor = require('../models/WorkHouseDoctor');
 const WorkHour = require('../models/WorkHour');
+const { getCode } = require('../LocalFunction');
+
+function normalizeDate(date) {
+    const normalizedDate = new Date(date);
+    normalizedDate.setHours(0, 0, 0, 0);
+    return normalizedDate;
+}
+
+// Hàm kiểm tra tính khả dụng của lịch hẹn
+async function checkAppointmentAvailability(doctorId, date, time) {
+    const existingAppointment = await Appointment.findOne({ doctorId, date, time });
+    return !existingAppointment;
+}
+
 
 //get all lịch hẹn
 exports.getAllAppontment = async (req, res) => {
@@ -15,13 +29,13 @@ exports.getAllAppontment = async (req, res) => {
         const patients = await Patient.find()
         const services = await Service.find()
         const workhours = await WorkHour.find()
-        
-        const result = appointment.map( i => {
+
+        const result = appointment.map(i => {
             const doctor = doctors.find(item => item._id + "" === i.doctorId + "")
             const patient = patients.find(item => item._id + "" === i.patientId + "")
             const service = services.find(item => item._id + "" === i.serviceId + "")
             const workhour = workhours.find(item => item._id + "" === i.workHourId + "")
-            return  {
+            return {
                 _id: i._id,
                 doctor,
                 patient,
@@ -30,8 +44,9 @@ exports.getAllAppontment = async (req, res) => {
                 date: i.date,
                 note: i.note,
                 status: i.status,
+                serialNumber: i.serialNumber
             }
-        }) 
+        })
         res.status(200).json(result)
     } catch (error) {
         console.error('Lỗi khi lấy lịch hẹn:', error);
@@ -44,6 +59,20 @@ exports.getAllAppontment = async (req, res) => {
 exports.bookAppointment = async (req, res) => {
     try {
         const { doctorId, service, patientId, date, appointmentTime, note } = req.body;
+        
+        const appointment = await Appointment.find()
+        
+        const code = getCode(appointment, 'AM')
+        let serialNumber = 1
+        
+        const newDate = normalizeDate(date)
+
+        appointment.forEach(i => {
+            if(new Date(i.date).getTime() ===  new Date(newDate).getTime()) {
+                if(i.serialNumber === serialNumber) serialNumber++
+                else if(i.serialNumber > serialNumber) serialNumber = i.serialNumber++
+            }
+        })
 
         // Truy vấn thông tin bác sĩ
         const doctor = await Doctor.findById(doctorId);
@@ -56,28 +85,27 @@ exports.bookAppointment = async (req, res) => {
         if (!patient) {
             return res.status(404).json({ success: 0, message: 'Không tìm thấy bệnh nhân.' });
         }
-        
-        // const checkAppointment = await Appointment.findOne({workHourId: appointmentTime?._id})
-        // if(checkAppointment) return res.status(201).json({message: "Lịch hẹn đã tồn tại", status: 0})
 
         // Tạo mới lịch hẹn và lưu vào cơ sở dữ liệu
-        const appointment = new Appointment({
+        const newAppointment = new Appointment({
             doctorId,
             serviceId: service?._id,
             patientId, // Gán patientId đã được truyền từ req.body
             date: new Date(date),
             workHourId: appointmentTime?._id,
-            note
+            note,
+            code,
+            status: 1,
+            serialNumber: serialNumber
         });
 
-        await appointment.save();
+        await newAppointment.save();
 
         // Trả về thông tin lịch hẹn đã được đặt thành công, bao gồm branch_id từ doctor và price từ service
         res.status(201).json({
-            status: 1,
             message: 'Lịch hẹn đã được đặt thành công.',
             appointment: {
-                ...appointment.toObject(),
+                ...newAppointment.toObject(),
                 service,
                 patient,
                 doctor,
@@ -86,7 +114,8 @@ exports.bookAppointment = async (req, res) => {
                     startTime: new Date(appointmentTime?.startTime),
                     endTime: new Date(appointmentTime?.endTime)
                 },
-                note
+                note,
+                code
             }
         });
 
@@ -123,33 +152,22 @@ exports.checkDateTime = async (req, res) => {
         const { date } = req.body
 
         const newDate = normalizeDate(date)
-        
-        const appointment = await Appointment.find({date: newDate})
-        const workhour = await WorkHouseDoctor.find()
-        if(!workhour) return res.status(400).json({message: "workhour not exist!"}) 
 
-        const newWorkhour = workhour.filter( i => {
+        const appointment = await Appointment.find({ date: newDate })
+        const workhour = await WorkHouseDoctor.find()
+        if (!workhour) return res.status(400).json({ message: "workhour not exist!" })
+
+        const newWorkhour = workhour.filter(i => {
             const result = appointment.some(id => id.workHourId === i.workHourId)
             return result
         })
-        
-        return res.status(200).json({status: 1, workhour: newWorkhour})
+
+        return res.status(200).json({ status: 1, workhour: newWorkhour })
     } catch (error) {
         res.status(500).json({ message: 'Đã xảy ra lỗi kiểm tra ngày đặt khám.' });
     }
 }
 
-function normalizeDate(date) {
-    const normalizedDate = new Date(date);
-    normalizedDate.setHours(0, 0, 0, 0);
-    return normalizedDate;
-  }
-
-// Hàm kiểm tra tính khả dụng của lịch hẹn
-async function checkAppointmentAvailability(doctorId, date, time) {
-    const existingAppointment = await Appointment.findOne({ doctorId, date, time });
-    return !existingAppointment;
-}
 
 // Tìm lịch hẹn bằng _id
 exports.findAppointmentById = async (req, res) => {
@@ -167,8 +185,9 @@ exports.findAppointmentById = async (req, res) => {
         const workhour = await WorkHour.findById(appointment.workHourId)
 
         // Trả về thông tin lịch hẹn đã tìm thấy
-        res.status(200).json({ success: 1, appointment:{
-            _id: appointment._id,
+        res.status(200).json({
+            success: 1, appointment: {
+                _id: appointment._id,
                 doctor,
                 patient,
                 service,
@@ -176,7 +195,10 @@ exports.findAppointmentById = async (req, res) => {
                 date: appointment.date,
                 note: appointment.note,
                 status: appointment.status,
-        } });
+                code: appointment.code,
+                serialNumber: appointment.serialNumber
+            }
+        });
     } catch (error) {
         console.error('Lỗi khi tìm kiếm lịch hẹn:', error);
         res.status(500).json({ success: 0, message: 'Đã xảy ra lỗi khi tìm kiếm lịch hẹn.' });

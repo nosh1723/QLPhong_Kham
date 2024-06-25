@@ -7,7 +7,7 @@ import { Workhour } from "@/src/models/workhour";
 import { useStore } from "@/src/root-store";
 import { style } from "@/src/styles";
 import { AntDesign, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from "@react-navigation/native";
 import { Image } from '@rneui/themed';
@@ -403,12 +403,12 @@ export default observer(function Makeappointment() {
                 onClose={() => { setShowService(false) }}
                 backgroundStyle={{ backgroundColor: "transparent" }}
             >
-                <BottomSheetView style={{ position: "relative", height: "100%", backgroundColor: "#fff", borderTopRightRadius: 20, borderTopLeftRadius: 20, flex: 1 }}>
-                    <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 20 }}>
+                <BottomSheetScrollView style={{  backgroundColor: "#fff", borderTopRightRadius: 20, borderTopLeftRadius: 20}}>
+                    {/* <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 20 }}>
                         <Text style={{ fontWeight: 600, fontSize: 18 }}>Chọn dịch vụ</Text>
                     </View>
-                    <View style={{paddingHorizontal: 20, paddingTop: 10, flexGrow: 1, height: 10, overflow: 'hidden'}}>
-                        <ScrollView style={{marginBottom: 50,  flexDirection: 'column', gap: 10, paddingVertical: 10}}>
+                    <View style={{paddingHorizontal: 20, paddingTop: 10, flexGrow: 1, height: 10, overflow: 'hidden'}}> */}
+                        <View style={{marginTop: 20, marginBottom: 50,  flexDirection: 'column', gap: 10, paddingVertical: 10}}>
                            <View style={{paddingBottom: 10}}>
                                 {pageService?.map(i => {
                                     return <TouchableOpacity key={"btSV" + i._id} onPress={() => {
@@ -419,9 +419,9 @@ export default observer(function Makeappointment() {
                                 })}
                            </View>
                             
-                        </ScrollView>
-                    </View>
-                </BottomSheetView>
+                        </View>
+                    {/* </View> */}
+                </BottomSheetScrollView>
             </BottomSheet>
 
             {/* end bottom sheet view */}

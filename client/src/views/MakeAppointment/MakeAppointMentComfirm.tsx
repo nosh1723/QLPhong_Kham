@@ -49,7 +49,7 @@ const MakeAppointMentComfirm = () => {
                                 <View style={{flex: 1}}>
                                     <Text style={{ paddingBottom: 8, fontSize: 16 }}>Giờ khám</Text>
                                     <Text style={{ fontSize: 18, fontWeight: 500 }}>{getTime(values.appointmentTime.startTime)}-{getTime(values.appointmentTime.endTime)}</Text>
-                                    <Text style={{ color: colors.orange }}>Buổi chiều</Text>
+                                    <Text >{values.appointmentTime.typeShiftWork === 1 ? <Text style={{color: colors['green-200']}}>Buổi sáng</Text> : <Text style={{color: colors.orange}}>Buổi chiều</Text>}</Text>
                                 </View>
                                 <View style={{flex: 1}}>
                                     <Text style={{ paddingBottom: 8, fontSize: 16 }}>Ngày khám</Text>
@@ -120,8 +120,8 @@ const MakeAppointMentComfirm = () => {
                     handleBookAppointment(values).then(data => {
                         getAppointment(data.appointment._id).then(() => {
                             resetStore()
+                            if(data.appointment.status === 1) navigation.navigate("makeAppointmentDetail")
                             setNext(0)
-                            if(data.status === 1) navigation.navigate("makeAppointmentDetail")
                         })
                     })
                 }} title="Xác nhận đặt lịch" style={{ borderRadius: 8, }}></CommonButton>

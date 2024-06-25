@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, Text } from 'react-native';
 import ScheduleExamCard from '../ScheduleExam/ScheduleExamCard';
 import { View } from 'react-native';
@@ -11,11 +11,8 @@ import Loading from '@/src/components/Loading';
 
 const ScheduleExamIndex = () => {
     const isFocused = useIsFocused();
-    const { pageAppointment, pagingAppointment, isLoading } = useStore().apointment
+    const { pageAppointment, pagingAppointment, isLoading, setIsLoading } = useStore().apointment
 
-    useEffect(() => {
-        pagingAppointment()
-    }, [isFocused])
     return (
         <View style={{flex: 1}}>
             <Loading visible={isLoading} />

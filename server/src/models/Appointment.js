@@ -11,7 +11,9 @@ const AppointmentSchema = new mongoose.Schema({
         required: true, 
      }, // Ngày hẹn
     note: {type: String},
-    status: { type: String, enum: ['Booked', 'Cancelled'], default: 'Booked' }, // Trạng thái lịch hẹn
+    status: { type: Number }, // Trạng thái lịch hẹn
+    code: {type: String},
+    serialNumber: {type: Number, required: true},
     createdAt: { type: Date, default: Date.now } // Ngày tạo
 });
 

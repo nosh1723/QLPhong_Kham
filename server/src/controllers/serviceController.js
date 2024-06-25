@@ -4,7 +4,7 @@ const ServiceCategory = require('../models/ServiceCategory');
 // Tạo một dịch vụ mới
 exports.createService = async (req, res) => {
     try {
-        const { code, name, price, description, category_Id } = req.body;
+        const {  name, price, description, category_Id } = req.body;
 
         // Đối chiếu với id ở bên bangr service_category
         const category = await ServiceCategory.findById(category_Id);
@@ -14,7 +14,6 @@ exports.createService = async (req, res) => {
 
         // Tạo đối tượng dịch vụ mới
         const newService = new Service({
-            code,
             name,
             price,
             description,
@@ -82,7 +81,7 @@ exports.getServiceById = async (req, res) => {
 // Cập nhật dịch vụ theo ID
 exports.updateServiceById = async (req, res) => {
     try {
-        const { code, name, price, description, category_Id } = req.body;
+        const {  name, price, description, category_Id } = req.body;
 
         // Validate the category_Id
         const category = await ServiceCategory.findById(category_Id);
@@ -92,7 +91,6 @@ exports.updateServiceById = async (req, res) => {
 
         // Cập nhật thông tin dịch vụ
         const updatedService = await Service.findByIdAndUpdate(req.params.id, {
-            code,
             name,
             price,
             description,
@@ -129,7 +127,6 @@ exports.getServiceCatogeryById = async (req, res) => {
         const {id} = req.params
         const serviceCatogery = await (await Service.find({category_Id: id}).populate("category_Id")).map(i => ({
             _id: i._id,
-            code: i.code,
             name: i.name,
             price: i.price,
             description: i.description,

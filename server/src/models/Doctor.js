@@ -10,7 +10,7 @@ const DoctorSchema = new mongoose.Schema({
         enum: ['M', 'F'] // Giới tính chỉ có thể là 'M' hoặc 'F'
     }, 
     year_of_experience: { type: Number, required: true }, // Số năm kinh nghiệm
-    experience: { type: String, required: true }, // Kinh nghiệm
+    experience: { type: String }, // Kinh nghiệm
     code: { type: String, required: true, unique: true }, // Mã bác sĩ
     description: { type: String }, // Mô tả
     avatar: { type: String }, // Ảnh đại diện

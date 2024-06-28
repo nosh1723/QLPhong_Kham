@@ -1,6 +1,22 @@
 const Doctor = require('../models/Doctor');
 const Branch = require('../models/Branch');
 const DoctorService = require('../models/DoctorService');
+const { getCode } = require('../LocalFunction');
+
+//Hàm tạo 1 bác sĩ
+createDoctor = async (req, res) => {
+    try {
+        const doctor = await Doctor.find()
+        const code = getCode(doctor, "BS")
+
+        const newDoctor = new Doctor({...req.body, code})
+        await newDoctor.save()
+        res.status(201).json(newDoctor)
+    } catch (error) {
+        console.error('Lỗi khi tạo bác sĩ:', error);
+        res.status(500).json({ message: 'Lỗi khi tạo bác sĩ' });
+    }
+}
 
 // Hàm để lấy danh sách tất cả các bác sĩ kèm thông tin chi nhánh và dịch vụ
 const getAllDoctors = async (req, res) => {
@@ -96,5 +112,6 @@ const getDoctorById = async (req, res) => {
 
 module.exports = {
     getAllDoctors,
-    getDoctorById
+    getDoctorById,
+    createDoctor
 };

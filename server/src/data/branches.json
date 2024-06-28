@@ -1,20 +1,27 @@
-[
-    {
-        "name": "Chi nhánh 1",
-        "address": "123 Đường A",
-        "phoneNumber": "0123456789",
-        "code": "BR001"
-    },
-    {
-        "name": "Chi nhánh 2",
-        "address": "456 Đường B",
-        "phoneNumber": "0987654321",
-        "code": "BR002"
-    },
-    {
-        "name": "Chi nhánh 3",
-        "address": "789 Đường C",
-        "phoneNumber": "0123456789",
-        "code": "BR003"
-    }
-]
+[{
+  "_id": {
+    "$oid": "666abdc55aa65f5f08aed1f2"
+  },
+  "name": "Cơ sở 1",
+  "address": "123 Đường Nguyễn Thị Minh Khai, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+  "phoneNumber": "0123456789",
+  "code": "BR001"
+},
+{
+  "_id": {
+    "$oid": "666abdc55aa65f5f08aed1f3"
+  },
+  "name": "Cơ sở 2",
+  "address": "456 Đường Kim Mã, Phường Ngọc Khánh, Quận Ba Đình, Hà Nội",
+  "phoneNumber": "0987654321",
+  "code": "BR002"
+},
+{
+  "_id": {
+    "$oid": "666abdc55aa65f5f08aed1f4"
+  },
+  "name": "Cơ sở 3",
+  "address": "456 Phố Huế, Phường Ngô Thì Nhậm, Quận Hai Bà Trưng, Hà Nội",
+  "phoneNumber": "0123456789",
+  "code": "BR003"
+}]

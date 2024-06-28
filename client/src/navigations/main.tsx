@@ -14,6 +14,7 @@ import Setting from '../views/Setting';
 import UserEdit from '../views/User/UserEdit';
 import UserInfo from '../views/User/UserInfo';
 import MyTabs from './tabs';
+import ServiceDetailIndex from '../views/Service/SerivceDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,7 @@ const MainRoute = () => {
           <Stack.Screen name="messageScreen" component={MessageScreen} options={{headerShown: false}}/>
           <Stack.Screen name="scheduleExamDetailIndex" component={ScheduleExamDetailIndex} options={{headerShown: false}}/>
           <Stack.Screen name="makeAppointmentDetail" component={MakeAppointmentDetail} options={{headerShown: false, gestureEnabled: false}}/>
+          <Stack.Screen name="serviceDetail" component={ServiceDetailIndex} options={{headerShown: false}}/>
         </Stack.Navigator>
     </>
    

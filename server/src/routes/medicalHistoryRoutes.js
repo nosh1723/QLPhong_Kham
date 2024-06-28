@@ -10,4 +10,4 @@ router.get('/medical-history/:visit_id', authMiddleware,/* roleMiddleware(['doct
 
 router.delete('/medical-history/:id', authMiddleware, roleMiddleware(['doctor']), medicalHistoryController.deleteMedicalHistory);
 
-module.exports = router;
+module.exports = router; 

@@ -1,7 +1,6 @@
 const MedicalHistory = require('../models/MedicalHistory');
 const Visit = require('../models/Visit');
 
-
 exports.createMedicalHistory = async (req, res) => {
     const { result, visit_id } = req.body;
     try {

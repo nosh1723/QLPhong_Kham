@@ -42,7 +42,8 @@ const getAllDoctors = async (req, res) => {
                 branchDetails = {
                     id: branch._id,
                     code: branch.code,
-                    name: branch.name
+                    name: branch.name,
+                    address: branch.address
                 };
             }
 

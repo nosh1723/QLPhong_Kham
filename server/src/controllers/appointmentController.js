@@ -168,6 +168,21 @@ exports.checkDateTime = async (req, res) => {
     }
 }
 
+//hủy lịch hẹn
+exports.cancelAppointment = async (req, res) => {
+    try {
+        const {_id} = req.body
+        const appointment = await Appointment.findOneAndUpdate(
+            {_id: _id},
+            { $set: { status: 0 } },
+            { new: true }
+        )
+        res.status(200).json(appointment)
+    } catch (error) {
+        res.status(500).json({ message: 'Đã xảy ra lỗi hủy lịch hẹn.' });
+    }
+}
+
 
 // Tìm lịch hẹn bằng _id
 exports.findAppointmentById = async (req, res) => {

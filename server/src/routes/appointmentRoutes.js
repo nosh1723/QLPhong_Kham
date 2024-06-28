@@ -13,4 +13,6 @@ router.get('/', appointmentController.getAllAppontment)
 
 router.post('/checkDateTime', appointmentController.checkDateTime)
 
+router.post('/cancelAppointment', appointmentController.cancelAppointment)
+
 module.exports = router;

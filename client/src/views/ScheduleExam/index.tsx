@@ -12,7 +12,8 @@ import Loading from '@/src/components/Loading';
 const ScheduleExamIndex = () => {
     const isFocused = useIsFocused();
     const { pageAppointment, pagingAppointment, isLoading, setIsLoading } = useStore().apointment
-
+    console.log(isLoading);
+    
     return (
         <View style={{flex: 1}}>
             <Loading visible={isLoading} />

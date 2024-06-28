@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import Header from '@/src/components/Header';
 import { useSelector } from 'react-redux';
 import { authSelector } from '@/src/redux/reducers/authReducer';
+import Loading from '@/src/components/Loading';
 
 const DoctorIndex = () => {
     const auth = useSelector(authSelector)
@@ -26,7 +27,7 @@ const DoctorIndex = () => {
     const [extendWorkPace, setExtendWorkPace] = useState(true)
     const isIos = Platform.OS === "ios"
 
-    const { doctor } = useStore().home
+    const { doctor, isLoading } = useStore().home
 
 
     const onChange = (event: any, selectedDate: any) => {
@@ -45,8 +46,7 @@ const DoctorIndex = () => {
     }, []);
 
     const bg = "#fff"
-
-
+    
     return (
         <GestureHandlerRootView >
             <Header textHeaderBack='Bác sĩ' />
@@ -169,7 +169,7 @@ const DoctorIndex = () => {
 
             </View>
             <View style={{ position: 'absolute', bottom: 0, padding: 12, backgroundColor: "#fff", paddingBottom: isIos ? 40 : 15, borderTopWidth: .5, borderTopColor: "#e7ebed", flexDirection: 'row', gap: 10 }}>
-                <TouchableOpacity onPress={() => navigation.navigate("(tabs)/message")} style={{ backgroundColor: "#007bfc", padding: 15, borderRadius: 10, flex: 1 }}><Text style={{ color: "#fff", fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Chat với bác sĩ</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Message")} style={{ backgroundColor: "#007bfc", padding: 15, borderRadius: 10, flex: 1 }}><Text style={{ color: "#fff", fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Chat với bác sĩ</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => {
                     navigation.navigate("makeAppointmentIndex")
                 }} style={{ backgroundColor: "#006778", padding: 15, borderRadius: 10, flex: 1 }}><Text style={{ color: "#fff", fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Đặt khám</Text></TouchableOpacity>
@@ -202,6 +202,7 @@ const DoctorIndex = () => {
                     </BottomSheetView>
                 </BottomSheet>
             }
+            <Loading visible={isLoading}/>
         </GestureHandlerRootView>
     );
 };

@@ -3,7 +3,7 @@ import { API_ENPOINT } from "@/src/constants/LocalConst";
 
 const API_PATH = API_ENPOINT + "/doctors";
 
-const API_PATH_2 = API_ENPOINT + "/workhouseDoctors";
+const API_PATH_2 = API_ENPOINT + "/workhouses";
 
 export const  pagingDoctor = () => axios.get(API_PATH)
 

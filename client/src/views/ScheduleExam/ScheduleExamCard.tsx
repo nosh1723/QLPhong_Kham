@@ -23,8 +23,8 @@ const ScheduleExamCard = () => {
                 <Card style={{borderRadius: 10, paddingVertical: 15}}>
                     <View>
                         <View style={style.CardContent}>
-                            <View style={{backgroundColor: "#E0FBE2", paddingVertical: 5, paddingHorizontal: 10, borderRadius: 100,flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                                <FontAwesome name='circle' color={"#40A578"}/>
+                            <View style={{backgroundColor:  i?.status === 1 ? "#E0FBE2" : "#fbe9dd", paddingVertical: 5, paddingHorizontal: 10, borderRadius: 100,flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                                <FontAwesome name='circle' color={ i?.status === 1 ? "#40A578" : colors.red}/>
                                 <Text style={{ color: "#40A578", fontWeight: 500, }}>{i?.status === 1 ? <Text style={{color: colors['green-200']}}>Đã đặt lịch</Text> : <Text style={{color: colors.red}}>Đã hủy</Text>}</Text>
                             </View>
                             <Text style={{fontSize: 16}}>STT <Text style={{fontWeight: 700}}>{i?.serialNumber}</Text></Text>

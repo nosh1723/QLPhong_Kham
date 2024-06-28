@@ -126,7 +126,6 @@ const MakeAppointMentComfirm = () => {
                     })
                 }} title="Xác nhận đặt lịch" style={{ borderRadius: 8, }}></CommonButton>
             </View>
-            <Loading visible={isLoading}/>
         </>
     )
 }

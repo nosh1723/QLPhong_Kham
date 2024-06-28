@@ -17,8 +17,9 @@ const PatientSchema = new mongoose.Schema({
     birth_date: { type: Date },
     address: { type: String },
     ethnic: { type: String },
-    email: { type: String },
+    email: { type: String, required: true },
     phone_number: { type: String },
+    user_id: {type: String, required: true}
 },
 {
     timestamps: true

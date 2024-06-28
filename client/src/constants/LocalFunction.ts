@@ -27,3 +27,15 @@ export function getDateFormat(date: any) {
 export function getGenderFomat(gender: string) {
     return gender === "M" ? "Nam" : "Nữ"
 }
+
+export function formatCurrency(amount: number) {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+}
+
+export function formatPhoneNumber(phoneNumber: string) {
+    phoneNumber = phoneNumber.replace(/\D/g, '');
+
+    if (phoneNumber.length === 10 && phoneNumber.startsWith('0')) return '+84' + phoneNumber.slice(1);
+    else if (phoneNumber.startsWith('84') && phoneNumber.length === 11) return '+' + phoneNumber;
+    else throw new Error('Số điện thoại không hợp lệ');
+}

@@ -17,6 +17,7 @@ export default observer(function LoginRes() {
     const isIos = Platform.OS === "ios"
 
     const { isLoading, code, searchObject, handleSendEmailCode, handleRegister} = useStore().auth
+    const { createOrUpdatePatient } = useStore().user
 
     useEffect(() => {
         if(limit > 0) {
@@ -48,8 +49,15 @@ export default observer(function LoginRes() {
                             email: values.email,
                             password: values.password
                         } 
-                        await handleRegister(newValues)
-                        navigation.navigate('index')
+                        handleRegister(newValues).then(data => {
+                            const patient = {
+                                email: data?.user?.email,
+                                user_id: data?.user?._id
+                            }
+                            createOrUpdatePatient(patient)
+                            if(data?.status === 1) navigation.navigate('login')
+                        }).catch(er => console.log(er))
+                        
                     }else Toast.show({
                         type: 'error',
                         text1: "Mã xác thực sai!!"
@@ -74,7 +82,7 @@ export default observer(function LoginRes() {
                                     <View style={[style.input, {borderRadius: 0,  borderWidth:  0, padding: 16, paddingHorizontal: 0,  borderBottomWidth: 2, paddingBottom: 5, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}]}>
                                         <TextInput value={values?.code} onChangeText={handleChange("code")} keyboardType="number-pad" placeholder="Nhập mã xác thực của bạn" style={{ fontSize: 18,}}/>
                                         <TouchableOpacity disabled={limit > 0 } style={{ borderLeftWidth: 1.5, borderColor: "#ccc", width: 50, flexDirection: "row", justifyContent: "center"}} onPress={() => {
-                                            setLimit(120)
+                                            setLimit(80)
                                             handleSendEmailCode(values)
                                         }}>
                                             <Text style={{ fontSize: 18, color: limit > 0 ? "#ccc" : "#006778", fontWeight: 500, textDecorationLine: limit > 0 ? "none" : "underline", paddingVertical: 3}}>
@@ -94,10 +102,11 @@ export default observer(function LoginRes() {
                                 <CommonButton onPress={handleSubmit} title="Đăng ký" style={{borderRadius: 12, paddingVertical: 16, marginVertical: 20, marginTop: 12}}/>
                                 <View style={{flexDirection: "row", justifyContent: "center"}}>
                                     <Text style={{fontWeight: 500}}>Đã có tài khoản? </Text> 
-                                    <TouchableOpacity onPress={() => navigation.navigate("index")}><Text style={{fontWeight: 600, textDecorationLine: "underline"}}>Đăng nhập</Text></TouchableOpacity>
+                                    <TouchableOpacity onPress={() => navigation.navigate("login")}><Text style={{fontWeight: 600, textDecorationLine: "underline"}}>Đăng nhập</Text></TouchableOpacity>
                                 </View>
                             </View>
                         </View>
+                        <Toast position="top" topOffset={70} visibilityTime={2000}/>
                         <Loading visible={isLoading} />
                     </View>
                 </ViewComponent>

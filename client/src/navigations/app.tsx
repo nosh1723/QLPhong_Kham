@@ -1,13 +1,12 @@
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { observer } from 'mobx-react';
 import React, { useEffect, useState } from 'react';
+import Toast from 'react-native-toast-message';
 import { useDispatch, useSelector } from 'react-redux';
 import SplashScreen from '../components/SplashScreen';
 import { addAuth, authSelector } from '../redux/reducers/authReducer';
 import AuthRoute from './auth';
 import MainRoute from './main';
-import Toast from 'react-native-toast-message';
-import { useStore } from '../root-store';
-import { observer } from 'mobx-react';
 
 const RootRoute = () => {
   const [isShowSplash, setIsShowSplash] = useState(true);
@@ -25,6 +24,7 @@ const RootRoute = () => {
 
     return () => clearTimeout(timeout);
   }, [])
+
   const checkLogin = async () => {
     const res = await getItem()
     

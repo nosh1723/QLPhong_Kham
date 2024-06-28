@@ -8,6 +8,9 @@ router.post('/', serviceController.createService);
 // Route để lấy tất cả các dịch vụ
 router.get('/', serviceController.getAllServices);
 
+// Route để lấy tất cả các dịch vụ trong cate
+router.get('/allServiceByCate', serviceController.getAllServicesByCate);
+
 // Route để lấy thông tin của một dịch vụ theo ID
 router.get('/:id', serviceController.getServiceById);
 

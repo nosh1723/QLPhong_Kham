@@ -1,5 +1,6 @@
 const Patient = require('../models/Patient');
 const Counter = require('../models/Counter');
+const { getCode } = require('../LocalFunction');
 
 // Hàm tạo mã bệnh nhân theo định dạng "000000"
 // const generatePatientCode = async () => {
@@ -27,7 +28,8 @@ exports.createOrUpdatePatient = async (req, res) => {
             address,
             ethnic,
             email,
-            phone_number
+            phone_number,
+            user_id
         } = req.body;
 
         if(_id) {
@@ -43,7 +45,8 @@ exports.createOrUpdatePatient = async (req, res) => {
                 address,
                 ethnic,
                 email,
-                phone_number
+                phone_number,
+                user_id
             }, { new: true });
     
             if (!updatedPatient) {
@@ -54,7 +57,8 @@ exports.createOrUpdatePatient = async (req, res) => {
         }
 
         // Tạo mã bệnh nhân tự động
-        const code = "000" + Math.round(100 + Math.random() * 900)
+        const patient = await Patient.find()
+        const code = getCode(patient, 'BN')
 
         const newPatient = new Patient({
             name,
@@ -68,7 +72,8 @@ exports.createOrUpdatePatient = async (req, res) => {
             address,
             ethnic,
             email,
-            phone_number
+            phone_number,
+            user_id
         });
 
         await newPatient.save();
@@ -89,10 +94,10 @@ exports.getAllPatients = async (req, res) => {
 };
 
 // Lấy bệnh nhân theo ID
-exports.getPatientByEmail = async (req, res) => {
+exports.getPatientById = async (req, res) => {
     try {
-        const {email} = req.body
-        const patient = await Patient.findOne({email});
+        const {id} = req.params
+        const patient = await Patient.findOne({user_id: id});
         if (!patient) {
             return res.status(404).json({ error: 'Không tìm thấy bệnh nhân' });
         }

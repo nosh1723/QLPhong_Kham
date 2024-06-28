@@ -13,14 +13,10 @@ import { authSelector } from '@/src/redux/reducers/authReducer';
 import { useSelector } from 'react-redux';
 
 const UserInfo = () => {
-    const auth = useSelector(authSelector)
     const navigation = useNavigation()
 
     const { patient, isLoading, getPatient } = useStore().user
 
-    useEffect(() => {
-        getPatient(auth?.user?.email)
-    },[])
     return (
         <>
         <Loading visible={isLoading}/>

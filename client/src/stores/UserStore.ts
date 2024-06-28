@@ -1,3 +1,4 @@
+import Toast from "react-native-toast-message";
 import { Patient } from "../models/patient";
 import { createOrUpdatePatient, getPatient } from "../services/User.Service";
 import { makeAutoObservable, runInAction } from "mobx";
@@ -11,12 +12,15 @@ export default class UserStore {
     makeAutoObservable(this);
   }
 
-  getPatient = async (email: string) => {
+  getPatient = async (id: string) => {
     try {
         this.setIsLoading(true)
-        const res = await getPatient({ email });
+        const res = await getPatient(id);
         runInAction(() => {
-            this.patient = res.data;
+            this.patient = {
+              ...this.patient,
+              ...res.data
+            }
         });
         this.setIsLoading(false)
     } catch (error) {
@@ -25,12 +29,16 @@ export default class UserStore {
     }
   };
 
-  createOrUpdatePatient = async(obj: Patient) => {
+  createOrUpdatePatient = async(obj: object) => {
     try {
       this.setIsLoading(true)
       const res = await createOrUpdatePatient(obj)
-      this.getPatient(obj.email)
+      this.getPatient(res.data.user_id)
       this.setIsLoading(false)
+      Toast.show({
+        type: "success",
+        text1: "Sửa thông tin cá nhân thành công !"
+      })
     } catch (error) {
       this.setIsLoading(false)
       console.log("create or update failed!", error);

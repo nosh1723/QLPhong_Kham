@@ -23,7 +23,7 @@ import { useNavigation } from '@react-navigation/native';
                     <View style={{ width: "100%", flexDirection: "row", justifyContent: "flex-end", borderTopWidth: .8, borderColor: "#ddd", paddingTop: 5 }}>
                         <CommonButton title='Đặt lịch ngay' style={{ paddingHorizontal: 15, borderRadius: 8 }} onPress={async() => {
                             await getDoctor(item?.id)
-                            navigation.navigate("makeAppointment")}
+                            navigation.navigate("makeAppointmentIndex")}
                         } />
                     </View>
                 </View>

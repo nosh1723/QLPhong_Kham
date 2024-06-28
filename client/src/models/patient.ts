@@ -1,4 +1,5 @@
 export class Patient {
+    _id = ""
     name =""
     code = ""
     gender = "M"
@@ -11,4 +12,5 @@ export class Patient {
     ethnic = ""
     email = ""
     phone_number= ""
+    user_id = ""
 }

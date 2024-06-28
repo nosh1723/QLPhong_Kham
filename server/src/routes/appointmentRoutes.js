@@ -8,4 +8,9 @@ router.post('/book', appointmentController.bookAppointment);
 // Route để tìm lịch hẹn bằng _id
 router.get('/:id', appointmentController.findAppointmentById);
 
+// get all lịch hẹn
+router.get('/', appointmentController.getAllAppontment)
+
+router.post('/checkDateTime', appointmentController.checkDateTime)
+
 module.exports = router;

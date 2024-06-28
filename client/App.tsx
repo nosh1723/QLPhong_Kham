@@ -4,6 +4,7 @@ import Toast from "react-native-toast-message";
 import { Provider } from "react-redux";
 import RootRoute from "./src/navigations/app";
 import store from "./src/redux/store";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   return (

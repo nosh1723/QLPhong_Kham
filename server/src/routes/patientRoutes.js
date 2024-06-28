@@ -8,8 +8,8 @@ router.post('/createOrUpdate', patientController.createOrUpdatePatient);
 // Route để lấy tất cả các bệnh nhân
 router.get('/', patientController.getAllPatients);
 
-// Route để lấy thông tin của một bệnh nhân theo email
-router.post('/getByEmail', patientController.getPatientByEmail);
+// Route để lấy thông tin của một bệnh nhân 
+router.get('/getById/:id', patientController.getPatientById);
 
 // Route để xóa một bệnh nhân theo ID
 router.delete('/:id', patientController.deletePatientById);

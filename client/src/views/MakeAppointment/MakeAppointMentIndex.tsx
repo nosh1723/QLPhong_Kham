@@ -11,25 +11,36 @@ import Makeappointment from "./MakeAppointMentInfo";
 import MakeAppointMentComfirm from "./MakeAppointMentComfirm";
 import { useStore } from "@/src/root-store";
 import { Formik } from "formik";
+import * as Yup from 'yup'
+import Toast from "react-native-toast-message";
 
 
 export default observer(function MakeappointmentIndex() {
     const navigation = useNavigation()
     
-    const {next, setNext, getWorkhours} = useStore().apointment
+    const {next, setNext, getWorkhours, searchObject, resetStore, checkDateTime} = useStore().apointment
     const { patient } = useStore().user
     const { doctor } = useStore().home
+    const { pagingService } = useStore().service
 
     const inittialValues = {
-        patient,
-        doctor,
-        date: new Date(),
-        startTime: "",
-        endTime: "",
+        ...searchObject,
+        doctorId: doctor?.id,
+        patientId: patient?._id,
     }
+
+    const validateSchema = Yup.object().shape({
+        service: Yup.object({
+            name: Yup.string().required("Bạn chưa chọn dịch vụ").nullable()
+        }).nullable(),
+        appointmentTime: Yup.object({
+            _id: Yup.string().required("Bạn chưa chọn giờ khám").nullable()
+        })
+    })
 
     useEffect(() => {
         getWorkhours(doctor.id)
+        pagingService()
     }, [])
 
     return (
@@ -59,9 +70,9 @@ export default observer(function MakeappointmentIndex() {
 
             <Formik
                 initialValues={inittialValues}
+                validationSchema={validateSchema}
                 onSubmit={(values) => {
-                    console.log(values);
-                    
+                    setNext(1)
                 }}
             >
                 {({values}) => (
@@ -70,6 +81,7 @@ export default observer(function MakeappointmentIndex() {
                 </View>
                 )}
             </Formik>
+            <Toast position="top" topOffset={50} visibilityTime={2000}/>
             
 
             {/* </SafeAreaView> */}

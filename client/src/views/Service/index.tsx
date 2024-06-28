@@ -10,16 +10,16 @@ import Loading from '@/src/components/Loading';
 import { observer } from 'mobx-react';
 
 const Service = () => {
-    const { pagingService, pageService, isLoading } = useStore().service
+    const { listServiceByCate, isLoading } = useStore().service
 
     return (
         <>
         <Loading visible={isLoading}/>
         <Header textHeaderBack='Dịch vụ'/>
             <View style={{flex: 1}}>
-                <ScrollView showsVerticalScrollIndicator={false} style={{paddingTop: -10, flexGrow: 1}}>
-                    {pageService?.length > 0 && 
-                        pageService?.map(item => {
+                <ScrollView style={{paddingTop: -10, flexGrow: 1}}>
+                    {listServiceByCate?.length > 0 && 
+                        listServiceByCate?.map(item => {
                             return <ServiceList data={item} key={"service" + item?._id}/>
                         })
                     }

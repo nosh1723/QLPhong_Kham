@@ -12,6 +12,8 @@ import { openURL } from 'expo-linking';
 import { useDispatch } from 'react-redux';
 import { removeAuth } from '@/src/redux/reducers/authReducer';
 import { useNavigation } from '@react-navigation/native';
+import { useStore } from '@/src/root-store';
+import { formatPhoneNumber } from '@/src/constants/LocalFunction';
 
 
 const UserContent = () => {
@@ -19,6 +21,8 @@ const UserContent = () => {
     const [isVisible, setIsVisivle] = useState(false)
 
     const dispatch = useDispatch()
+
+    const { patient } = useStore().user
 
     const toggleDialog = () => {
         setIsVisivle(!isVisible)
@@ -55,10 +59,10 @@ const UserContent = () => {
                     </View>
                     <View style={{ justifyContent: "flex-start"}}>
                         <Text style={{fontWeight: 600, fontSize: 18}}>
-                            Nguyễn Hồng Sơn
+                            {patient?.name}
                         </Text>
                         <Text>
-                            +84354297713
+                            {patient?.phone_number ? formatPhoneNumber(patient?.phone_number) : "Chưa cập nhật"}
                         </Text>
                     </View>
                 </TouchableOpacity>

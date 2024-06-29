@@ -7,7 +7,7 @@ const doctorServiceController = require('../controllers/doctorServiceController'
 router.get('/', doctorController.getAllDoctors);
 
 //tạo mới 1 bs
-router.post('/create', doctorController.createDoctor)
+router.post('/create',roleMiddleware(['doctor', 'staff', 'admin']), doctorController.createDoctor)
 
 // Đường dẫn để lấy thông tin chi tiết của bác sĩ theo ID, bao gồm chi nhánh và dịch vụ
 router.get('/:id', doctorController.getDoctorById);

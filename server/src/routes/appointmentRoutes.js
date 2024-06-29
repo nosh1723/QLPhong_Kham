@@ -9,9 +9,9 @@ router.post('/book', appointmentController.bookAppointment);
 router.get('/:id', appointmentController.findAppointmentById);
 
 // get all lịch hẹn
-router.get('/', appointmentController.getAllAppontment)
+router.get('/',roleMiddleware(['doctor', 'staff']), appointmentController.getAllAppontment)
 
-router.post('/checkDateTime', appointmentController.checkDateTime)
+router.post('/checkDateTime',roleMiddleware(['doctor', 'staff']), appointmentController.checkDateTime)
 
 router.post('/cancelAppointment', appointmentController.cancelAppointment)
 

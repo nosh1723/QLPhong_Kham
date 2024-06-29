@@ -3,7 +3,7 @@ const router = express.Router();
 const serviceController = require('../controllers/serviceController');
 
 // Route để tạo mới một dịch vụ
-router.post('/',roleMiddleware(['doctor', 'staff']), serviceController.createService);
+router.post('/', serviceController.createService);
 
 // Route để lấy tất cả các dịch vụ
 router.get('/', serviceController.getAllServices);
@@ -15,10 +15,10 @@ router.get('/allServiceByCate', serviceController.getAllServicesByCate);
 router.get('/:id', serviceController.getServiceById);
 
 // Route để cập nhật thông tin của một dịch vụ theo ID
-router.put('/:id',roleMiddleware(['doctor', 'staff', 'admin']), serviceController.updateServiceById);
+router.put('/:id', serviceController.updateServiceById);
 
 // Route để xóa một dịch vụ theo ID
-router.delete('/:id',roleMiddleware(['doctor', 'staff', 'admin']), serviceController.deleteServiceById);
+router.delete('/:id', serviceController.deleteServiceById);
 
 router.get('/servicesCategoryById/:id', serviceController.getServiceCatogeryById)
 

@@ -6,12 +6,12 @@ const patientController = require('../controllers/patientController');
 router.post('/createOrUpdate', patientController.createOrUpdatePatient);
 
 // Route để lấy tất cả các bệnh nhân
-router.get('/',roleMiddleware(['doctor', 'staff', 'admin']), patientController.getAllPatients);
+router.get('/', patientController.getAllPatients);
 
 // Route để lấy thông tin của một bệnh nhân 
 router.get('/getById/:id', patientController.getPatientById);
 
 // Route để xóa một bệnh nhân theo ID
-router.delete('/:id',roleMiddleware(['doctor', 'staff', 'admin']), patientController.deletePatientById);
+router.delete('/:id', patientController.deletePatientById);
 
 module.exports = router;

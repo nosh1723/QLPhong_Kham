@@ -3,21 +3,21 @@ const router = express.Router();
 const workHouseDoctorController = require('../controllers/workHouseDoctorController');
 
 //  Tạo mới một bản ghi lịch làm việc
-router.post('/',roleMiddleware(['doctor', 'staff', 'admin']), workHouseDoctorController.createWorkHouse);
+router.post('/', workHouseDoctorController.createWorkHouse);
 
 //  Cập nhật một bản ghi lịch làm việc theo ID
-router.put('/:id',roleMiddleware(['doctor', 'staff', 'admin']), workHouseDoctorController.updateWorkHouse);
+router.put('/:id', workHouseDoctorController.updateWorkHouse);
 
 //  Xóa một bản ghi ,h làm việc theo ID
-router.delete('/:id',roleMiddleware(['doctor', 'staff', 'admin']), workHouseDoctorController.deleteWorkHouse);
+router.delete('/:id', workHouseDoctorController.deleteWorkHouse);
 
 //  Lấy tất cả các bản ghi lịch làm việc
-router.get('/',roleMiddleware(['doctor', 'staff', 'admin']), workHouseDoctorController.getAllWorkHouses);
+router.get('/', workHouseDoctorController.getAllWorkHouses);
 
 //  Lấy một bản ghi lịch làm việc theo ID
-router.get('/:id',roleMiddleware(['doctor', 'staff', 'admin']), workHouseDoctorController.getWorkHouseById);
+router.get('/:id', workHouseDoctorController.getWorkHouseById);
 
 //  Lấy một bản ghi lịch làm việc theo ID bác sĩ
-router.get('/getByDoctorId/:id',roleMiddleware(['doctor', 'staff', 'admin']), workHouseDoctorController.getWorkHouseByDoctorId);
+router.get('/getByDoctorId/:id', workHouseDoctorController.getWorkHouseByDoctorId);
 
 module.exports = router;

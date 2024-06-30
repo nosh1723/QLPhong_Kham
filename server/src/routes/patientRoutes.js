@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const patientController = require('../controllers/patientController');
+const roleMiddleware = require('../middleware/roleMiddleware')
 
 // Route để tạo mới hoặc sửa một bệnh nhân
 router.post('/createOrUpdate', patientController.createOrUpdatePatient);

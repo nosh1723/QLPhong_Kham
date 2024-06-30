@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const appointmentController = require('../controllers/appointmentController');
+const roleMiddleware = require('../middleware/roleMiddleware')
 
 // Route để đặt lịch hẹn
 router.post('/book', appointmentController.bookAppointment);

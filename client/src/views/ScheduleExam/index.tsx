@@ -8,11 +8,11 @@ import ScheduleExamHeader from './ScheduleExamHeader';
 import { useStore } from '@/src/root-store';
 import { useIsFocused } from '@react-navigation/native';
 import Loading from '@/src/components/Loading';
+import { observer } from 'mobx-react';
 
 const ScheduleExamIndex = () => {
     const isFocused = useIsFocused();
-    const { pageAppointment, pagingAppointment, isLoading, setIsLoading } = useStore().apointment
-    console.log(isLoading);
+    const { pageAppointment, isLoading } = useStore().apointment
     
     return (
         <View style={{flex: 1}}>
@@ -33,4 +33,4 @@ const ScheduleExamIndex = () => {
     );
 };
 
-export default ScheduleExamIndex;
+export default observer(ScheduleExamIndex) ;

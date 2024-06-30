@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const doctorController = require('../controllers/doctorController'); // Import controller
 const doctorServiceController = require('../controllers/doctorServiceController'); // Import controller
+const roleMiddleware = require('../middleware/roleMiddleware')
 
 // Đường dẫn để lấy danh sách tất cả các bác sĩ kèm thông tin chi nhánh và dịch vụ
 router.get('/', doctorController.getAllDoctors);

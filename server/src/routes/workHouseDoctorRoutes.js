@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const workHouseDoctorController = require('../controllers/workHouseDoctorController');
+const roleMiddleware = require('../middleware/roleMiddleware')
 
 //  Tạo mới một bản ghi lịch làm việc
 router.post('/',roleMiddleware(['doctor', 'staff', 'admin']), workHouseDoctorController.createWorkHouse);

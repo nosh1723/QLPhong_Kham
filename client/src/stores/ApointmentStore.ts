@@ -91,15 +91,14 @@ export default class ApointmentStore {
     }
 
     handleCancelAppointment = async (id: string) => {
-        try {
-            this.setIsLoading(true)
-            await cancelAppoinment({_id: id})
+        this.setIsLoading(true)
+        cancelAppoinment({_id: id}).then(data => {
+            this.setIsLoading(false)
             this.pagingAppointment()
+        }).catch(err => {
             this.setIsLoading(false)
-        } catch (error) {
-            this.setIsLoading(false)
-            console.log('book appointment failed', error);
-        }
+            console.log('Hủy lịch hẹn thất bại',err);
+        })
     }
 
     getWorkhours = async (id: string) => {

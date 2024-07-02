@@ -1,13 +1,13 @@
 const express = require('express');
-const router = express.Router();
-const medicalHistoryController = require('../controllers/medicalHistoryController');
+const { createMedicalHistory, getMedicalHistory, getMedicalHistoryByPatientId, deleteMedicalHistory } = require('../controllers/medicalHistoryController');
 const authMiddleware = require('../middleware/authMiddleware');
 const roleMiddleware = require('../middleware/roleMiddleware');
 
-router.post('/medical-history', authMiddleware, roleMiddleware(['doctor']), medicalHistoryController.createMedicalHistory);
+const router = express.Router();
 
-router.get('/medical-history/:visit_id', authMiddleware,/* roleMiddleware(['doctor']),*/ medicalHistoryController.getMedicalHistory);
+router.post('/', authMiddleware, roleMiddleware(['doctor', 'admin']), createMedicalHistory);
+router.get('/visit/:visit_id', authMiddleware, getMedicalHistory);
+router.get('/patient/:patient_id', authMiddleware, getMedicalHistoryByPatientId);
+router.delete('/:id', authMiddleware, roleMiddleware(['admin']), deleteMedicalHistory);
 
-router.delete('/medical-history/:id', authMiddleware, roleMiddleware(['doctor']), medicalHistoryController.deleteMedicalHistory);
-
-module.exports = router; 
+module.exports = router;

@@ -8,6 +8,6 @@ const router = express.Router();
 router.post('/', authMiddleware, roleMiddleware(['doctor', 'admin']), createMedicalHistory);
 router.get('/visit/:visit_id', authMiddleware, getMedicalHistory);
 router.get('/patient/:patient_id', authMiddleware, getMedicalHistoryByPatientId);
-router.delete('/:id', authMiddleware, roleMiddleware(['admin']), deleteMedicalHistory);
+router.delete('/:id', authMiddleware, roleMiddleware(['admin', 'doctor']), deleteMedicalHistory);
 
 module.exports = router;

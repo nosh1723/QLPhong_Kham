@@ -3,7 +3,7 @@ const Visit = require('../models/Visit');
 const Patient = require('../models/Patient');
 
 exports.createMedicalReport = async (req, res) => {
-    const { visit_id, patient_id, name, date, service, status, return_visit_date, medicalResults } = req.body;
+    const { visit_id, patient_id, name, date, service, status, return_visit_date, medicalResults, reExamination, dateReExam } = req.body;
     try {
         const medicalReport = new MedicalReport({
             visit_id,
@@ -13,7 +13,9 @@ exports.createMedicalReport = async (req, res) => {
             service,
             status,
             return_visit_date,
-            medicalResults
+            medicalResults,
+            reExamination,
+            dateReExam: reExamination ? dateReExam : null
         });
         await medicalReport.save();
 

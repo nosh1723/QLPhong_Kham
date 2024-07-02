@@ -23,7 +23,7 @@ const ScheduleExamIndex = () => {
                     <Text style={{ fontSize: 20, color: "#9eabb9" }}>Bạn chưa có lịch khám nào!</Text>
                 </View>
             :   
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView >
                 <ScheduleExamCard />
             </ScrollView>
             }

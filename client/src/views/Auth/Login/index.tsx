@@ -13,8 +13,7 @@ import { useDispatch } from "react-redux";
 import { addAuth } from "@/src/redux/reducers/authReducer";
 import { useNavigation } from "@react-navigation/native";
 
-export default observer(function Login() {
-    const navigation = useNavigation()
+export default observer(function Login({navigation}: any) {
     const dispatch = useDispatch()
 
     const { user, isLoading,  reset, searchObject, handleLogin} = useStore().auth
@@ -41,6 +40,7 @@ export default observer(function Login() {
             validationSchema={validationSchema}
             onSubmit={values => {
                 handleLogin(values).then(data => {
+                    console.log(data);
                     if(Boolean(data)) {
                         dispatch(addAuth(data))
                         const timeout = setTimeout(() => {

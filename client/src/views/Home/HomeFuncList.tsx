@@ -5,6 +5,8 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { authSelector } from '@/src/redux/reducers/authReducer';
 
 const LIST_FUNC = [
     {
@@ -27,7 +29,7 @@ const LIST_FUNC = [
     },
     {
         title: "Kết quả khám",
-        navigate: <></>,
+        navigate: "medicalHistory",
         color: "#40A578",
         icon: <IconMediBag  color='#fff'/>
     },
@@ -47,8 +49,9 @@ const LIST_FUNC = [
 
 
 
-const HomeFuncList = () => {
-    const navigation = useNavigation()
+const HomeFuncList = ({navigation}: any) => {
+    
+  const auth = useSelector(authSelector)
     return (
         <Card>
             <View style={{flexDirection: 'row', flexWrap: 'wrap', gap: 5, justifyContent: 'center',}}>

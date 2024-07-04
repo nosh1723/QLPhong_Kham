@@ -9,4 +9,4 @@ router.post('/', authMiddleware, roleMiddleware(['doctor', 'admin']), createMedi
 router.get('/:id', authMiddleware, getMedicalReport);
 router.delete('/:id', authMiddleware, roleMiddleware(['admin']), deleteMedicalReport);
 
-module.exports = router;
+module.exports = router; 

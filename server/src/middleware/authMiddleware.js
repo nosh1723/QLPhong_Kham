@@ -16,5 +16,5 @@ module.exports = (req, res, next) => {
     } catch (err) {
       /*   console.error('Token verification failed:', err.message); // dể debug  */
         return res.status(400).json({ message: 'Token không hợp lệ' });
-    }
+    } 
 };

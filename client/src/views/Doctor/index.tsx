@@ -33,12 +33,11 @@ const DoctorIndex = () => {
     const isIos = Platform.OS === "ios"
 
     const { doctor, isLoading } = useStore().home
-    const { checkDateTime, workhourResult, workhourDoctor, getWorkhours, getAllWorkhour, workhours } = useStore().apointment
+    const { checkDateTime, workhourResult, workhourDoctor, getAllWorkhour, workhours } = useStore().apointment
 
     const bottomSheetCalendarRef = useRef<BottomSheet>(null);
 
     useEffect(() => {
-        getWorkhours(doctor.id)
         checkDateTime(new Date())
         getAllWorkhour()
     }, [])

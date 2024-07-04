@@ -56,129 +56,131 @@ const MedicalResultIndex = () => {
                     return (
                         <>
                             <Header textHeaderBack='Nhập bệnh án' />
-                            <View style={{ flex: 1, paddingVertical: 20, paddingHorizontal: 15, paddingBottom: 30 }}>
-                                <ScrollView style={{}}>
-                                    <View style={{ backgroundColor: colors.white, padding: 10, borderRadius: 8, flexDirection: 'column', gap: 8, paddingVertical: 15 }}>
-                                        <Text style={{ fontWeight: 500, fontSize: 16, marginBottom: -4 }}>{workhourExist.patient.name}</Text>
-                                        <Text>STT: {workhourExist.serialNumber}</Text>
-                                        <View style={[style.row, {}]}>
-                                            <Text>Mã BN</Text>
-                                            <Text style={{ fontWeight: 500 }}>{workhourExist.patient.code}</Text>
-                                        </View>
-                                        <View style={[style.row, {}]}>
-                                            <Text>Ngày sinh</Text>
-                                            <Text style={{ fontWeight: 500 }}>{getDate(workhourExist.patient.birth_date)}</Text>
-                                        </View>
-                                        <View style={[style.row, {}]}>
-                                            <Text>Giới tính</Text>
-                                            <Text style={{ fontWeight: 500 }}>{getGenderFomat(workhourExist.patient.gender)}</Text>
-                                        </View>
-                                    </View>
-
-                                    <Text style={{ marginTop: 20, marginBottom: 8 }}>Thông tin phiếu khám</Text>
-                                    <View style={{ backgroundColor: colors.white, padding: 10, borderRadius: 8, flexDirection: 'column', gap: 8, paddingVertical: 15 }}>
-                                        <View style={[style.row, {}]}>
-                                            <Text>Mã phiếu khám</Text>
-                                            <Text style={{ fontWeight: 500 }}>{workhourExist.code}</Text>
-                                        </View>
-                                        <View style={[style.row, {}]}>
-                                            <Text>Ngày khám</Text>
-                                            <Text style={{ fontWeight: 500 }}>{getDate(workhourExist.date)}</Text>
-                                        </View>
-                                        <View style={[style.row, {}]}>
-                                            <Text>Giờ khám</Text>
-                                            <Text style={{ fontWeight: 500 }}>{getTime(workhourExist.workhour.startTime)}</Text>
-                                        </View>
-                                        <View style={[style.row, {}]}>
-                                            <Text>Bác sĩ</Text>
-                                            <Text style={{ fontWeight: 500 }}>{workhourExist.doctor.name}</Text>
-                                        </View>
-                                        <View style={[style.row, {}]}>
-                                            <Text>Dịch vụ</Text>
-                                            <Text style={{ fontWeight: 500 }}>{workhourExist.service.name}</Text>
-                                        </View>
-                                    </View>
-
-                                    <Text style={{ marginTop: 20, marginBottom: 8 }}>Nhập kết quả</Text>
-                                    <View style={{ backgroundColor: colors.white, padding: 10, borderRadius: 8, flexDirection: 'column', gap: 8, paddingVertical: 15 }}>
-                                        <View style={{ paddingVertical: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderWidth: 1, borderColor: colors.gray, padding: 12, borderRadius: 8 }}>
-                                            <TextInput style={{ fontSize: 16, width: '85%', paddingVertical: 5 }} placeholder='Nhập kết quả' value={values.result} onChangeText={handleChange('result')} />
-                                            <TouchableOpacity onPress={() => {
-                                                if (values?.result === '') {
-                                                    Toast.show({
-                                                        type: 'error',
-                                                        text1: 'Chưa nhập kết quả!'
-                                                    })
-                                                    return
-                                                }
-                                                setFieldValue('listResult', [...values.listResult, values.result])
-                                                setFieldValue('result', '')
-                                            }} style={{ backgroundColor: colors.orange, padding: 3, paddingHorizontal: 5, borderRadius: 6 }}><FontAwesome6 name="plus" size={18} color={colors.white} /></TouchableOpacity>
-                                        </View>
-
-                                        <View style={{ marginVertical: 5, marginTop: 10, padding: 10, gap: 8, backgroundColor: "#f0f5fa", borderRadius: 8 }}>
-                                            {values?.listResult?.length === 0 &&
-                                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
-                                                    <Text style={{ color: colors.textGray }}>Chưa có kết quả nào</Text>
-                                                </View>
-                                            }
-
-                                            {values?.listResult?.length !== 0 && values?.listResult?.map((i: any, index: number) => {
-                                                return (
-                                                    <View key={"kết quả khám" + index} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between" }}>
-                                                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                                                            <FontAwesome name='circle' color={colors.textGray} size={8} />
-                                                            <Text style={{ color: "rgba(0, 0, 0, .8)" }}>{i}</Text>
-                                                        </View>
-                                                        <TouchableOpacity onPress={() => {
-                                                            setShowModal(true)
-                                                            setIndexResult(index)
-                                                        }}>
-                                                            <MaterialCommunityIcons name="close-circle" size={20} color={colors.textGray} />
-                                                        </TouchableOpacity>
-                                                    </View>
-                                                )
-                                            })
-                                            }
-                                        </View>
-                                        {touched.listResult && errors.listResult &&
-                                            <Text style={{ color: "red" }}>{errors.listResult}</Text>
-                                        }
-
-                                    </View>
-
-                                    {/* hẹn tái khám */}
-                                    <Text style={{ marginTop: 20, marginBottom: 8 }}>Hẹn tái khám</Text>
-                                    <View style={{ backgroundColor: colors.white, padding: 10, borderRadius: 8, flexDirection: 'row', paddingVertical: 15 }}>
-                                        <CheckBox
-                                            checked={values?.reExamination}
-                                            onPress={() => {
-                                                setFieldValue('reExamination', !values?.reExamination)
-                                            }}
-                                            checkedIcon="dot-circle-o"
-                                            uncheckedIcon="circle-o"
-                                            containerStyle={{ backgroundColor: "transparent", padding: 0, marginLeft: 0 }}
-                                            textStyle={{ marginLeft: 3, color: "#000", fontWeight: 500 }}
-                                            title={""}
-                                        />
-
-
-                                        <CommonButton onPress={() => {
-                                            showCalendar ? bottomSheetCalendarRef.current?.close() : bottomSheetCalendarRef.current?.expand()
-                                            setShowCalendar(!showCalendar)
-                                        }} style={{ borderWidth: 1, borderColor: "#e7ebed", borderRadius: 8, width: '100%', }} color={colors.white}
-                                            disabled={!values?.reExamination}
-                                        >
-                                            <View style={{ flexDirection: 'row', alignItems: "center" }}>
-                                                <Text style={{ fontWeight: 600 }}>{getDateFormat(date)} </Text>
-                                                <FontAwesome name="angle-down" size={20} color="black" style={{ paddingLeft: 3, marginTop: -3 }} />
+                            {/* <View style={{ flex: 1,}}> */}
+                                <ScrollView style={{flex: 1, }}>
+                                    <View style={{paddingHorizontal: 15, paddingVertical: 15}}>
+                                        <View style={{ backgroundColor: colors.white, padding: 10, borderRadius: 8, flexDirection: 'column', gap: 8, paddingVertical: 15 }}>
+                                            <Text style={{ fontWeight: 500, fontSize: 16, marginBottom: -4 }}>{workhourExist.patient.name}</Text>
+                                            <Text>STT: {workhourExist.serialNumber}</Text>
+                                            <View style={[style.row, {}]}>
+                                                <Text>Mã BN</Text>
+                                                <Text style={{ fontWeight: 500 }}>{workhourExist.patient.code}</Text>
                                             </View>
-                                        </CommonButton>
+                                            <View style={[style.row, {}]}>
+                                                <Text>Ngày sinh</Text>
+                                                <Text style={{ fontWeight: 500 }}>{getDate(workhourExist.patient.birth_date)}</Text>
+                                            </View>
+                                            <View style={[style.row, {}]}>
+                                                <Text>Giới tính</Text>
+                                                <Text style={{ fontWeight: 500 }}>{getGenderFomat(workhourExist.patient.gender)}</Text>
+                                            </View>
+                                        </View>
+    
+                                        <Text style={{ marginTop: 20, marginBottom: 8 }}>Thông tin phiếu khám</Text>
+                                        <View style={{ backgroundColor: colors.white, padding: 10, borderRadius: 8, flexDirection: 'column', gap: 8, paddingVertical: 15 }}>
+                                            <View style={[style.row, {}]}>
+                                                <Text>Mã phiếu khám</Text>
+                                                <Text style={{ fontWeight: 500 }}>{workhourExist.code}</Text>
+                                            </View>
+                                            <View style={[style.row, {}]}>
+                                                <Text>Ngày khám</Text>
+                                                <Text style={{ fontWeight: 500 }}>{getDate(workhourExist.date)}</Text>
+                                            </View>
+                                            <View style={[style.row, {}]}>
+                                                <Text>Giờ khám</Text>
+                                                <Text style={{ fontWeight: 500 }}>{getTime(workhourExist.workhour.startTime)}</Text>
+                                            </View>
+                                            <View style={[style.row, {}]}>
+                                                <Text>Bác sĩ</Text>
+                                                <Text style={{ fontWeight: 500 }}>{workhourExist.doctor.name}</Text>
+                                            </View>
+                                            <View style={[style.row, {}]}>
+                                                <Text>Dịch vụ</Text>
+                                                <Text style={{ fontWeight: 500 }}>{workhourExist.service.name}</Text>
+                                            </View>
+                                        </View>
+    
+                                        <Text style={{ marginTop: 20, marginBottom: 8 }}>Nhập kết quả</Text>
+                                        <View style={{ backgroundColor: colors.white, padding: 10, borderRadius: 8, flexDirection: 'column', gap: 8, paddingVertical: 15 }}>
+                                            <View style={{ paddingVertical: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderWidth: 1, borderColor: colors.gray, padding: 12, borderRadius: 8 }}>
+                                                <TextInput style={{ fontSize: 16, width: '85%', paddingVertical: 5 }} placeholder='Nhập kết quả' value={values.result} onChangeText={handleChange('result')} />
+                                                <TouchableOpacity onPress={() => {
+                                                    if (values?.result === '') {
+                                                        Toast.show({
+                                                            type: 'error',
+                                                            text1: 'Chưa nhập kết quả!'
+                                                        })
+                                                        return
+                                                    }
+                                                    setFieldValue('listResult', [...values.listResult, values.result])
+                                                    setFieldValue('result', '')
+                                                }} style={{ backgroundColor: colors.orange, padding: 3, paddingHorizontal: 5, borderRadius: 6 }}><FontAwesome6 name="plus" size={18} color={colors.white} /></TouchableOpacity>
+                                            </View>
+    
+                                            <View style={{ marginVertical: 5, marginTop: 10, padding: 10, gap: 8, backgroundColor: "#f0f5fa", borderRadius: 8 }}>
+                                                {values?.listResult?.length === 0 &&
+                                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
+                                                        <Text style={{ color: colors.textGray }}>Chưa có kết quả nào</Text>
+                                                    </View>
+                                                }
+    
+                                                {values?.listResult?.length !== 0 && values?.listResult?.map((i: any, index: number) => {
+                                                    return (
+                                                        <View key={"kết quả khám" + index} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between" }}>
+                                                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                                                                <FontAwesome name='circle' color={colors.textGray} size={8} />
+                                                                <Text style={{ color: "rgba(0, 0, 0, .8)" }}>{i}</Text>
+                                                            </View>
+                                                            <TouchableOpacity onPress={() => {
+                                                                setShowModal(true)
+                                                                setIndexResult(index)
+                                                            }}>
+                                                                <MaterialCommunityIcons name="close-circle" size={20} color={colors.textGray} />
+                                                            </TouchableOpacity>
+                                                        </View>
+                                                    )
+                                                })
+                                                }
+                                            </View>
+                                            {touched.listResult && errors.listResult &&
+                                                <Text style={{ color: "red" }}>{errors.listResult}</Text>
+                                            }
+    
+                                        </View>
+    
+                                        {/* hẹn tái khám */}
+                                        <Text style={{ marginTop: 20, marginBottom: 8 }}>Hẹn tái khám</Text>
+                                        <View style={{ backgroundColor: colors.white, padding: 10, borderRadius: 8, flexDirection: 'row', paddingVertical: 15 }}>
+                                            <CheckBox
+                                                checked={values?.reExamination}
+                                                onPress={() => {
+                                                    setFieldValue('reExamination', !values?.reExamination)
+                                                }}
+                                                checkedIcon="dot-circle-o"
+                                                uncheckedIcon="circle-o"
+                                                containerStyle={{ backgroundColor: "transparent", padding: 0, marginLeft: 0 }}
+                                                textStyle={{ marginLeft: 3, color: "#000", fontWeight: 500 }}
+                                                title={""}
+                                            />
+    
+    
+                                            <CommonButton onPress={() => {
+                                                showCalendar ? bottomSheetCalendarRef.current?.close() : bottomSheetCalendarRef.current?.expand()
+                                                setShowCalendar(!showCalendar)
+                                            }} style={{ borderWidth: 1, borderColor: "#e7ebed", borderRadius: 8, width: '100%', }} color={colors.white}
+                                                disabled={!values?.reExamination}
+                                            >
+                                                <View style={{ flexDirection: 'row', alignItems: "center" }}>
+                                                    <Text style={{ fontWeight: 600 }}>{getDateFormat(date)} </Text>
+                                                    <FontAwesome name="angle-down" size={20} color="black" style={{ paddingLeft: 3, marginTop: -3 }} />
+                                                </View>
+                                            </CommonButton>
+                                        </View>
                                     </View>
 
                                 </ScrollView>
-                                <CommonButton title='Kết thúc' onPress={handleSubmit} />
-                            </View>
+                            {/* </View> */}
+                            <View style={{padding: 15, backgroundColor: colors.white}}><CommonButton title='Kết thúc' onPress={handleSubmit} /></View>
                             <Toast position="top" topOffset={50} visibilityTime={2000} />
 
                             {/* bottom sheet */}

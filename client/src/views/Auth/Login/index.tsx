@@ -9,12 +9,13 @@ import Toast from "react-native-toast-message";
 import Loading from "@/src/components/Loading";
 import { observer } from "mobx-react";
 import * as Yup from "yup"
-import { useDispatch } from "react-redux";
-import { addAuth } from "@/src/redux/reducers/authReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { addAuth, authSelector } from "@/src/redux/reducers/authReducer";
 import { useNavigation } from "@react-navigation/native";
 
 export default observer(function Login({navigation}: any) {
     const dispatch = useDispatch()
+    const auth = useSelector(authSelector)
 
     const { user, isLoading,  reset, searchObject, handleLogin} = useStore().auth
 
@@ -43,7 +44,12 @@ export default observer(function Login({navigation}: any) {
                     if(Boolean(data)) {
                         dispatch(addAuth(data))
                         const timeout = setTimeout(() => {
-                            navigation.navigate('Home')
+                            if(auth?.user?.role === 'doctor'){
+                                navigation.navigate('Home')
+                            }
+                            if(auth?.user?.role === 'user'){
+                                navigation.navigate('tabs')
+                            }
                           }, 1500);
                       
                           return () => clearTimeout(timeout);

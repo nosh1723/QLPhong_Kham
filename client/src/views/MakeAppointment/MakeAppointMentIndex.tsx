@@ -18,7 +18,7 @@ import Toast from "react-native-toast-message";
 export default observer(function MakeappointmentIndex() {
     const navigation = useNavigation()
     
-    const {next, setNext, getWorkhours, searchObject, resetStore, checkDateTime} = useStore().apointment
+    const {next, setNext, searchObject, getAllWorkhour} = useStore().apointment
     const { patient } = useStore().user
     const { doctor } = useStore().home
     const { pagingService } = useStore().service
@@ -39,7 +39,7 @@ export default observer(function MakeappointmentIndex() {
     })
 
     useEffect(() => {
-        getWorkhours(doctor.id)
+        getAllWorkhour()
         pagingService()
     }, [])
 

@@ -27,7 +27,7 @@ const MakeAppointMentComfirm = () => {
     
     return (
         <>
-
+            <Loading visible={isLoading}/>
             <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, backgroundColor: "#f0f5fa" }}>
                 <View style={{ flexGrow: 1, paddingHorizontal: 10 }}>
                     <Text style={{ fontSize: 18, padding: 10 }}>Thông tin đăng ký</Text>

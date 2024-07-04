@@ -1,4 +1,10 @@
 const WorkHouseDoctor = require('../models/WorkHouseDoctor');
+const Appointment = require('../models/Appointment');
+const { normalizeDate } = require('../LocalFunction');
+const Doctor = require('../models/Doctor');
+const Patient = require('../models/Patient');
+const Service = require('../models/Service');
+const WorkHour = require('../models/WorkHour');
 
 // Tạo mới một bản ghi lịch làm việc cho bác sĩ
 exports.createWorkHouse = async (req, res) => {
@@ -94,13 +100,55 @@ exports.getWorkHouseById = async (req, res) => {
 };
 
 // Lấy lịch làm việc theo id doctor
-exports.getWorkHouseByDoctorId = async(req, res) => {
+exports.getWorkHouseDoctor = async(req, res) => {
     try {
-        const {id} = req.params
-        const workHouse = await (await WorkHouseDoctor.find({doctorId: id}).populate("workHourId")).map(i => i.workHourId)
-        res.status(200).json(workHouse)
+        const {doctorId, date} = req.body
+
+        const newDate = normalizeDate(date)
+
+        const appointment = await Appointment.find({doctorId, date: newDate}) 
+
+        if(!appointment) return res.status(404).json({message: 'Không tìm thấy lịch khám!'})
+
+        const doctors = await Doctor.find()
+        const patients = await Patient.find()
+        const services = await Service.find()
+        const workhours = await WorkHour.find()
+
+        const result = appointment.map(i => {
+            const doctor = doctors.find(item => item._id + "" === i.doctorId + "")
+            const patient = patients.find(item => item._id + "" === i.patientId + "")
+            const service = services.find(item => item._id + "" === i.serviceId + "")
+            const workhour = workhours.find(item => item._id + "" === i.workHourId + "")
+            return {
+                _id: i._id,
+                doctor,
+                patient,
+                service,
+                workhour,
+                date: i.date,
+                code: i.code,
+                note: i.note,
+                status: i.status,
+                serialNumber: i.serialNumber
+            }
+        })
+
+        res.status(200).json(result)
     } catch (error) {
         console.log(err);
         res.status(500).json({success: false, message: 'Không thể lấy bản ghi lịch làm việc.'})
     }
 }
+
+// Lấy lịch làm việc theo id doctor //"old"
+// exports.getWorkHouseByDoctorId = async(req, res) => {
+//     try {
+//         const {id} = req.params
+//         const workHouse = await (await WorkHouseDoctor.find({doctorId: id}).populate("workHourId")).map(i => i.workHourId)
+//         res.status(200).json(workHouse)
+//     } catch (error) {
+//         console.log(err);
+//         res.status(500).json({success: false, message: 'Không thể lấy bản ghi lịch làm việc.'})
+//     }
+// }

@@ -11,7 +11,7 @@ const AppointmentSchema = new mongoose.Schema({
         required: true, 
      }, // Ngày hẹn
     note: {type: String},
-    status: { type: Number }, // Trạng thái lịch hẹn
+    status: { type: Number }, // Trạng thái lịch hẹn 1 = đã đặt lịch, 0 = hủy lịch, 2 = hết hạn, 3 = hoàn thành
     code: {type: String},
     serialNumber: {type: Number, required: true},
     createdAt: { type: Date, default: Date.now } // Ngày tạo

@@ -9,20 +9,24 @@ import { IconRight, IconSetting } from '@/src/components/Icon/Icon';
 import { TouchableOpacity } from 'react-native';
 import { Dialog } from '@rneui/themed';
 import { openURL } from 'expo-linking';
-import { useDispatch } from 'react-redux';
-import { removeAuth } from '@/src/redux/reducers/authReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { authSelector, removeAuth } from '@/src/redux/reducers/authReducer';
 import { useNavigation } from '@react-navigation/native';
 import { useStore } from '@/src/root-store';
 import { formatPhoneNumber } from '@/src/constants/LocalFunction';
 
 
-const UserContent = () => {
-    const navigation = useNavigation()
+const UserContent = ({navigation}: any) => {
+    const auth = useSelector(authSelector)
+    const user = auth?.user?.role
     const [isVisible, setIsVisivle] = useState(false)
 
     const dispatch = useDispatch()
 
     const { patient } = useStore().user
+    const { doctor } = useStore().home
+
+    const userName = user === 'user' ? patient?.name : doctor?.name
 
     const toggleDialog = () => {
         setIsVisivle(!isVisible)
@@ -59,7 +63,7 @@ const UserContent = () => {
                     </View>
                     <View style={{ justifyContent: "flex-start"}}>
                         <Text style={{fontWeight: 600, fontSize: 18}}>
-                            {patient?.name}
+                            {userName}
                         </Text>
                         <Text>
                             {patient?.phone_number ? formatPhoneNumber(patient?.phone_number) : "Chưa cập nhật"}

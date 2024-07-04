@@ -1,9 +1,9 @@
 
 import { isAction, makeAutoObservable, runInAction } from "mobx";
-import { workhourDoctor } from "../services/DoctorServices";
+import { getAllWorkhour, workhourDoctor } from "../services/DoctorServices";
 import { Workhour, WorkhourDoctor } from "../models/workhour";
 import { Service } from "../models/service";
-import { bookAppointment, checkDateTime, getAppointment, pagingAppointment } from "../services/AppointmentServices";
+import { bookAppointment, cancelAppoinment, checkDateTime, getAppointment, pagingAppointment } from "../services/AppointmentServices";
 import Toast from "react-native-toast-message";
 
 interface initialValues {
@@ -39,9 +39,25 @@ export default class ApointmentStore {
     bookAppointment = {}
     pageAppointment = []
     selectAppointment = {}
+    workhours: Workhour[] = []
 
     constructor() {
         makeAutoObservable(this)
+    }
+
+    getAllWorkhour = async() => {
+        try {
+            this.setIsLoading(true)
+            const res = await getAllWorkhour()
+
+            runInAction(() => {
+                this.workhours = res.data
+            })
+            this.setIsLoading(false)
+        } catch (error) {
+            this.setIsLoading(false)
+            console.log('lấy lịch khám có lỗi', error);
+        }
     }
 
     getAppointment = async (id: string) => {
@@ -88,6 +104,17 @@ export default class ApointmentStore {
             this.setIsLoading(false)
             console.log('book appointment failed', error);
         }
+    }
+
+    handleCancelAppointment = async (id: string) => {
+        this.setIsLoading(true)
+        cancelAppoinment({_id: id}).then(data => {
+            this.setIsLoading(false)
+            this.pagingAppointment()
+        }).catch(err => {
+            this.setIsLoading(false)
+            console.log('Hủy lịch hẹn thất bại',err);
+        })
     }
 
     getWorkhours = async (id: string) => {

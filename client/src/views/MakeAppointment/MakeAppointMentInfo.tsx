@@ -15,6 +15,7 @@ import { useFormikContext } from "formik";
 import { observer } from "mobx-react";
 import React, { useEffect, useRef, useState } from 'react';
 import { Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import Toast from "react-native-toast-message";
 
 export default observer(function Makeappointment() {
     const navigation = useNavigation()
@@ -40,7 +41,7 @@ export default observer(function Makeappointment() {
     const { doctor } = useStore().home
     const { patient } = useStore().user
     const { pageService } = useStore().service
-    const { next, setNext, workhourDoctor, searchObject, checkDateTime, isLoading, workhourResult, resetStore } = useStore().apointment
+    const {  workhourDoctor, checkDateTime, isLoading, workhourResult, resetStore, workhours } = useStore().apointment
 
     const onChange = (event: any, selectedDate: any) => {
         if (!isIos) {
@@ -219,18 +220,24 @@ export default observer(function Makeappointment() {
                                 {/* Header */}
                                 {/* Rows */}
                                 <View style={{ flexDirection: "row", justifyContent: "space-around", flexWrap: "wrap", rowGap: 10 }}>
-                                    {workhourDoctor?.map((i, index) => {
+                                    {workhours?.map((i, index) => {
                                         const checkTimeExist = workhourResult.workhour?.some(time => time.workHourId === i._id)
                                         if (i.typeShiftWork === timeWork)
                                             return <TouchableOpacity
+                                                activeOpacity={1}
                                                 key={"workhour doctor" + i._id}
                                                 onPress={() => {
                                                     if(!checkTimeExist){
                                                         setActiveTimeWork(i._id)
                                                         setFieldValue("appointmentTime", i)
                                                     }
+                                                    if(checkTimeExist) {
+                                                        Toast.show({
+                                                            type: "info",
+                                                            text1: "Giờ khám đã có người đặt, vui lòng chọn giờ khám khác!"
+                                                        })
+                                                    }
                                                 }}
-                                                disabled={checkTimeExist}
                                                 style={{ padding: 10, paddingHorizontal: 13, borderRadius: 12, borderWidth: 1.5, borderColor: activeTimeWork === i._id ? colors.blue : "#ccd3dd", backgroundColor: checkTimeExist ? colors.bgGray : (activeTimeWork === i._id ? "#e7f1fd" : "transparent")  , }}
                                             >
                                                 <Text style={{}}>
@@ -425,6 +432,7 @@ export default observer(function Makeappointment() {
             </BottomSheet>
 
             {/* end bottom sheet view */}
+            <Toast position="top" topOffset={10} visibilityTime={2000}/>
         </>
     );
 })

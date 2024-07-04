@@ -135,12 +135,12 @@ exports.getProfile = async (req, res) => {
 // Làm mới token
 exports.refreshToken = async (req, res) => {
     const { token } = req.body;
-    if (!token) return res.status(403).json({ message: 'Token is required', status: 0 });
+    if (!token) return res.status(403).json({ message: 'Yêu cầu token', status: 0 });
 
     try {
         const decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
         const user = await User.findById(decoded.id);
-        if (!user || user.refreshToken !== token) return res.status(403).json({ message: 'Invalid refresh token', status: 0 });
+        if (!user || user.refreshToken !== token) return res.status(403).json({ message: 'Token refresh không hợp lệ', status: 0 });
 
         const accessToken = jwt.sign(
             { id: user._id, role: user.role },
@@ -150,6 +150,6 @@ exports.refreshToken = async (req, res) => {
 
         res.json({ accessToken, status: 1 });
     } catch (err) {
-        res.status(403).json({ message: 'Invalid refresh token', status: 0 });
+        res.status(403).json({ message: 'Token refresh không hợp lệ', status: 0 });
     }
-};
+}; 

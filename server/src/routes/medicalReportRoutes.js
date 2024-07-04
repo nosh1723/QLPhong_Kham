@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/', authMiddleware, roleMiddleware(['doctor', 'admin']), createMedicalReport);
 router.get('/:id', authMiddleware, getMedicalReport);
-router.get('/patient/:patient_id', authMiddleware, getMedicalReportByPatientId);
-router.delete('/:id', authMiddleware, roleMiddleware(['admin', 'doctor']), deleteMedicalReport);
 
-module.exports = router;
+router.delete('/:id', authMiddleware, roleMiddleware(['admin']), deleteMedicalReport);
+
+module.exports = router; 

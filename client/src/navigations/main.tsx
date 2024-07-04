@@ -18,6 +18,10 @@ import ServiceDetailIndex from '../views/Service/SerivceDetail';
 import MedicalHistoryIndex from '../views/MedicalHistory';
 import { authSelector } from '../redux/reducers/authReducer';
 import { useSelector } from 'react-redux';
+import WorkScheduleIndex from '../views/WorkSchedule';
+import MedicalResultIndex from '../views/MedicalResult';
+import Home from '../views/Home';
+import User from '../views/User';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,10 +31,10 @@ const MainRoute = () => {
   return (
     <>
       <Stack.Navigator>
-        <Stack.Screen name="tabs" component={MyTabs} options={{ headerShown: false }} />
         {
           user === 'user' &&
           <>
+            <Stack.Screen name="tabs" component={MyTabs} options={{ headerShown: false }} />
             <Stack.Screen name="appointment" component={AppointmentIndex} options={{ headerShown: false }} />
             <Stack.Screen name="doctor" component={DoctorIndex} options={{ headerShown: false }} />
             <Stack.Screen name="makeAppointmentIndex" component={MakeAppointMentIndex} options={{ headerShown: false, gestureEnabled: false }} />
@@ -44,14 +48,20 @@ const MainRoute = () => {
             <Stack.Screen name="makeAppointmentDetail" component={MakeAppointmentDetail} options={{ headerShown: false, gestureEnabled: false }} />
             <Stack.Screen name="serviceDetail" component={ServiceDetailIndex} options={{ headerShown: false }} />
             <Stack.Screen name="medicalHistory" component={MedicalHistoryIndex} options={{ headerShown: false }} />
+            <Stack.Screen name="userEdit" component={UserEdit} options={{ headerShown: false }} />
+            <Stack.Screen name="userInfo" component={UserInfo} options={{ headerShown: false }} />
           </>
         }
 
         {
           user === 'doctor' &&
           <>
+            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+            <Stack.Screen name="workSchedule" component={WorkScheduleIndex} options={{ headerShown: false }} />
+            <Stack.Screen name="medicalResult" component={MedicalResultIndex} options={{ headerShown: false }} />
             <Stack.Screen name="userEdit" component={UserEdit} options={{ headerShown: false }} />
             <Stack.Screen name="userInfo" component={UserInfo} options={{ headerShown: false }} />
+            <Stack.Screen name="user" component={User} options={{ headerShown: false }} />
           </>
         }
 

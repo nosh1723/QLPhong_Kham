@@ -13,8 +13,7 @@ import HomeFuncList from "./HomeFuncList";
 import HomeHeader from "./HomeHeader";
 import HomeService from "./HomeService";
 
-export default observer(function HomeScreen() {
-  const navigation = useNavigation()
+export default observer(function HomeScreen({navigation}: any) {
   const auth = useSelector(authSelector)
 
   const isFocused = useIsFocused();
@@ -44,7 +43,7 @@ export default observer(function HomeScreen() {
       <StatusBar style="light"/>
       <Header isHeaderBack={false}><HomeHeader></HomeHeader></Header>
       <ScrollView showsVerticalScrollIndicator={false} style={{ width: "100%", height: "100%", flexDirection: "column", }}>
-        <HomeFuncList />
+        <HomeFuncList navigation={navigation} />
         {auth?.user?.role === "user" && 
         <>
             <HomeDoctor />

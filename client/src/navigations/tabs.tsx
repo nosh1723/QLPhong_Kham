@@ -18,14 +18,9 @@ export default function MyTabs() {
 
   return (
     <Tab.Navigator>
-      {
-        user === "user" &&
-        <>
-          <Tab.Screen name="ScheduleExam" component={ScheduleExamIndex} options={{ headerShown: false, tabBarIcon: (props) => <IconCalendar size={20} color={props.color} />, tabBarIconStyle: { marginBottom: -10 }, tabBarLabelStyle: { marginBottom: 5 }, tabBarActiveTintColor: colors.green, tabBarLabel: "Lịch khám" }} />
-          <Tab.Screen name="Message" component={Message} options={{ headerShown: false, tabBarIcon: (props) => <IconMessage size={20} color={props.color} />, tabBarIconStyle: { marginBottom: -10 }, tabBarLabelStyle: { marginBottom: 5 }, tabBarActiveTintColor: colors.green, tabBarLabel: "Tin nhắn" }} />
-        </>
-      }
       <Tab.Screen name="Home" component={Home} options={{ headerShown: false, tabBarIcon: (props) => <IconHome color={props.color} />, tabBarIconStyle: { marginBottom: -10 }, tabBarLabelStyle: { marginBottom: 5 }, tabBarActiveTintColor: colors.green, tabBarLabel: "Trang chủ" }} />
+      <Tab.Screen name="ScheduleExam" component={ScheduleExamIndex} options={{ headerShown: false, tabBarIcon: (props) => <IconCalendar size={20} color={props.color} />, tabBarIconStyle: { marginBottom: -10 }, tabBarLabelStyle: { marginBottom: 5 }, tabBarActiveTintColor: colors.green, tabBarLabel: "Lịch khám" }} />
+      <Tab.Screen name="Message" component={Message} options={{ headerShown: false, tabBarIcon: (props) => <IconMessage size={20} color={props.color} />, tabBarIconStyle: { marginBottom: -10 }, tabBarLabelStyle: { marginBottom: 5 }, tabBarActiveTintColor: colors.green, tabBarLabel: "Tin nhắn" }} />
       <Tab.Screen name="User" component={User} options={{ headerShown: false, tabBarIcon: (props) => <IconUser size={20} color={props.color} />, tabBarIconStyle: { marginBottom: -10 }, tabBarLabelStyle: { marginBottom: 5 }, tabBarActiveTintColor: colors.green, tabBarLabel: "Tài khoản" }} />
     </Tab.Navigator>
   );

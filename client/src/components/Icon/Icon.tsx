@@ -15,7 +15,7 @@ export const IconStethoscope = ({color = "#006778", size = 23, ...props}) => <Ic
 
 export const IconList = ({color = "#006778", size = 23, ...props}) => <Icon name='list' size={size} type='Feather' color={color} {...props}/>
 
-export const IconMediBag = ({color = "#006778", size = 23, ...props}) => <FontAwesome5 name="briefcase-medical" size={24} color={color} />
+export const IconMediBag = ({color = "#006778", size = 23, ...props}) => <FontAwesome5 name="briefcase-medical" size={size} color={color} />
 
 export const IconSetting = ({color = "#006778", size = 23, ...props}) => <Ionicons name="settings-sharp" size={24} color={color} />
 

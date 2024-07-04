@@ -1,14 +1,43 @@
 import Card from '@/src/components/Card';
-import { IconDrug, IconList, IconMediBag, IconMessage, IconSetting, IconStethoscope } from '@/src/components/Icon/Icon';
+import { IconCalendar, IconDrug, IconList, IconMediBag, IconMessage, IconSetting, IconStethoscope } from '@/src/components/Icon/Icon';
 import { Button } from '@rneui/base';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { authSelector } from '@/src/redux/reducers/authReducer';
+import { colors } from '@/src/constants/Colors';
 
-const LIST_FUNC = [
+
+
+const HomeFuncList = ({navigation}: any) => {
+    const auth = useSelector(authSelector)
+
+    const listFunc = auth?.user?.role === 'user' ? LIST_FUNC_PATIENT : LIST_FUNC_DOCTOR
+
+    return (
+        <Card style={{marginTop: 20}}>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', gap: 5, justifyContent: 'space-between', paddingHorizontal: 20}}>
+                {listFunc.map(i => {
+                    return (
+                        <TouchableOpacity  onPress={() => navigation.navigate(i.navigate)} key={"listfunc"+i.title} style={{width: "30%", height: 'auto', flexDirection: "column", alignItems: "center", padding: 10}}>
+                                <View style={{ backgroundColor: i.color, width: 55, height: 55, flexDirection: "row", justifyContent: 'center', alignItems: 'center',borderRadius: 1000, shadowColor: "#000", shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.23, shadowRadius: 2.6, elevation: 4}}>
+                                    <Text>{i.icon}</Text>
+                                </View>
+                            <Text style={{color: "#000", paddingTop: 5, textAlign: 'center'}}>{i.title}</Text>
+                        </TouchableOpacity>
+                )
+                })}
+            </View>
+        </Card>
+    );
+};
+
+export default HomeFuncList;
+
+
+const LIST_FUNC_PATIENT = [
     {
         title: "Đặt lịch khám",
         navigate: "appointment",
@@ -47,25 +76,23 @@ const LIST_FUNC = [
     },
 ]
 
-
-
-const HomeFuncList = ({navigation}: any) => {
-    
-  const auth = useSelector(authSelector)
-    return (
-        <Card>
-            <View style={{flexDirection: 'row', flexWrap: 'wrap', gap: 5, justifyContent: 'center',}}>
-                {LIST_FUNC.map(i => (
-                        <TouchableOpacity  onPress={() => navigation.navigate(i.navigate)} key={"listfunc"+i.title} style={{width: "30%", height: 'auto', flexDirection: "column", alignItems: "center", padding: 10}}>
-                                <View style={{ backgroundColor: i.color, width: 55, height: 55, flexDirection: "row", justifyContent: 'center', alignItems: 'center',borderRadius: 1000, shadowColor: "#000", shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.23, shadowRadius: 2.6, elevation: 4}}>
-                                    <Text>{i.icon}</Text>
-                                </View>
-                            <Text style={{color: "#000", paddingTop: 5, textAlign: 'center'}}>{i.title}</Text>
-                        </TouchableOpacity>
-                ))}
-            </View>
-        </Card>
-    );
-};
-
-export default HomeFuncList;
+const LIST_FUNC_DOCTOR = [
+    {
+        title: "Lịch làm việc",
+        navigate: "workSchedule",
+        color: "#2A629A",
+        icon: <AntDesign name="calendar" size={20} color={colors.white} />
+    },
+    {
+        title: "Chat với bệnh nhân",
+        navigate: "MessDoctor",
+        color: "#03AED2",
+        icon: <IconMessage  color='#fff'/>
+    },
+    {
+        title: "Cài đặt",
+        navigate: "user",
+        color: "#C7B7A3",
+        icon: <IconSetting  color='#fff'/>
+    },
+]

@@ -33,13 +33,14 @@ const DoctorIndex = () => {
     const isIos = Platform.OS === "ios"
 
     const { doctor, isLoading } = useStore().home
-    const { checkDateTime, workhourResult, workhourDoctor, getWorkhours } = useStore().apointment
+    const { checkDateTime, workhourResult, workhourDoctor, getWorkhours, getAllWorkhour, workhours } = useStore().apointment
 
     const bottomSheetCalendarRef = useRef<BottomSheet>(null);
 
     useEffect(() => {
         getWorkhours(doctor.id)
         checkDateTime(new Date())
+        getAllWorkhour()
     }, [])
 
     const handleComfirmCalendar = () => {
@@ -105,9 +106,9 @@ const DoctorIndex = () => {
                         <Text style={{ marginTop: 15, marginBottom: 10, fontWeight: 600, fontSize: 16 }}>Buổi chiều</Text>
                         <ScrollView showsHorizontalScrollIndicator={false} horizontal>
                             <View style={{ flexDirection: "row", justifyContent: "space-around", flexWrap: "wrap", gap: 10 }}>
-                                {workhourDoctor?.map((i, index) => {
+                                {workhours?.map((i, index) => {
                                     const checkTimeExist = workhourResult.workhour?.some(time => time.workHourId === i._id)
-                                    if (i.typeShiftWork === timeWork)
+                                    if (i.typeShiftWork === 2)
                                         return <TouchableOpacity
                                             activeOpacity={1}
                                             key={"workhour doctor" + i._id}

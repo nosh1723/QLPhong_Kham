@@ -41,7 +41,7 @@ export default observer(function Makeappointment() {
     const { doctor } = useStore().home
     const { patient } = useStore().user
     const { pageService } = useStore().service
-    const { next, setNext, workhourDoctor, searchObject, checkDateTime, isLoading, workhourResult, resetStore } = useStore().apointment
+    const {  workhourDoctor, checkDateTime, isLoading, workhourResult, resetStore, workhours } = useStore().apointment
 
     const onChange = (event: any, selectedDate: any) => {
         if (!isIos) {
@@ -220,7 +220,7 @@ export default observer(function Makeappointment() {
                                 {/* Header */}
                                 {/* Rows */}
                                 <View style={{ flexDirection: "row", justifyContent: "space-around", flexWrap: "wrap", rowGap: 10 }}>
-                                    {workhourDoctor?.map((i, index) => {
+                                    {workhours?.map((i, index) => {
                                         const checkTimeExist = workhourResult.workhour?.some(time => time.workHourId === i._id)
                                         if (i.typeShiftWork === timeWork)
                                             return <TouchableOpacity

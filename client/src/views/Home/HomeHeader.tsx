@@ -18,7 +18,7 @@ const HomeHeader = () => {
   const userName = auth?.user?.role === 'user' ? patient?.name : doctor?.name
 
   return (
-    <View style={{ paddingTop: 30 }}>
+    <View style={{ paddingTop: 30, paddingBottom: 15 }}>
       <View style={{ flexDirection: 'row', paddingHorizontal: 10, alignItems: 'center', gap: 15 }}>
         <IconUser color="#fff" />
         <View >
@@ -26,7 +26,7 @@ const HomeHeader = () => {
           <Text style={{ color: colors.white, fontSize: 16, fontWeight: 500 }}>{userName}</Text>
         </View>
       </View>
-      <InputSearch style={{ marginVertical: 5 }} />
+      {/* <InputSearch style={{ marginVertical: 5 }} /> */}
       <Loading visible={isLoading} />
     </View>
   );

@@ -40,11 +40,10 @@ export default observer(function Login({navigation}: any) {
             validationSchema={validationSchema}
             onSubmit={values => {
                 handleLogin(values).then(data => {
-                    console.log(data);
                     if(Boolean(data)) {
                         dispatch(addAuth(data))
                         const timeout = setTimeout(() => {
-                            navigation.navigate('tabs')
+                            navigation.navigate('Home')
                           }, 1500);
                       
                           return () => clearTimeout(timeout);

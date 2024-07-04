@@ -1,39 +1,83 @@
 [
-        {
-            "title": "Ca sáng 1",
-            "startTime": "2024-06-06T08:00:00.000Z",
-            "endTime": "2024-06-06T08:50:00.000Z",
-            "typeShiftWork": 1
-        },
-        {
-            "title": "Ca sáng 2",
-            "startTime": "2024-06-06T09:00:00.000Z",
-            "endTime": "2024-06-06T09:50:00.000Z",
-            "typeShiftWork": 1
-        },
-        {
-            "title": "Ca sáng 3",
-            "startTime": "2024-06-06T10:00:00.000Z",
-            "endTime": "2024-06-06T10:50:00.000Z",
-            "typeShiftWork": 1
-        },
-        {
-            "title": "Ca chiều 1",
-            "startTime": "2024-06-06T13:00:00.000Z",
-            "endTime": "2024-06-06T13:50:00.000Z",
-            "typeShiftWork": 2
-        },
-        {
-            "title": "Ca chiều 2",
-            "startTime": "2024-06-06T14:00:00.000Z",
-            "endTime": "2024-06-06T14:50:00.000Z",
-            "typeShiftWork": 2
-        },
-        {
-            "title": "Ca chiều 3",
-            "startTime": "2024-06-06T15:00:00.000Z",
-            "endTime": "2024-06-06T15:50:00.000Z",
-            "typeShiftWork": 2
-        }
-    ]
-
+  {
+    "_id": {
+      "$oid": "667a54e0b871edce45b318ec"
+    },
+    "title": "Ca sáng",
+    "startTime": "2024-06-06T08:00:00.0000",
+    "endTime": "2024-06-06T08:50:00.0000",
+    "typeShiftWork": 1
+  },
+  {
+    "_id": {
+      "$oid": "667a54e0b871edce45b318ed"
+    },
+    "title": "Ca sáng",
+    "startTime": "2024-06-06T09:00:00.0000",
+    "endTime": "2024-06-06T09:50:00.0000",
+    "typeShiftWork": 1
+  },
+  {
+    "_id": {
+      "$oid": "667a54e0b871edce45b318ee"
+    },
+    "title": "Ca sáng",
+    "startTime": "2024-06-06T10:00:00.0000",
+    "endTime": "2024-06-06T10:50:00.0000",
+    "typeShiftWork": 1
+  },
+  {
+    "_id": {
+      "$oid": "66837d788492bc20393d8a1e"
+    },
+    "title": "Ca sáng",
+    "startTime": "2024-06-06T11:00:00.0000",
+    "endTime": "2024-06-06T11:50:00.0000",
+    "typeShiftWork": 1
+  },
+  {
+    "_id": {
+      "$oid": "667a54e0b871edce45b318ef"
+    },
+    "title": "Ca chiều",
+    "startTime": "2024-06-06T13:00:00.0000",
+    "endTime": "2024-06-06T13:50:00.0000",
+    "typeShiftWork": 2
+  },
+  {
+    "_id": {
+      "$oid": "667a54e0b871edce45b318f0"
+    },
+    "title": "Ca chiều",
+    "startTime": "2024-06-06T14:00:00.0000",
+    "endTime": "2024-06-06T14:50:00.0000",
+    "typeShiftWork": 2
+  },
+  {
+    "_id": {
+      "$oid": "667a54e0b871edce45b318f1"
+    },
+    "title": "Ca chiều",
+    "startTime": "2024-06-06T15:00:00.0000",
+    "endTime": "2024-06-06T15:50:00.0000",
+    "typeShiftWork": 2
+  },
+  {
+    "_id": {
+      "$oid": "66837d788492bc20393d8a1f"
+    },
+    "title": "Ca chiều",
+    "startTime": "2024-06-06T16:00:00.0000",
+    "endTime": "2024-06-06T16:50:00.0000",
+    "typeShiftWork": 2
+  },
+  {
+    "_id": {
+      "$oid": "66837d788492bc20393d8a20"
+    },
+    "title": "Ca chiều",
+    "startTime": "2024-06-06T17:00:00.0000",
+    "endTime": "2024-06-06T17:50:00.0000",
+    "typeShiftWork": 2
+  }
+]

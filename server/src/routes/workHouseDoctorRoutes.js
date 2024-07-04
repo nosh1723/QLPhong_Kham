@@ -19,6 +19,8 @@ router.get('/', workHouseDoctorController.getAllWorkHouses);
 router.get('/:id', workHouseDoctorController.getWorkHouseById);
 
 //  Lấy một bản ghi lịch làm việc theo ID bác sĩ
-router.get('/getByDoctorId/:id', workHouseDoctorController.getWorkHouseByDoctorId);
+router.post('/getWorkhourDoctor', workHouseDoctorController.getWorkHouseDoctor);
+
+
 
 module.exports = router;

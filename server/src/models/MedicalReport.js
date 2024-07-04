@@ -8,7 +8,9 @@ const MedicalReportSchema = new mongoose.Schema({
     service: { type: String, required: true },
     status: { type: Boolean, required: true },
     return_visit_date: { type: Date },
-    medicalResults: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MedicalResult' }]
+    medicalResults: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MedicalResult' }],
+    reExamination: { type: Boolean, default: false },
+    dateReExam: { type: Date }
 });
 
 module.exports = mongoose.model('MedicalReport', MedicalReportSchema);

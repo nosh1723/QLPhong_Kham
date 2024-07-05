@@ -16,9 +16,9 @@ import Backdrop from '@/src/components/Backdrop'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
 import Loading from '@/src/components/Loading'
+import { observer } from 'mobx-react'
 
-const MakeAppointmentDetail = () => {
-    const navigation = useNavigation()
+const MakeAppointmentDetail = ({navigation}: any) => {
     const bottomSheetDetailInfoRef = useRef<BottomSheet>(null);
 
     const [showDetailInfo, setShowDetailInfo] = useState(false);
@@ -262,4 +262,4 @@ const MakeAppointmentDetail = () => {
     )
 }
 
-export default MakeAppointmentDetail
+export default observer(MakeAppointmentDetail) 

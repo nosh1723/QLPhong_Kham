@@ -21,7 +21,7 @@ export default observer(function Makeappointment() {
     const navigation = useNavigation()
     const isIos = Platform.OS === "ios"
 
-    const { values, setFieldValue, submitForm, errors} = useFormikContext()
+    const { values, setFieldValue, submitForm, errors } = useFormikContext()
 
     const bottomSheetCalendarRef = useRef<BottomSheet>(null);
     const bottomSheetMoreInfoRef = useRef<BottomSheet>(null);
@@ -38,10 +38,10 @@ export default observer(function Makeappointment() {
     const [showDetailInfo, setShowDetailInfo] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    const { doctor } = useStore().home
+    const { doctor, workhourDoctor, getWorkhourDoctor } = useStore().home
     const { patient } = useStore().user
     const { pageService } = useStore().service
-    const {  workhourDoctor, checkDateTime, isLoading, workhourResult, resetStore, workhours } = useStore().apointment
+    const { isLoading, workhourResult, resetStore, workhours } = useStore().apointment
 
     const onChange = (event: any, selectedDate: any) => {
         if (!isIos) {
@@ -49,7 +49,7 @@ export default observer(function Makeappointment() {
             setShowCalendar(false);
             setDate(currentDate);
             setFieldValue("date", currentDate)
-            checkDateTime(currentDate)
+            getWorkhourDoctor(currentDate)
             return
         }
 
@@ -62,36 +62,37 @@ export default observer(function Makeappointment() {
         setShowCalendar(false);
         setDate(currentDate);
         setFieldValue("date", currentDate)
-        checkDateTime(currentDate)
+        getWorkhourDoctor(currentDate)
         bottomSheetCalendarRef.current?.close()
     }
 
     useEffect(() => {
         setDate(values.date)
         setActiveTimeWork(values.appointmentTime._id)
+        getWorkhourDoctor(new Date())
 
-        if(new Date().getTime() === new Date(values.date).getTime()){
-            checkDateTime(new Date())
-        }else {
-            checkDateTime(values.date)
+        if (new Date().getTime() === new Date(values.date).getTime()) {
+            getWorkhourDoctor(new Date())
+        } else {
+            getWorkhourDoctor(values.date)
         }
 
         return () => resetStore()
     }, [])
 
     useEffect(() => {
-        const check = workhourResult.workhour.some(i => i.workHourId === values.appointmentTime._id)
-        if(check) {
+        const check = workhourResult.workhour.some(i => i._id === values.appointmentTime._id)
+        if (check) {
             setActiveTimeWork("")
             setFieldValue("appointmentTime", new Workhour())
         }
-    }, [workhourResult.workhour.length])    
-    
+    }, [workhourResult?.workhour?.length])
+
     return (
         <>
 
             {/* view container */}
-            <Loading visible={isLoading}/>
+            <Loading visible={isLoading} />
             <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{ flex: 1 }}>
                 <View style={{ backgroundColor: '#f0f5fa', flexDirection: "column", paddingHorizontal: 10, gap: 15, paddingVertical: 15 }}>
 
@@ -154,21 +155,21 @@ export default observer(function Makeappointment() {
                             </View>
                         </View>
 
-                        <View style={{flexDirection: "row", alignItems: "flex-end", marginTop: 10, marginBottom: 10,}}>
-                            <Text style={{ fontWeight: '500', fontSize: 16, marginRight: 6 }}>Chọn dịch vụ <Text style={{color: colors.red}}>*</Text></Text>
+                        <View style={{ flexDirection: "row", alignItems: "flex-end", marginTop: 10, marginBottom: 10, }}>
+                            <Text style={{ fontWeight: '500', fontSize: 16, marginRight: 6 }}>Chọn dịch vụ <Text style={{ color: colors.red }}>*</Text></Text>
                             {errors.service?.name &&
-                                <Text style={{color: "red", marginTop: -10}}>{errors.service?.name}</Text>
+                                <Text style={{ color: "red", marginTop: -10 }}>{errors.service?.name}</Text>
                             }
                         </View>
-                        <View style={{ backgroundColor: "#fff", borderRadius: 15,}}>
+                        <View style={{ backgroundColor: "#fff", borderRadius: 15, }}>
                             <View style={{ borderWidth: 1, borderColor: "#e7ebed", borderRadius: 8, marginVertical: 15, marginHorizontal: 10, position: 'relative' }} >
-                                    <TouchableOpacity onPress={() => {
-                                        setShowService(true)
-                                        bottomSheetServiceRef.current?.expand()
-                                    }} style={{padding: 10, flexDirection: "row", justifyContent: "center"}}>
-                                        <Text style={{ fontWeight: 600 }}>{values.service.name ? values.service.name : "Chọn dịch vụ"}</Text>
-                                        <FontAwesome name="angle-down" size={20} color="black" style={{ paddingLeft: 3, marginTop: -3 }} />
-                                    </TouchableOpacity>
+                                <TouchableOpacity onPress={() => {
+                                    setShowService(true)
+                                    bottomSheetServiceRef.current?.expand()
+                                }} style={{ padding: 10, flexDirection: "row", justifyContent: "center" }}>
+                                    <Text style={{ fontWeight: 600 }}>{values.service.name ? values.service.name : "Chọn dịch vụ"}</Text>
+                                    <FontAwesome name="angle-down" size={20} color="black" style={{ paddingLeft: 3, marginTop: -3 }} />
+                                </TouchableOpacity>
                             </View>
                         </View>
 
@@ -196,10 +197,10 @@ export default observer(function Makeappointment() {
 
                         </View>
 
-                        <View style={{flexDirection: "row", alignItems: "flex-end", marginTop: 10, marginBottom: 10,}}>
-                            <Text style={{ fontWeight: '500', fontSize: 16, marginRight: 6 }}>Chọn giờ khám <Text style={{color: colors.red}}>*</Text></Text>
+                        <View style={{ flexDirection: "row", alignItems: "flex-end", marginTop: 10, marginBottom: 10, }}>
+                            <Text style={{ fontWeight: '500', fontSize: 16, marginRight: 6 }}>Chọn giờ khám <Text style={{ color: colors.red }}>*</Text></Text>
                             {errors.appointmentTime?._id &&
-                                <Text style={{color: "red", marginTop: -10}}>{errors.appointmentTime?._id}</Text>
+                                <Text style={{ color: "red", marginTop: -10 }}>{errors.appointmentTime?._id}</Text>
                             }
                         </View>
                         <View style={{ marginTop: 10 }}>
@@ -221,24 +222,36 @@ export default observer(function Makeappointment() {
                                 {/* Rows */}
                                 <View style={{ flexDirection: "row", justifyContent: "space-around", flexWrap: "wrap", rowGap: 10 }}>
                                     {workhours?.map((i, index) => {
-                                        const checkTimeExist = workhourResult.workhour?.some(time => time.workHourId === i._id)
+                                        const checkTimeExist = workhourDoctor?.some(time => time.workhour._id === i._id)
+                                        let btninfo = {
+                                            borderColor: "#ccd3dd",
+                                            bgColor: "transparent"
+                                        }
+                                        let workhourExist: any
+                                        if (checkTimeExist) {
+                                            workhourExist = workhourDoctor?.find(j => j.workhour._id === i._id)
+                                            btninfo = {
+                                                borderColor: workhourExist?.status === 1 ? colors['green-200'] : workhourExist?.status === 2 ? colors.orange : workhourExist?.status === 3 ? colors.blue : colors.red,
+                                                bgColor: workhourExist?.status === 1 ? "#E0FBE2" : workhourExist?.status === 2 ? "#F3F6D0" : workhourExist?.status === 3 ? "rgba(222, 235, 246, .7)" : "#fbe9dd",
+                                            }
+                                        }
                                         if (i.typeShiftWork === timeWork)
                                             return <TouchableOpacity
                                                 activeOpacity={1}
                                                 key={"workhour doctor" + i._id}
                                                 onPress={() => {
-                                                    if(!checkTimeExist){
+                                                    if (!checkTimeExist) {
                                                         setActiveTimeWork(i._id)
                                                         setFieldValue("appointmentTime", i)
                                                     }
-                                                    if(checkTimeExist) {
+                                                    if (checkTimeExist) {
                                                         Toast.show({
                                                             type: "info",
                                                             text1: "Giờ khám đã có người đặt, vui lòng chọn giờ khám khác!"
                                                         })
                                                     }
                                                 }}
-                                                style={{ padding: 10, paddingHorizontal: 13, borderRadius: 12, borderWidth: 1.5, borderColor: activeTimeWork === i._id ? colors.blue : "#ccd3dd", backgroundColor: checkTimeExist ? colors.bgGray : (activeTimeWork === i._id ? "#e7f1fd" : "transparent")  , }}
+                                                style={{ padding: 10, paddingHorizontal: 13, borderRadius: 12, borderWidth: 1.5, borderColor: activeTimeWork === i._id ? colors.blue : "#ccd3dd", backgroundColor: checkTimeExist ? colors.bgGray : (activeTimeWork === i._id ? "#e7f1fd" : "transparent"), }}
                                             >
                                                 <Text style={{}}>
                                                     {getTime(i.startTime)} - {getTime(i.endTime)}
@@ -410,29 +423,29 @@ export default observer(function Makeappointment() {
                 onClose={() => { setShowService(false) }}
                 backgroundStyle={{ backgroundColor: "transparent" }}
             >
-                <BottomSheetScrollView style={{  backgroundColor: "#fff", borderTopRightRadius: 20, borderTopLeftRadius: 20}}>
+                <BottomSheetScrollView style={{ backgroundColor: "#fff", borderTopRightRadius: 20, borderTopLeftRadius: 20 }}>
                     {/* <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 20 }}>
                         <Text style={{ fontWeight: 600, fontSize: 18 }}>Chọn dịch vụ</Text>
                     </View>
                     <View style={{paddingHorizontal: 20, paddingTop: 10, flexGrow: 1, height: 10, overflow: 'hidden'}}> */}
-                        <View style={{marginTop: 20, marginBottom: 50,  flexDirection: 'column', gap: 10, paddingVertical: 10}}>
-                           <View style={{paddingBottom: 10}}>
-                                {pageService?.map(i => {
-                                    return <TouchableOpacity key={"btSV" + i._id} onPress={() => {
-                                        setFieldValue('service', i)
-                                        setShowService(false)
-                                        bottomSheetServiceRef.current?.close()
-                                    }} style={{paddingVertical: 14, marginHorizontal: 25, paddingHorizontal: 10, flexDirection: 'row', borderBottomWidth: .8, borderColor: colors.gray, backgroundColor: i._id === values.service._id ? "rgba(225, 225, 225, .7)" : "transparent", borderRadius: 10}}><Text>{i.name}</Text></TouchableOpacity>
-                                })}
-                           </View>
-                            
+                    <View style={{ marginTop: 20, marginBottom: 50, flexDirection: 'column', gap: 10, paddingVertical: 10 }}>
+                        <View style={{ paddingBottom: 10 }}>
+                            {pageService?.map(i => {
+                                return <TouchableOpacity key={"btSV" + i._id} onPress={() => {
+                                    setFieldValue('service', i)
+                                    setShowService(false)
+                                    bottomSheetServiceRef.current?.close()
+                                }} style={{ paddingVertical: 14, marginHorizontal: 25, paddingHorizontal: 10, flexDirection: 'row', borderBottomWidth: .8, borderColor: colors.gray, backgroundColor: i._id === values.service._id ? "rgba(225, 225, 225, .7)" : "transparent", borderRadius: 10 }}><Text>{i.name}</Text></TouchableOpacity>
+                            })}
                         </View>
+
+                    </View>
                     {/* </View> */}
                 </BottomSheetScrollView>
             </BottomSheet>
 
             {/* end bottom sheet view */}
-            <Toast position="top" topOffset={10} visibilityTime={2000}/>
+            <Toast position="top" topOffset={10} visibilityTime={2000} />
         </>
     );
 })

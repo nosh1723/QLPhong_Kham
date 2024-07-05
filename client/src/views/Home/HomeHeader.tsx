@@ -27,7 +27,6 @@ const HomeHeader = () => {
         </View>
       </View>
       {/* <InputSearch style={{ marginVertical: 5 }} /> */}
-      <Loading visible={isLoading} />
     </View>
   );
 };

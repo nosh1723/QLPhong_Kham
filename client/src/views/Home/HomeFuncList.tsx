@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { authSelector } from '@/src/redux/reducers/authReducer';
 import { colors } from '@/src/constants/Colors';
+import { observer } from 'mobx-react';
 
 
 
@@ -34,7 +35,7 @@ const HomeFuncList = ({navigation}: any) => {
     );
 };
 
-export default HomeFuncList;
+export default observer(HomeFuncList) ;
 
 
 const LIST_FUNC_PATIENT = [

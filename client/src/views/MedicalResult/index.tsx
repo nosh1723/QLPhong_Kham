@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TextInput, TouchableOpacity, Modal } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Header from '@/src/components/Header'
 import { style } from '@/src/styles'
 import { colors } from '@/src/constants/Colors'
@@ -16,12 +16,16 @@ import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { isIos } from '@/src/constants/LocalConst'
 import Backdrop from '@/src/components/Backdrop'
+import { observer } from 'mobx-react'
+import Loading from '@/src/components/Loading'
 
-const MedicalResultIndex = () => {
+const MedicalResultIndex = ({navigation}: any) => {
 
     const bottomSheetCalendarRef = useRef<BottomSheet>(null);
 
-    const { workhourExist } = useStore().home
+    const { isLoading, saveOrEdit, hasDisable, selectMedicalRecord } = useStore().medicalResultStore
+
+    const { workhourExist, resetWorkhourExist, getWorkhourDoctor } = useStore().home
     const [showModal, setShowModal] = useState(false)
     const [indexResult, setIndexResult] = useState(0)
     const [date, setDate] = useState(new Date());
@@ -34,28 +38,42 @@ const MedicalResultIndex = () => {
         setDate(currentDate);
         bottomSheetCalendarRef.current?.close()
     }
+
+    useEffect(() => {
+        return () => resetWorkhourExist()
+    }, [])
+    
     return (
         <GestureHandlerRootView>
+            <Loading visible={isLoading}/>
             <Formik
                 initialValues={{
+                    _id: selectMedicalRecord?._id,
                     result: '',
-                    listResult: [],
-                    reExamination: false,
-                    dateReExam: null
+                    listResult: selectMedicalRecord?.results,
+                    reExamination: selectMedicalRecord?.reExamination,
+                    dateReExam: selectMedicalRecord?.dateReExam
                 }}
                 validationSchema={
                     Yup.object({
-                        listResult: Yup.array().min(2, "Kết quả khám không được dưới 2!").nullable()
+                        listResult: Yup.array().required("Kết quả khám không để trống!").nullable()
                     })
                 }
                 onSubmit={(values) => {
-                    console.log(values);
+                    const newValues = {
+                        ...values,
+                        appointmentId: workhourExist._id
+                    }
+                    saveOrEdit(newValues).then(data => getWorkhourDoctor(new Date()))
+                    navigation.goBack()
+                    
                 }}
             >
                 {({ values, setFieldValue, handleChange, handleSubmit, errors, touched }: any) => {
+                    console.log(values);
                     return (
                         <>
-                            <Header textHeaderBack='Nhập bệnh án' />
+                            <Header textHeaderBack={values?._id ? 'Sửa bệnh án' : 'Nhập bệnh án'} />
                             {/* <View style={{ flex: 1,}}> */}
                                 <ScrollView style={{flex: 1, }}>
                                     <View style={{paddingHorizontal: 15, paddingVertical: 15}}>
@@ -112,7 +130,9 @@ const MedicalResultIndex = () => {
                                                         })
                                                         return
                                                     }
-                                                    setFieldValue('listResult', [...values.listResult, values.result])
+                                                    setFieldValue('listResult', [...values.listResult, {
+                                                        description: values.result
+                                                    }])
                                                     setFieldValue('result', '')
                                                 }} style={{ backgroundColor: colors.orange, padding: 3, paddingHorizontal: 5, borderRadius: 6 }}><FontAwesome6 name="plus" size={18} color={colors.white} /></TouchableOpacity>
                                             </View>
@@ -124,12 +144,12 @@ const MedicalResultIndex = () => {
                                                     </View>
                                                 }
     
-                                                {values?.listResult?.length !== 0 && values?.listResult?.map((i: any, index: number) => {
+                                                {values?.listResult?.length > 0  && values?.listResult?.map((i: any, index: number) => {
                                                     return (
                                                         <View key={"kết quả khám" + index} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between" }}>
                                                             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                                                                 <FontAwesome name='circle' color={colors.textGray} size={8} />
-                                                                <Text style={{ color: "rgba(0, 0, 0, .8)" }}>{i}</Text>
+                                                                <Text style={{ color: "rgba(0, 0, 0, .8)" }}>{i?.description}</Text>
                                                             </View>
                                                             <TouchableOpacity onPress={() => {
                                                                 setShowModal(true)
@@ -171,7 +191,7 @@ const MedicalResultIndex = () => {
                                                 disabled={!values?.reExamination}
                                             >
                                                 <View style={{ flexDirection: 'row', alignItems: "center" }}>
-                                                    <Text style={{ fontWeight: 600 }}>{getDateFormat(date)} </Text>
+                                                    <Text style={{ fontWeight: 600 }}>{values?.dateReExam ? getDateFormat(values?.dateReExam) : getDateFormat(date)} </Text>
                                                     <FontAwesome name="angle-down" size={20} color="black" style={{ paddingLeft: 3, marginTop: -3 }} />
                                                 </View>
                                             </CommonButton>
@@ -180,7 +200,9 @@ const MedicalResultIndex = () => {
 
                                 </ScrollView>
                             {/* </View> */}
-                            <View style={{padding: 15, backgroundColor: colors.white}}><CommonButton title='Kết thúc' onPress={handleSubmit} /></View>
+                            <View style={{padding: 15, paddingVertical: 20, backgroundColor: colors.white}}>
+                                <CommonButton title={!values?._id ? 'Kết thúc' : "Lưu"} onPress={handleSubmit} />
+                            </View>
                             <Toast position="top" topOffset={50} visibilityTime={2000} />
 
                             {/* bottom sheet */}
@@ -189,7 +211,7 @@ const MedicalResultIndex = () => {
                             {!isIos && showCalendar &&
                                 <DateTimePicker
                                     testID="dateTimePicker"
-                                    value={date}
+                                    value={new Date(values?.dateReExam)}
                                     mode={'date'}
                                     is24Hour={true}
                                     onChange={(event: any, selectedDate: any) => {
@@ -221,7 +243,7 @@ const MedicalResultIndex = () => {
                                         </View>
                                         <DateTimePicker
                                             testID="dateTimePicker"
-                                            value={date}
+                                            value={new Date(values?.dateReExam)}
                                             mode={'date'}
                                             is24Hour={true}
                                             onChange={(event: any, selectedDate: any) => {
@@ -266,7 +288,7 @@ const MedicalResultIndex = () => {
                                         borderRadius: 8
                                     }}>
                                         <View style={{ padding: 12, paddingHorizontal: 20 }}>
-                                            <Text style={{ fontSize: 18, fontWeight: 500 }}>Bạn có chắc chắn muốn xóa "{values?.listResult[indexResult]}"</Text>
+                                            <Text style={{ fontSize: 18, fontWeight: 500 }}>Bạn có chắc chắn muốn xóa "{values?.listResult[indexResult]?.description}"</Text>
                                         </View>
                                         <View style={{ borderTopWidth: .8, borderColor: colors.gray, padding: 10, flexDirection: 'row', gap: 10, }}>
                                             <TouchableOpacity activeOpacity={1} onPress={() => setShowModal(false)} style={{ borderWidth: 1, borderColor: colors.gray, padding: 10, borderRadius: 8, flexDirection: 'row', justifyContent: 'center', flex: 1 }}>
@@ -295,4 +317,4 @@ const MedicalResultIndex = () => {
     )
 }
 
-export default MedicalResultIndex
+export default observer(MedicalResultIndex) 

@@ -1,12 +1,13 @@
 const express = require('express');
-const { createMedicalReport, getMedicalReport, getMedicalReportByPatientId, deleteMedicalReport } = require('../controllers/medicalReportController');
+const { createMedicalReport, getMedicalReport, getMedicalReportByPatientId, deleteMedicalReport, getMedicalReportByAppId, createOrUpdateMedicalReport, getALLMedicalReport } = require('../controllers/medicalReportController');
 const authMiddleware = require('../middleware/authMiddleware');
 const roleMiddleware = require('../middleware/roleMiddleware');
 
 const router = express.Router();
 
-router.post('/', authMiddleware, roleMiddleware(['doctor', 'admin']), createMedicalReport);
-router.get('/:id', authMiddleware, getMedicalReport);
+router.post('/save-or-edit', createOrUpdateMedicalReport);
+router.get('/get-by-app-id/:id', getMedicalReportByAppId);
+router.get('/', getALLMedicalReport)
 
 router.delete('/:id', authMiddleware, roleMiddleware(['admin']), deleteMedicalReport);
 

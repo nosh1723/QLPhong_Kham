@@ -5,6 +5,7 @@ import ServiceStore from "./stores/ServiceStore";
 import AuthStore from "./stores/AuthStore";
 import UserStore from "./stores/UserStore";
 import ApointmentStore from "./stores/ApointmentStore";
+import MedicalResultStore from './stores/MedicalResultStore'
 
 export class RootStore {
     home: HomeStore;
@@ -12,6 +13,7 @@ export class RootStore {
     auth: AuthStore;
     user: UserStore;
     apointment: ApointmentStore
+    medicalResultStore: MedicalResultStore
   
     constructor() {
       this.home = new HomeStore()
@@ -19,6 +21,7 @@ export class RootStore {
       this.auth = new AuthStore()
       this.user = new UserStore()
       this.apointment = new ApointmentStore()
+      this.medicalResultStore = new MedicalResultStore()
     }
 }
   

@@ -170,12 +170,12 @@ exports.checkDateTime = async (req, res) => {
     const newDate = normalizeDate(date);
 
     const appointment = await Appointment.find({ date: newDate });
-    const workhour = await WorkHouseDoctor.find();
+    const workhour = await WorkHour.find();
     if (!workhour)
       return res.status(400).json({ message: "workhour not exist!" });
 
     const newWorkhour = workhour.filter((i) => {
-      const result = appointment.some((id) => id.workHourId === i.workHourId);
+      const result = appointment.some((id) => id.workHourId === i._id + "");
       return result;
     });
 

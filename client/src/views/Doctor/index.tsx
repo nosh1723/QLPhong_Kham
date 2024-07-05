@@ -20,9 +20,8 @@ import { observer } from 'mobx-react';
 import { colors } from '@/src/constants/Colors';
 import Toast from 'react-native-toast-message';
 
-const DoctorIndex = () => {
+const DoctorIndex = ({navigation}: any) => {
     const auth = useSelector(authSelector)
-    const navigation = useNavigation()
     const [date, setDate] = useState(new Date());
     const [showCalendar, setShowCalendar] = useState(false);
     const [timeWork, setTimeWork] = useState(1);
@@ -39,7 +38,6 @@ const DoctorIndex = () => {
 
     useEffect(() => {
         checkDateTime(new Date())
-        getAllWorkhour()
     }, [])
 
     const handleComfirmCalendar = () => {

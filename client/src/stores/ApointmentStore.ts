@@ -5,6 +5,7 @@ import { Workhour, WorkhourDoctor } from "../models/workhour";
 import { Service } from "../models/service";
 import { bookAppointment, cancelAppoinment, checkDateTime, getAppointment, pagingAppointment } from "../services/AppointmentServices";
 import Toast from "react-native-toast-message";
+import { Appointment } from "../models/appointment";
 
 interface initialValues {
     doctorId: string,
@@ -17,7 +18,7 @@ interface initialValues {
 
 interface workhourResult{
     status: number,
-    workhour: WorkhourDoctor[]
+    workhour: Workhour[]
 }
 
 export default class ApointmentStore {
@@ -37,7 +38,7 @@ export default class ApointmentStore {
         workhour: []
     }
     bookAppointment = {}
-    pageAppointment = []
+    pageAppointment: Appointment[] = []
     selectAppointment = {}
     workhours: Workhour[] = []
 
@@ -81,7 +82,10 @@ export default class ApointmentStore {
             const res = await pagingAppointment()
 
             runInAction(() => {
-                this.pageAppointment = res.data
+                this.pageAppointment = res.data.sort((a: any, b:any) => {
+                    const order = [1, 3, 2, 0]
+                    return order.indexOf(a.status) - order.indexOf(b.status)  
+                })
             })
 
             this.setIsLoading(false)

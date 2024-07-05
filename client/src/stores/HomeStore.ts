@@ -78,4 +78,14 @@ export default class HomeStore {
         this.workhourDoctor = [] 
         this.workhourExist = new Appointment()
     }
+
+    resetWorkhour = () => {
+        this.isLoading = false
+        this.workhourDoctor = [] 
+        this.workhourExist = new Appointment()
+    }
+
+    resetWorkhourExist = () => {
+        this.workhourExist = new Appointment()
+    }
 }

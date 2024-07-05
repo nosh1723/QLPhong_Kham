@@ -18,16 +18,16 @@ export default observer(function HomeScreen({navigation}: any) {
 
   const isFocused = useIsFocused();
   const { pagingDoctor, resetStore, getDoctor } = useStore().home
-  const { user, reset} = useStore().auth
   const { getPatient} = useStore().user
   const { pagingServiceByCate } = useStore().service
-  const { pagingAppointment } = useStore().apointment
+  const { pagingAppointment, getAllWorkhour } = useStore().apointment
   
   
   useEffect(() => {
     pagingDoctor()
     pagingServiceByCate()
     pagingAppointment()
+    getAllWorkhour()
     
     if(auth?.user?.role === "user"){
       getPatient(auth.user._id)

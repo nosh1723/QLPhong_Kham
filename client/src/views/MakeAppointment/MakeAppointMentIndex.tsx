@@ -20,7 +20,7 @@ export default observer(function MakeappointmentIndex() {
     
     const {next, setNext, searchObject, getAllWorkhour} = useStore().apointment
     const { patient } = useStore().user
-    const { doctor } = useStore().home
+    const { doctor, resetWorkhour } = useStore().home
     const { pagingService } = useStore().service
 
     const inittialValues = {
@@ -39,8 +39,9 @@ export default observer(function MakeappointmentIndex() {
     })
 
     useEffect(() => {
-        getAllWorkhour()
         pagingService()
+
+        return () => resetWorkhour()
     }, [])
 
     return (

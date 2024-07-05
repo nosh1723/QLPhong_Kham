@@ -14,20 +14,19 @@ import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Toast from 'react-native-toast-message'
 import WorkhourList from './WorkhourList'
+import Loading from '@/src/components/Loading'
 
 const WorkScheduleIndex = ({ navigation }: any) => {
 
     const bottomSheetCalendarRef = useRef<BottomSheet>(null);
 
-    const { getAllWorkhour } = useStore().apointment
-    const { getWorkhourDoctor, workhourDoctor } = useStore().home
+    const { getWorkhourDoctor, isLoading } = useStore().home
 
     const [date, setDate] = useState(new Date());
     const [showCalendar, setShowCalendar] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
 
     useEffect(() => {
-        getAllWorkhour()
         getWorkhourDoctor(new Date())
     }, [])
 
@@ -53,6 +52,7 @@ const WorkScheduleIndex = ({ navigation }: any) => {
     return (
         <>
             <GestureHandlerRootView >
+                <Loading visible={isLoading}/>
                 <Header textHeaderBack='Lịch làm việc' />
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', paddingVertical: 8, backgroundColor: colors.white }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, borderRadius: 12, padding: 3, paddingHorizontal: 6, backgroundColor: "#E0FBE2" }}>

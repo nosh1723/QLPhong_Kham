@@ -1,3 +1,4 @@
+/*
 const mongoose = require('mongoose');
 
 const VisitSchema = new mongoose.Schema({
@@ -16,3 +17,4 @@ const VisitSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Visit', VisitSchema);
+*/

@@ -8,8 +8,7 @@ import { IconRight } from '@/src/components/Icon/Icon';
 import { useStore } from '@/src/root-store';
 import { observer } from 'mobx-react';
 
-const ServiceList = ({data}) => {
-    const navigation = useNavigation() 
+const ServiceList = ({data, navigation}: any) => {
     const [extend, setExtend] = useState(false)
     const {getServiceByCategoryId} = useStore().service
 

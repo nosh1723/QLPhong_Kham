@@ -47,7 +47,7 @@ export default observer(function HomeScreen({navigation}: any) {
         {auth?.user?.role === "user" && 
         <>
             <HomeDoctor />
-            <HomeService />
+            <HomeService navigation={navigation}/>
         </>
         }
       </ScrollView>

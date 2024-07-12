@@ -23,4 +23,6 @@ router.delete('/:id', serviceController.deleteServiceById);
 
 router.get('/servicesCategoryById/:id', serviceController.getServiceCatogeryById)
 
+router.get('/doctor-service-by-id/:id', serviceController.getDoctorService)
+
 module.exports = router;

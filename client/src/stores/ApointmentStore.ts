@@ -61,6 +61,8 @@ export default class ApointmentStore {
         }
     }
 
+    setSearchObject = (searchObject: object) => this.searchObject = {...this.searchObject, ...searchObject}
+
     getAppointment = async (id: string) => {
         try {
             this.setIsLoading(true)

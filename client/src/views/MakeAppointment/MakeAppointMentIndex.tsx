@@ -1,7 +1,6 @@
 import Header from "@/src/components/Header";
 import { colors } from "@/src/constants/Colors";
 import { Entypo } from '@expo/vector-icons';
-import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from "react-native";
@@ -13,15 +12,15 @@ import { useStore } from "@/src/root-store";
 import { Formik } from "formik";
 import * as Yup from 'yup'
 import Toast from "react-native-toast-message";
+import moment from "moment";
 
 
-export default observer(function MakeappointmentIndex() {
-    const navigation = useNavigation()
+export default observer(function MakeappointmentIndex({navigation}: any) {
     
     const {next, setNext, searchObject, getAllWorkhour} = useStore().apointment
     const { patient } = useStore().user
     const { doctor, resetWorkhour } = useStore().home
-    const { pagingService } = useStore().service
+    const { pagingService, getDoctorService } = useStore().service
 
     const inittialValues = {
         ...searchObject,
@@ -35,11 +34,25 @@ export default observer(function MakeappointmentIndex() {
         }).nullable(),
         appointmentTime: Yup.object({
             _id: Yup.string().required("Bạn chưa chọn giờ khám").nullable()
-        })
+        }),
+        date: Yup.date()
+        .test(
+            "date-maxDate",
+            "Không được nhỏ hơn ngày hiện tại",
+            function (value) {
+                const { path, createError } = this;
+                if (moment(value).isBefore(moment(), 'day')) {
+                    return createError({ path, message: "Không được nhỏ hơn ngày hiện tại" ?? 'Date cannot be before today' });
+                  }
+                  return true;
+            }
+        )
+        .nullable()
     })
 
     useEffect(() => {
         pagingService()
+        getDoctorService(doctor.id)
 
         return () => resetWorkhour()
     }, [])
@@ -76,9 +89,9 @@ export default observer(function MakeappointmentIndex() {
                     setNext(1)
                 }}
             >
-                {({values}) => (
+                {({values }) => (
                     <View style={{backgroundColor: "#f0f5fa", flex: 1}}>
-                    {next === 0 ? <Makeappointment /> : <MakeAppointMentComfirm />}
+                    {next === 0 ? <Makeappointment /> : <MakeAppointMentComfirm navigation={navigation} />}
                 </View>
                 )}
             </Formik>

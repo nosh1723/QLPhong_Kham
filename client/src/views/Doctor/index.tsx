@@ -20,7 +20,7 @@ import { observer } from 'mobx-react';
 import { colors } from '@/src/constants/Colors';
 import Toast from 'react-native-toast-message';
 
-const DoctorIndex = ({navigation}: any) => {
+const DoctorIndex = ({ navigation }: any) => {
     const auth = useSelector(authSelector)
     const [date, setDate] = useState(new Date());
     const [showCalendar, setShowCalendar] = useState(false);
@@ -33,6 +33,7 @@ const DoctorIndex = ({navigation}: any) => {
 
     const { doctor, isLoading } = useStore().home
     const { checkDateTime, workhourResult, workhourDoctor, getAllWorkhour, workhours } = useStore().apointment
+    const { getDoctorService, doctorService } = useStore().service
 
     const bottomSheetCalendarRef = useRef<BottomSheet>(null);
 
@@ -79,7 +80,7 @@ const DoctorIndex = ({navigation}: any) => {
                             <Text numberOfLines={1}>{doctor?.branch?.name}</Text>
                         </View>
                     </View>
-                    <View style={{ backgroundColor: colors.white, padding: 12, marginBottom: 5 }}>
+                    {/* <View style={{ backgroundColor: colors.white, padding: 12, marginBottom: 5 }}>
                         <Text style={{ fontWeight: 600, padding: 10, textAlign: 'center', fontSize: 18 }}>Lịch khám</Text>
                         <CommonButton onPress={() => {
                             showCalendar ? bottomSheetCalendarRef.current?.close() : bottomSheetCalendarRef.current?.expand()
@@ -134,7 +135,7 @@ const DoctorIndex = ({navigation}: any) => {
                             <MaterialCommunityIcons name="hand-pointing-up" size={20} color="#485565" />
                             <Text style={{ color: "#485565" }}>Chọn một khung giờ để đặt</Text>
                         </View>
-                    </View>
+                    </View> */}
                     <View style={{ padding: 12, backgroundColor: colors.white, marginBottom: 5 }}>
                         <View style={{ flexDirection: 'row', justifyContent: "space-between", alignItems: 'center', paddingBottom: 20 }}>
                             <Text style={{ fontSize: 16, fontWeight: 600 }}>Giới thiệu</Text>
@@ -155,10 +156,12 @@ const DoctorIndex = ({navigation}: any) => {
                                     Các dịch vụ của bác sĩ:
                                 </Text>
                                 <View style={{}}>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <Entypo name="dot-single" size={24} color="black" />
-                                        <Text>Khám và điều trị bla bla</Text>
-                                    </View>
+                                    {doctorService?.map(i => (
+                                        <View key={'doctor service detail' + i?._id} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <Entypo name="dot-single" size={24} color="black" />
+                                            <Text>{i?.name}</Text>
+                                        </View>
+                                    ))}
                                 </View>
                             </View>
                         }
@@ -176,7 +179,7 @@ const DoctorIndex = ({navigation}: any) => {
                         </View>
                         {extendWorkPace &&
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Text>{ doctor?.branch?.address}</Text>
+                                <Text>{doctor?.branch?.address}</Text>
                             </View>
                         }
                     </View>

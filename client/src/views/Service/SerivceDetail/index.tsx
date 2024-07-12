@@ -8,9 +8,10 @@ import { observer } from 'mobx-react'
 import { formatCurrency } from '@/src/constants/LocalFunction'
 import { IconRight } from '@/src/components/Icon/Icon'
 
-const ServiceDetailIndex = ({ route }) => {
+const ServiceDetailIndex = ({ route, navigation }: any) => {
     const { name, id } = route.params
     const { selectServiceCat } = useStore().service
+    const { setSearchObject, searchObject } = useStore().apointment
 
     return (
         <>
@@ -27,7 +28,10 @@ const ServiceDetailIndex = ({ route }) => {
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: "space-between", marginTop: 8, width: '96%' }}>
                                     <Text style={{color: colors.blue}}>{formatCurrency(i?.price)}</Text>
-                                    <TouchableOpacity style={{flexDirection: 'row', alignItems: "center"}}>
+                                    <TouchableOpacity onPress={() => {
+                                        setSearchObject({service: i})
+                                        navigation.navigate('appointment', {id: i.category._id})
+                                    }} style={{flexDirection: 'row', alignItems: "center"}}>
                                         <Text style={{fontWeight: 500, color: colors.green}}>Đặt lịch</Text>
                                         <IconRight size={18} color={colors.green}/>
                                     </TouchableOpacity>

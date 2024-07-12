@@ -10,3 +10,5 @@ export const getServiceById = (id: string) => axios.get(API_PATH + `/${id}`)
 export const getAllServiceByCate = () => axios.get(API_PATH + "/allServiceByCate")
 
 export const getServiceByCategoryId = (id: string) => axios.get(API_PATH + `/servicesCategoryById/${id}`)
+
+export const getDoctorService = (id: string) => axios.get(API_PATH + "/doctor-service-by-id/" + id)

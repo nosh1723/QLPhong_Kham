@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { authSelector } from '@/src/redux/reducers/authReducer';
 import { colors } from '@/src/constants/Colors';
 import { observer } from 'mobx-react';
+import Toast from 'react-native-toast-message';
 
 
 
@@ -22,7 +23,17 @@ const HomeFuncList = ({navigation}: any) => {
             <View style={{flexDirection: 'row', flexWrap: 'wrap', gap: 5, justifyContent: 'space-between', paddingHorizontal: 20}}>
                 {listFunc.map(i => {
                     return (
-                        <TouchableOpacity  onPress={() => navigation.navigate(i.navigate)} key={"listfunc"+i.title} style={{width: "30%", height: 'auto', flexDirection: "column", alignItems: "center", padding: 10}}>
+                        <TouchableOpacity  onPress={() => {
+                            if(i.navigate !== "") {
+                                navigation.navigate(i.navigate)
+                            }else {
+                                Toast.show({
+                                    type: 'info',
+                                    text1: "Chức năng đang trong giai đoạn phát triển!"
+                                })
+                            }
+                            
+                        }} key={"listfunc"+i.title} style={{width: "30%", height: 'auto', flexDirection: "column", alignItems: "center", padding: 10}}>
                                 <View style={{ backgroundColor: i.color, width: 55, height: 55, flexDirection: "row", justifyContent: 'center', alignItems: 'center',borderRadius: 1000, shadowColor: "#000", shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.23, shadowRadius: 2.6, elevation: 4}}>
                                     <Text>{i.icon}</Text>
                                 </View>
@@ -53,7 +64,7 @@ const LIST_FUNC_PATIENT = [
     },
     {
         title: "Chat với bác sĩ",
-        navigate: "MessDoctor",
+        navigate: "",
         color: "#03AED2",
         icon: <IconMessage  color='#fff'/>
     },
@@ -65,7 +76,7 @@ const LIST_FUNC_PATIENT = [
     },
     {
         title: "Thuốc",
-        navigate: <></>,
+        navigate: "",
         color: "#F97300",
         icon: <IconDrug  color='#fff'/>
     },

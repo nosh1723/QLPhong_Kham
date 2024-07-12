@@ -1,4 +1,4 @@
-import { getAllServiceByCate, getServiceByCategoryId, getServiceById, pagingService } from "@/src/services/ServiceServices";
+import { getAllServiceByCate, getServiceByCategoryId, getServiceById, pagingService, getDoctorService } from "@/src/services/ServiceServices";
 import { makeAutoObservable, runInAction } from "mobx";
 import { Service } from "../models/service";
 
@@ -16,9 +16,28 @@ export default class ServiceStore {
 
     listServiceByCate = []
     isLoading = false
+    doctorService: Service[] = []
 
     constructor() {
         makeAutoObservable(this)
+    }
+
+    getDoctorService = async (id: string) => {
+        try {
+            this.setIsLoading(true)
+    
+            const res = await getDoctorService(id)
+    
+            runInAction(() => {
+                this.doctorService = res.data
+            })
+            
+            this.setIsLoading(false)
+    
+        } catch (error) {
+            this.setIsLoading(false)
+            console.log(error);
+        }
     }
 
     pagingService = async () => {

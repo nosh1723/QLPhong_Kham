@@ -8,18 +8,20 @@ import { observer } from 'mobx-react';
 import React, { useEffect } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
-const HomeService = () => {
-    const navigation = useNavigation()
+const HomeService = ({navigation}: any) => {
 
-    const { listServiceByCate, isLoading } = useStore().service
+    const { listServiceByCate, isLoading, getServiceByCategoryId } = useStore().service
 
     return (
         <ViewContainer iconLeft={<MaterialIcons name="home-repair-service" size={20} color={colors.green} />} onPress={() => navigation.navigate("service")} title='Dịch vụ' >
             <>
-                {listServiceByCate?.map((i, index) => {
+                {listServiceByCate?.map((i: any, index) => {
                     if(index > 1) return
                     return (
-                        <CommonButton key={"homesv" + i?._id} style={{width: "100%", flexDirection: "column", alignItems: "start", borderBottomWidth: index === 1 ? 0 : 1, borderColor: "#ddd", paddingBottom: 10, marginBottom: 10 }} color='transparent' onPress={() => navigation.navigate("appointment")}>
+                        <CommonButton key={"homesv" + i?._id} style={{width: "100%", flexDirection: "column", alignItems: "start", borderBottomWidth: index === 1 ? 0 : 1, borderColor: "#ddd", paddingBottom: 10, marginBottom: 10 }} color='transparent' onPress={() => {
+                            getServiceByCategoryId(i?._id)
+                            navigation.navigate("serviceDetail", {name: i?.name, id: i?._id})
+                        }}>
                             <Text style={{fontWeight: 600, fontSize: 14, paddingBottom: 15, }}>{i?.name}</Text>
                             {i?.services?.map((sv: any, index: number) => {
                                 if(index > 1) return

@@ -1,67 +1,39 @@
 [
     {
       "doctor_id": "667b7deb8f480c63acc7e113",
-      "service_id": "667abc7a0bca78167cd8c0f9"
-    },
-    {
-      "doctor_id": "667b7deb8f480c63acc7e113",
-      "service_id": "667abc7a0bca78167cd8c0fa"
-    },
-    {
-      "doctor_id": "667b7deb8f480c63acc7e113",
-      "service_id": "667abc7a0bca78167cd8c0fb"
+      "category_Id": "667ab9bd0bca78167cd8c0e3"
     },
     {
       "doctor_id": "667b7e4d8f480c63acc7e116",
-      "service_id": "667abc7a0bca78167cd8c0fc"
-    },
-    {
-      "doctor_id": "667b7e4d8f480c63acc7e116",
-      "service_id": "667abc7a0bca78167cd8c0fd"
+      "category_Id": "667ab9bd0bca78167cd8c0e5"
     },
     {
       "doctor_id": "667b7ea98f480c63acc7e119",
-      "service_id": "667abc7a0bca78167cd8c0fe"
-    },
-    {
-      "doctor_id": "667b7ea98f480c63acc7e119",
-      "service_id": "667abc7a0bca78167cd8c0ff"
-    },
-    {
-      "doctor_id": "667b7ed18f480c63acc7e11c",
-      "service_id": "667abc7a0bca78167cd8c100"
+      "category_Id": "667ab9bd0bca78167cd8c0e1"
     },
     {
       "doctor_id": "667b7ef68f480c63acc7e11f",
-      "service_id": "667abc7a0bca78167cd8c101"
-    },
-    {
-      "doctor_id": "667b7ef68f480c63acc7e11f",
-      "service_id": "667abc7a0bca78167cd8c102"
+      "category_Id": "667ab9bd0bca78167cd8c0e5"
     },
     {
       "doctor_id": "667b7f148f480c63acc7e122",
-      "service_id": "667abc7a0bca78167cd8c103"
+      "category_Id": "667ab9bd0bca78167cd8c0e4"
     },
     {
       "doctor_id": "667b7f278f480c63acc7e125",
-      "service_id": "667abc7a0bca78167cd8c104"
+      "category_Id": "667ab9bd0bca78167cd8c0e1"
     },
     {
       "doctor_id": "667b7f468f480c63acc7e128",
-      "service_id": "667abc7a0bca78167cd8c105"
+      "category_Id": "667ab9bd0bca78167cd8c0e5"
     },
     {
       "doctor_id": "667b7f598f480c63acc7e12b",
-      "service_id": "667abc7a0bca78167cd8c106"
+      "category_Id": "667ab9bd0bca78167cd8c0e0"
     },
     {
       "doctor_id": "667b7f668f480c63acc7e12e",
-      "service_id": "667abc7a0bca78167cd8c107"
-    },
-    {
-      "doctor_id": "667b7f668f480c63acc7e12e",
-      "service_id": "667abc7a0bca78167cd8c108"
+      "category_Id": "667ab9bd0bca78167cd8c0e5"
     }
   ]
   

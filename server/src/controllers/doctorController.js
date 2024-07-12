@@ -21,17 +21,12 @@ createDoctor = async (req, res) => {
 // Hàm để lấy danh sách tất cả các bác sĩ kèm thông tin chi nhánh và dịch vụ
 const getAllDoctors = async (req, res) => {
   try {
-    const doctors = await Doctor.find().populate({
-      path: "services",
-      populate: {
-        path: "service",
-        model: "Service",
-        select: "code name",
-      },
-    });
+    const doctors = await Doctor.find()
 
     // Lấy danh sách chi nhánh từ cơ sở dữ liệu
     const branches = await Branch.find();
+
+    const doctorService = await DoctorService.find()
 
     // Tạo mảng để lưu thông tin chi tiết của từng bác sĩ kèm chi nhánh
     const doctorsWithBranchDetails = doctors.map((doctor) => {
@@ -45,10 +40,12 @@ const getAllDoctors = async (req, res) => {
           address: branch.address,
         };
       }
+      const service = doctorService.find(i => i.doctor_id + "" === doctor._id + "")
 
       return {
         ...doctor.toObject(),
         branch: branchDetails,
+        categoryService: service
       };
     });
 

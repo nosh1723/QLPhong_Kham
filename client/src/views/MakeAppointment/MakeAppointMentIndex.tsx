@@ -91,7 +91,7 @@ export default observer(function MakeappointmentIndex({navigation}: any) {
             >
                 {({values }) => (
                     <View style={{backgroundColor: "#f0f5fa", flex: 1}}>
-                    {next === 0 ? <Makeappointment /> : <MakeAppointMentComfirm navigation={navigation} />}
+                    {next === 0 ? <Makeappointment navigation={navigation}/> : <MakeAppointMentComfirm navigation={navigation} />}
                 </View>
                 )}
             </Formik>

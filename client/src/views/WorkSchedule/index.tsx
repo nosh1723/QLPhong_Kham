@@ -2,7 +2,7 @@ import Backdrop from '@/src/components/Backdrop'
 import CommonButton from '@/src/components/CommonButton'
 import Header from '@/src/components/Header'
 import { colors } from '@/src/constants/Colors'
-import { isIos } from '@/src/constants/LocalConst'
+import { isIos, SCHEDULE_EXAM_STATUS } from '@/src/constants/LocalConst'
 import { getDateFormat } from '@/src/constants/LocalFunction'
 import { useStore } from '@/src/root-store'
 import { FontAwesome } from '@expo/vector-icons'
@@ -55,22 +55,12 @@ const WorkScheduleIndex = ({ navigation }: any) => {
                 <Loading visible={isLoading}/>
                 <Header textHeaderBack='Lịch làm việc' />
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', paddingVertical: 8, backgroundColor: colors.white }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, borderRadius: 12, padding: 3, paddingHorizontal: 6, backgroundColor: "#E0FBE2" }}>
-                        <FontAwesome name='circle' color={colors['green-200']} size={10} />
-                        <Text style={{ color: colors['green-200'], fontSize: 12 }}>Đã đặt lịch</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, borderRadius: 12, padding: 3, paddingHorizontal: 6, backgroundColor: "rgba(222, 235, 246, .7)" }}>
-                        <FontAwesome name='circle' color={colors.blue} size={10} />
-                        <Text style={{ color: colors.blue, fontSize: 12 }}>Đã hoàn thành</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, borderRadius: 12, padding: 3, paddingHorizontal: 6, backgroundColor: "#fbe9dd" }}>
-                        <FontAwesome name='circle' color={colors.red} size={10} />
-                        <Text style={{ color: colors.red, fontSize: 12 }}>Lịch bị hủy</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, borderRadius: 12, padding: 3, paddingHorizontal: 6, backgroundColor: "#F3F6D0" }}>
-                        <FontAwesome name='circle' color={colors.orange} size={10} />
-                        <Text style={{ color: colors.orange, fontSize: 12 }}>Lịch hết hạn</Text>
-                    </View>
+                    {SCHEDULE_EXAM_STATUS?.map(i => (
+                        <View key={'lịch làm việc' + i.name} style={{ flexDirection: 'row', alignItems: 'center', gap: 3, borderRadius: 12, padding: 3, paddingHorizontal: 6, backgroundColor: i.bgColor}}>
+                            <FontAwesome name='circle' color={i.color} size={10} />
+                            <Text style={{ color: i.color, fontSize: 12 }}>{i.name}</Text>
+                        </View>
+                    ))}
                 </View>
                 <ScrollView style={{ paddingHorizontal: 15, paddingVertical: 15 }}>
                     <View style={{ backgroundColor: "#fff", borderRadius: 15, padding: 10, paddingVertical: 15 }}>

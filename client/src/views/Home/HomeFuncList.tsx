@@ -1,5 +1,5 @@
 import Card from '@/src/components/Card';
-import { IconCalendar, IconDrug, IconList, IconMediBag, IconMessage, IconSetting, IconStethoscope } from '@/src/components/Icon/Icon';
+import { IconCalendar, IconDrug, IconList, IconMediBag, IconMessage, IconSetting, IconStethoscope, IconUser } from '@/src/components/Icon/Icon';
 import { Button } from '@rneui/base';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -97,14 +97,14 @@ const LIST_FUNC_DOCTOR = [
     },
     {
         title: "Chat với bệnh nhân",
-        navigate: "MessDoctor",
+        navigate: "",
         color: "#03AED2",
         icon: <IconMessage  color='#fff'/>
     },
     {
-        title: "Cài đặt",
+        title: "Tài khoản",
         navigate: "user",
         color: "#C7B7A3",
-        icon: <IconSetting  color='#fff'/>
+        icon: <IconUser  color='#fff' style={{marginTop: 5}}/>
     },
 ]

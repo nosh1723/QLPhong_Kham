@@ -1,0 +1,200 @@
+[{
+  "_id": {
+    "$oid": "6687fdf100c3483c9b85de0e"
+  },
+  "doctorId": "667b7deb8f480c63acc7e113",
+  "serviceId": "667abc7a0bca78167cd8c0fc",
+  "patientId": "667a9ed125f5c59bfa0d0bad",
+  "workHourId": "667a54e0b871edce45b318ed",
+  "date": {
+    "$date": "2024-07-04T17:00:00.000Z"
+  },
+  "note": "",
+  "status": 3,
+  "code": "AM547125993",
+  "serialNumber": 1,
+  "createdAt": {
+    "$date": "2024-07-05T14:06:41.720Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "668800fe00c3483c9b85df6b"
+  },
+  "doctorId": "667b7deb8f480c63acc7e113",
+  "serviceId": "667abc7a0bca78167cd8c0fb",
+  "patientId": "667a9ed125f5c59bfa0d0bad",
+  "workHourId": "667a54e0b871edce45b318ee",
+  "date": {
+    "$date": "2024-07-04T17:00:00.000Z"
+  },
+  "note": "",
+  "status": 3,
+  "code": "AM829038916",
+  "serialNumber": 2,
+  "createdAt": {
+    "$date": "2024-07-05T14:19:42.852Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6690fea761ab3c8496a0cba8"
+  },
+  "doctorId": "667b7deb8f480c63acc7e113",
+  "serviceId": "667abc7a0bca78167cd8c0fa",
+  "patientId": "667a9ed125f5c59bfa0d0bad",
+  "workHourId": "667a54e0b871edce45b318ec",
+  "date": {
+    "$date": "2024-07-11T17:00:00.000Z"
+  },
+  "note": "",
+  "status": 2,
+  "code": "AM545771222",
+  "serialNumber": 1,
+  "createdAt": {
+    "$date": "2024-07-12T10:00:07.700Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66911cb0fb3d58afe74783f9"
+  },
+  "doctorId": "667b7f598f480c63acc7e12b",
+  "serviceId": "667abc7a0bca78167cd8c0f9",
+  "patientId": "667a9ed125f5c59bfa0d0bad",
+  "workHourId": "667a54e0b871edce45b318ed",
+  "date": {
+    "$date": "2024-07-11T17:00:00.000Z"
+  },
+  "note": "",
+  "status": 2,
+  "code": "AM519910056",
+  "serialNumber": 2,
+  "createdAt": {
+    "$date": "2024-07-12T12:08:16.673Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66911d0dfb3d58afe7478438"
+  },
+  "doctorId": "667b7deb8f480c63acc7e113",
+  "serviceId": "667abc7a0bca78167cd8c101",
+  "patientId": "667a9ed125f5c59bfa0d0bad",
+  "workHourId": "667a54e0b871edce45b318ed",
+  "date": {
+    "$date": "2024-07-11T17:00:00.000Z"
+  },
+  "note": "",
+  "status": 2,
+  "code": "AM772763818",
+  "serialNumber": 3,
+  "createdAt": {
+    "$date": "2024-07-12T12:09:49.540Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66911d21fb3d58afe747848e"
+  },
+  "doctorId": "667b7f598f480c63acc7e12b",
+  "serviceId": "667abc7a0bca78167cd8c0f9",
+  "patientId": "667a9ed125f5c59bfa0d0bad",
+  "workHourId": "667a54e0b871edce45b318ee",
+  "date": {
+    "$date": "2024-07-11T17:00:00.000Z"
+  },
+  "note": "",
+  "status": 2,
+  "code": "AM827308439",
+  "serialNumber": 4,
+  "createdAt": {
+    "$date": "2024-07-12T12:10:09.089Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66911d3dfb3d58afe74784e4"
+  },
+  "doctorId": "667b7f598f480c63acc7e12b",
+  "serviceId": "667abc7a0bca78167cd8c0fa",
+  "patientId": "667a9ed125f5c59bfa0d0bad",
+  "workHourId": "667a54e0b871edce45b318ec",
+  "date": {
+    "$date": "2024-07-11T17:00:00.000Z"
+  },
+  "note": "",
+  "status": 2,
+  "code": "AM413754313",
+  "serialNumber": 5,
+  "createdAt": {
+    "$date": "2024-07-12T12:10:37.385Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66911ea4fb3d58afe7478720"
+  },
+  "doctorId": "667b7f598f480c63acc7e12b",
+  "serviceId": "667abc7a0bca78167cd8c0f9",
+  "patientId": "667a9ed125f5c59bfa0d0bad",
+  "workHourId": "66837d788492bc20393d8a1e",
+  "date": {
+    "$date": "2024-07-11T17:00:00.000Z"
+  },
+  "note": "",
+  "status": 2,
+  "code": "AM754604609",
+  "serialNumber": 6,
+  "createdAt": {
+    "$date": "2024-07-12T12:16:36.167Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66911f4efb3d58afe747880a"
+  },
+  "doctorId": "667b7f598f480c63acc7e12b",
+  "serviceId": "667abc7a0bca78167cd8c0f9",
+  "patientId": "667a9ed125f5c59bfa0d0bad",
+  "workHourId": "667a54e0b871edce45b318f1",
+  "date": {
+    "$date": "2024-07-11T17:00:00.000Z"
+  },
+  "note": "",
+  "status": 2,
+  "code": "AM302773269",
+  "serialNumber": 7,
+  "createdAt": {
+    "$date": "2024-07-12T12:19:26.649Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669344a257ac1f3ecb657cfc"
+  },
+  "doctorId": "667b7deb8f480c63acc7e113",
+  "serviceId": "667abc7a0bca78167cd8c100",
+  "patientId": "667a9ed125f5c59bfa0d0bad",
+  "workHourId": "667a54e0b871edce45b318ed",
+  "date": {
+    "$date": "2024-07-13T17:00:00.000Z"
+  },
+  "note": "heheh",
+  "status": 1,
+  "code": "AM527680329",
+  "serialNumber": 1,
+  "createdAt": {
+    "$date": "2024-07-14T03:23:14.407Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,112 @@
+[{
+  "_id": {
+    "$oid": "668801c1a011cd4448d14f9a"
+  },
+  "medicalReportId": {
+    "$oid": "668801c1a011cd4448d14f98"
+  },
+  "description": "Hêhhe",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-07-05T14:22:57.153Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-05T14:22:57.153Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "668801c1a011cd4448d14f9b"
+  },
+  "medicalReportId": {
+    "$oid": "668801c1a011cd4448d14f98"
+  },
+  "description": "Bbaba",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-07-05T14:22:57.153Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-05T14:22:57.153Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "668804a4886335013c9643ec"
+  },
+  "medicalReportId": {
+    "$oid": "668804a4886335013c9643ea"
+  },
+  "description": "Hic",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-07-05T14:35:16.955Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-05T14:35:16.955Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "668804a4886335013c9643ed"
+  },
+  "medicalReportId": {
+    "$oid": "668804a4886335013c9643ea"
+  },
+  "description": "Hmuhmu",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-07-05T14:35:16.955Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-05T14:35:16.955Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6688058b886335013c96444b"
+  },
+  "medicalReportId": {
+    "$oid": "6688058b886335013c964449"
+  },
+  "description": "Hic",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-07-05T14:39:07.526Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-05T14:39:07.526Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6688058b886335013c96444c"
+  },
+  "medicalReportId": {
+    "$oid": "6688058b886335013c964449"
+  },
+  "description": "Hmuhmu",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-07-05T14:39:07.526Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-05T14:39:07.526Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "668805a2886335013c964461"
+  },
+  "medicalReportId": {
+    "$oid": "668805a2886335013c96445f"
+  },
+  "description": "Mút",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-07-05T14:39:30.596Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-05T14:39:30.596Z"
+  }
+}]

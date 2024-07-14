@@ -1,39 +1,63 @@
-[
-    {
-      "doctor_id": "667b7deb8f480c63acc7e113",
-      "category_Id": "667ab9bd0bca78167cd8c0e3"
-    },
-    {
-      "doctor_id": "667b7e4d8f480c63acc7e116",
-      "category_Id": "667ab9bd0bca78167cd8c0e5"
-    },
-    {
-      "doctor_id": "667b7ea98f480c63acc7e119",
-      "category_Id": "667ab9bd0bca78167cd8c0e1"
-    },
-    {
-      "doctor_id": "667b7ef68f480c63acc7e11f",
-      "category_Id": "667ab9bd0bca78167cd8c0e5"
-    },
-    {
-      "doctor_id": "667b7f148f480c63acc7e122",
-      "category_Id": "667ab9bd0bca78167cd8c0e4"
-    },
-    {
-      "doctor_id": "667b7f278f480c63acc7e125",
-      "category_Id": "667ab9bd0bca78167cd8c0e1"
-    },
-    {
-      "doctor_id": "667b7f468f480c63acc7e128",
-      "category_Id": "667ab9bd0bca78167cd8c0e5"
-    },
-    {
-      "doctor_id": "667b7f598f480c63acc7e12b",
-      "category_Id": "667ab9bd0bca78167cd8c0e0"
-    },
-    {
-      "doctor_id": "667b7f668f480c63acc7e12e",
-      "category_Id": "667ab9bd0bca78167cd8c0e5"
-    }
-  ]
-  
+[{
+  "_id": {
+    "$oid": "66910aed91bb073cde081bb6"
+  },
+  "doctor_id": "667b7deb8f480c63acc7e113",
+  "category_Id": "667ab9bd0bca78167cd8c0e3"
+},
+{
+  "_id": {
+    "$oid": "66910aed91bb073cde081bb7"
+  },
+  "doctor_id": "667b7e4d8f480c63acc7e116",
+  "category_Id": "667ab9bd0bca78167cd8c0e5"
+},
+{
+  "_id": {
+    "$oid": "66910aed91bb073cde081bb8"
+  },
+  "doctor_id": "667b7ea98f480c63acc7e119",
+  "category_Id": "667ab9bd0bca78167cd8c0e1"
+},
+{
+  "_id": {
+    "$oid": "66910aed91bb073cde081bb9"
+  },
+  "doctor_id": "667b7ef68f480c63acc7e11f",
+  "category_Id": "667ab9bd0bca78167cd8c0e5"
+},
+{
+  "_id": {
+    "$oid": "66910aed91bb073cde081bba"
+  },
+  "doctor_id": "667b7f148f480c63acc7e122",
+  "category_Id": "667ab9bd0bca78167cd8c0e4"
+},
+{
+  "_id": {
+    "$oid": "66910aed91bb073cde081bbb"
+  },
+  "doctor_id": "667b7f278f480c63acc7e125",
+  "category_Id": "667ab9bd0bca78167cd8c0e1"
+},
+{
+  "_id": {
+    "$oid": "66910aed91bb073cde081bbc"
+  },
+  "doctor_id": "667b7f468f480c63acc7e128",
+  "category_Id": "667ab9bd0bca78167cd8c0e5"
+},
+{
+  "_id": {
+    "$oid": "66910aed91bb073cde081bbd"
+  },
+  "doctor_id": "667b7f598f480c63acc7e12b",
+  "category_Id": "667ab9bd0bca78167cd8c0e0"
+},
+{
+  "_id": {
+    "$oid": "66910aed91bb073cde081bbe"
+  },
+  "doctor_id": "667b7f668f480c63acc7e12e",
+  "category_Id": "667ab9bd0bca78167cd8c0e5"
+}]

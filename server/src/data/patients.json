@@ -1,47 +1,27 @@
-[
-  {
-    "name": "Trần Văn A",
-    "code": "000001",
-    "gender": "M",
-    "health_insurance_code": "123456789",
-    "health_insurance_start_date": "2023-01-01",
-    "health_insurance_end_date": "2024-12-31",
-    "payment_type": "Tiền mặt",
-    "birth_date": "1990-05-15",
-    "address": "Số 123, Đường ABC, Quận XYZ, Hà Nội",
-    "ethnic": "Kinh",
-    "email": "nguyenvana@example.com",
-    "phone_number": "0987654321",
-    "branch_id": "6160d5e22b287e3d6e3f5811"
+[{
+  "_id": {
+    "$oid": "667a9ed125f5c59bfa0d0bad"
   },
-  {
-    "name": "Nguyễn Thị B",
-    "code": "000002",
-    "gender": "F",
-    "health_insurance_code": "987654321",
-    "health_insurance_start_date": "2023-02-01",
-    "health_insurance_end_date": "2025-01-31",
-    "payment_type": "Chuyển khoản",
-    "birth_date": "1985-08-20",
-    "address": "Số 456, Đường XYZ, Quận ABC, TP.HCM",
-    "ethnic": "Kinh",
-    "email": "nguyenthithib@example.com",
-    "phone_number": "0912345678",
-    "branch_id": "6160d5e22b287e3d6e3f5812"
+  "code": "BN308228302",
+  "email": "0702201088abc@gmail.com",
+  "user_id": "667a9ed025f5c59bfa0d0baa",
+  "createdAt": {
+    "$date": "2024-06-25T10:41:21.357Z"
   },
-  {
-    "name": "Lê Văn C",
-    "code": "000003",
-    "gender": "M",
-    "health_insurance_code": "192837465",
-    "health_insurance_start_date": "2023-03-01",
-    "health_insurance_end_date": "2026-02-28",
-    "payment_type": "Tiền mặt",
-    "birth_date": "1975-12-10",
-    "address": "Số 789, Đường DEF, Quận GHI, Đà Nẵng",
-    "ethnic": "Kinh",
-    "email": "levanc@example.com",
-    "phone_number": "0908765432",
-    "branch_id": "6160d5e22b287e3d6e3f5813"
-  }
-]
+  "updatedAt": {
+    "$date": "2024-07-14T03:19:34.134Z"
+  },
+  "__v": 0,
+  "address": "Hà Nội 1",
+  "birth_date": {
+    "$date": "2003-08-17T11:32:51.000Z"
+  },
+  "ethnic": "Kinh",
+  "gender": "M",
+  "health_insurance_code": "",
+  "health_insurance_end_date": null,
+  "health_insurance_start_date": null,
+  "name": "Nguyễn Hồng Sơn",
+  "payment_type": "0",
+  "phone_number": "0354297713"
+}]

@@ -1,3 +1,4 @@
+const DoctorService = require('../models/DoctorService');
 const Service = require('../models/Service');
 const ServiceCategory = require('../models/ServiceCategory');
 
@@ -137,3 +138,16 @@ exports.getServiceCatogeryById = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+
+//lấy service theo id doctor 
+exports.getDoctorService = async (req, res) => {
+    try {
+        const {id} = req.params
+        const doctorServive = await DoctorService.findOne({doctor_id: id})
+        const service = await Service.find({category_Id: doctorServive.category_Id})
+        
+        res.status(200).json(service)
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}

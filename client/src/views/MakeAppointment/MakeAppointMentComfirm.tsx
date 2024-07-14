@@ -15,9 +15,8 @@ import { formatCurrency, getDate, getGenderFomat, getTime } from '@/src/constant
 import Loading from '@/src/components/Loading'
 import Toast from 'react-native-toast-message'
 
-const MakeAppointMentComfirm = () => {
-    const navigation = useNavigation()
-    const { setSubmitting, submitForm, values } = useFormikContext()
+const MakeAppointMentComfirm = ({navigation}: any) => {
+    const { setSubmitting, submitForm, values }: any = useFormikContext()
     
     const [extend, setExtend] = useState(true)
     
@@ -27,7 +26,7 @@ const MakeAppointMentComfirm = () => {
     
     return (
         <>
-
+            {/* <Loading visible={isLoading}/> */}
             <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, backgroundColor: "#f0f5fa" }}>
                 <View style={{ flexGrow: 1, paddingHorizontal: 10 }}>
                     <Text style={{ fontSize: 18, padding: 10 }}>Thông tin đăng ký</Text>
@@ -118,6 +117,7 @@ const MakeAppointMentComfirm = () => {
             <View style={{ padding: 10, borderTopWidth: .8, borderTopColor: colors.gray, backgroundColor: colors.white, paddingVertical: 15, paddingBottom: isIos ? 30 : 15 }}>
                 <CommonButton onPress={() => {
                     handleBookAppointment(values).then(data => {
+                        // console.log(values);
                         getAppointment(data.appointment._id).then(() => {
                             resetStore()
                             if(data.appointment.status === 1) navigation.navigate("makeAppointmentDetail")
@@ -126,7 +126,6 @@ const MakeAppointMentComfirm = () => {
                     })
                 }} title="Xác nhận đặt lịch" style={{ borderRadius: 8, }}></CommonButton>
             </View>
-            <Loading visible={isLoading}/>
         </>
     )
 }

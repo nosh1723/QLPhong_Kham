@@ -1,35 +1,173 @@
 [
     {
-        "code": "BS001",
-        "name": "Nguyễn Văn A",
-        "birth_date": "1980-01-15",
+        "_id": {
+            "$oid": "667b7deb8f480c63acc7e113"
+        },
+        "name": "Nguyễn Minh Khoa",
+        "birth_date": {
+            "$date": "1980-12-02T10:00:00.000Z"
+        },
         "gender": "M",
-        "year_of_experience": 15,
-        "experience": "Chuyên khoa nha khoa tổng quát",
-        "description": "Bác sĩ chuyên khoa nha khoa tổng quát với nhiều năm kinh nghiệm.",
-        "avatar": "link_to_avatar",
-        "branch_code": "BR001"
-    },
-    {
-        "code": "BS002",
-        "name": "Trần Thị B",
-        "birth_date": "1985-05-20",
-        "gender": "F", 
-        "year_of_experience": 10,
-        "experience": "Chuyên khoa chỉnh nha",
-        "description": "Bác sĩ chuyên khoa chỉnh nha với nhiều năm kinh nghiệm.",
-        "avatar": "link_to_avatar",
-        "branch_code": "BR002"
-    },
-    {
-        "code": "BS003",
-        "name": "Lê Văn C",
-        "birth_date": "1975-09-30",
-        "gender": "M", 
         "year_of_experience": 20,
-        "experience": "Chuyên khoa nha khoa chỉnh hình ",
-        "description": "Bác sĩ chuyên khoa nha chỉnh hình với nhiều năm kinh nghiệm.",
-        "avatar": "link_to_avatar",
-        "branch_code": "BR003"
+        "code": "BS521019496",
+        "description": "Bác sĩ Nguyễn Minh Khoa là chuyên gia trong lĩnh vực chỉnh nha và phẫu thuật nha khoa. Anh đã thực hiện hàng nghìn ca niềng răng và phẫu thuật hàm mặt với kết quả xuất sắc.",
+        "branch_id": {
+            "$oid": "666abdc55aa65f5f08aed1f2"
+        },
+        "user_id": "66814d0ac69a4a6b7717d8fd",
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "667b7e4d8f480c63acc7e116"
+        },
+        "name": "Trần Thị Thanh",
+        "birth_date": {
+            "$date": "1985-06-05T10:00:00.000Z"
+        },
+        "gender": "F",
+        "year_of_experience": 15,
+        "code": "BS280505030",
+        "description": "Bác sĩ Trần Thị Thanh nổi tiếng với kỹ thuật tẩy trắng răng và dán sứ veneer. Cô luôn cập nhật các công nghệ mới nhất để mang lại nụ cười hoàn hảo cho bệnh nhân.",
+        "branch_id": {
+            "$oid": "666abdc55aa65f5f08aed1f2"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "667b7ea98f480c63acc7e119"
+        },
+        "name": "Lê Văn Long",
+        "birth_date": {
+            "$date": "1975-06-05T09:00:00.000Z"
+        },
+        "gender": "M",
+        "year_of_experience": 25,
+        "code": "BS440621784",
+        "description": "Bác sĩ Lê Văn Long có kinh nghiệm phong phú trong việc điều trị và chăm sóc răng miệng cho trẻ em. Ông luôn tạo môi trường thân thiện và thoải mái cho các bệnh nhân nhí.",
+        "branch_id": {
+            "$oid": "666abdc55aa65f5f08aed1f2"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "667b7ed18f480c63acc7e11c"
+        },
+        "name": "Phạm Thùy Linh",
+        "birth_date": {
+            "$date": "1975-06-05T09:00:00.000Z"
+        },
+        "gender": "F",
+        "year_of_experience": 10,
+        "code": "BS775121941",
+        "description": "Bác sĩ Phạm Thùy Linh chuyên về các ca điều trị tủy răng phức tạp. Cô được đánh giá cao bởi tay nghề khéo léo và sự tỉ mỉ trong từng ca điều trị.",
+        "branch_id": {
+            "$oid": "666abdc55aa65f5f08aed1f3"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "667b7ef68f480c63acc7e11f"
+        },
+        "name": "Nguyễn Đức Anh",
+        "birth_date": {
+            "$date": "1975-06-05T09:00:00.000Z"
+        },
+        "gender": "M",
+        "year_of_experience": 18,
+        "code": "BS191878933",
+        "description": "Bác sĩ Nguyễn Đức Anh là chuyên gia hàng đầu về cấy ghép răng implant. Anh đã thực hiện thành công nhiều ca cấy ghép với kỹ thuật tiên tiến nhất.",
+        "branch_id": {
+            "$oid": "666abdc55aa65f5f08aed1f3"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "667b7f148f480c63acc7e122"
+        },
+        "name": "Hoàng Thị Mai",
+        "birth_date": {
+            "$date": "1975-06-05T09:00:00.000Z"
+        },
+        "gender": "F",
+        "year_of_experience": 13,
+        "code": "BS333803717",
+        "description": "Hoàng Thị Mai có nhiều năm kinh nghiệm trong việc phục hình răng, bao gồm làm cầu răng và răng sứ. Cô luôn chú trọng đến sự thoải mái và thẩm mỹ cho bệnh nhân.",
+        "branch_id": {
+            "$oid": "666abdc55aa65f5f08aed1f3"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "667b7f278f480c63acc7e125"
+        },
+        "name": "Vũ Quang Huy",
+        "birth_date": {
+            "$date": "1975-06-05T09:00:00.000Z"
+        },
+        "gender": "M",
+        "year_of_experience": 13,
+        "code": "BS913812872",
+        "description": "Bác sĩ Vũ Quang Huy chuyên về điều trị các bệnh về nướu và viêm nha chu. Ông luôn nỗ lực mang lại sức khỏe răng miệng tốt nhất cho bệnh nhân.",
+        "branch_id": {
+            "$oid": "666abdc55aa65f5f08aed1f3"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "667b7f468f480c63acc7e128"
+        },
+        "name": "Trương Công Thành",
+        "birth_date": {
+            "$date": "1975-06-05T09:00:00.000Z"
+        },
+        "gender": "M",
+        "year_of_experience": 19,
+        "code": "BS893082456",
+        "description": "Bác sĩ Trương Công Thành là chuyên gia phẫu thuật nha khoa với nhiều năm kinh nghiệm trong các ca nhổ răng khôn và phẫu thuật hàm.",
+        "branch_id": {
+            "$oid": "666abdc55aa65f5f08aed1f4"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "667b7f598f480c63acc7e12b"
+        },
+        "name": "Đặng Thị Hồng",
+        "birth_date": {
+            "$date": "1975-06-05T09:00:00.000Z"
+        },
+        "gender": "F",
+        "year_of_experience": 21,
+        "code": "BS689789183",
+        "description": "Bác sĩ Đặng Thị Hồng có chuyên môn rộng rãi trong các lĩnh vực nha khoa tổng quát, từ khám định kỳ đến điều trị sâu răng và nhổ răng.",
+        "branch_id": {
+            "$oid": "666abdc55aa65f5f08aed1f4"
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "667b7f668f480c63acc7e12e"
+        },
+        "name": "Nguyễn Thị Thu Hà",
+        "birth_date": {
+            "$date": "1975-06-05T09:00:00.000Z"
+        },
+        "gender": "F",
+        "year_of_experience": 21,
+        "code": "BS875318329",
+        "description": "Bác sĩ Nguyễn Thị Thu Hà chuyên về các dịch vụ nha khoa thẩm mỹ như tẩy trắng răng, dán sứ veneer, và bonding. Cô luôn nỗ lực mang lại nụ cười tự tin cho bệnh nhân.",
+        "branch_id": {
+            "$oid": "666abdc55aa65f5f08aed1f4"
+        },
+        "__v": 0
     }
 ]

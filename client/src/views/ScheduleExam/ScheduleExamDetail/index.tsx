@@ -1,28 +1,33 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useRef, useState } from 'react'
+import Backdrop from '@/src/components/Backdrop'
+import CommonButton from '@/src/components/CommonButton'
 import Header from '@/src/components/Header'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { colors } from '@/src/constants/Colors'
+import { isIos, SCHEDULE_EXAM_STATUS } from '@/src/constants/LocalConst'
+import { formatCurrency, getDate, getTime } from '@/src/constants/LocalFunction'
+import { useStore } from '@/src/root-store'
 import { style } from '@/src/styles'
 import { Ionicons } from '@expo/vector-icons'
-import { colors } from '@/src/constants/Colors'
-import DashedLine from 'react-native-dashed-line';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
 import { Image } from '@rneui/themed'
-import CommonButton from '@/src/components/CommonButton'
-import { isIos } from '@/src/constants/LocalConst'
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
-import { useStore } from '@/src/root-store'
-import { formatCurrency, getDate, getTime } from '@/src/constants/LocalFunction'
-import Backdrop from '@/src/components/Backdrop'
-import { useNavigation } from '@react-navigation/native'
+import { observer } from 'mobx-react'
+import React, { useEffect, useRef, useState } from 'react'
+import { Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import DashedLine from 'react-native-dashed-line'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
-const ScheduleExamDetailIndex = () => {
-    const navigation = useNavigation()
+const ScheduleExamDetailIndex = ({ navigation }: any) => {
     const bottomSheetDetailInfoRef = useRef<BottomSheet>(null);
 
+    const [status, setStatus] = useState<any>({})
+    const [showModal, setShowModal] = useState(false)
     const [showDetailInfo, setShowDetailInfo] = useState(false);
 
-    const {  selectAppointment } = useStore().apointment
-    
+    const { selectAppointment, handleCancelAppointment, pagingAppointment } = useStore().apointment
+
+    useEffect(() => {
+        const res = SCHEDULE_EXAM_STATUS.find(i => i.status === selectAppointment?.appointment?.status)
+        setStatus(res)
+    } ,[])
 
     return (
         <GestureHandlerRootView>
@@ -141,7 +146,9 @@ const ScheduleExamDetailIndex = () => {
                                     <View style={[style.row]}>
                                         <Text style={{ opacity: .7 }}>Trạng thái</Text>
                                         <View style={style.row}>
-                                            <Text style={{ fontWeight: 500, paddingRight: 4 }}>{selectAppointment?.appointment?.status === 1 ? <Text style={{color: colors['green-200']}}>Đã đặt lịch</Text> : <Text style={{color: colors.red}}>Đã hủy</Text>}</Text>
+                                            <Text style={{ fontWeight: 500, paddingRight: 4 }}>
+                                                <Text style={{ color: status?.color }}>{status?.name}</Text>
+                                            </Text>
                                         </View>
                                     </View>
                                     <View style={[style.row]}>
@@ -161,22 +168,25 @@ const ScheduleExamDetailIndex = () => {
                         </View>
 
                         {/* btn hủy */}
-                        {selectAppointment.appointment.status === 1 && 
-                            <TouchableOpacity style={{borderWidth: .7, borderColor: colors.red, borderRadius: 12, padding: 10, marginHorizontal: 12, marginVertical: 16, flexDirection: 'row', justifyContent: 'center'}}>
-                                <Text style={{color: colors.red, fontWeight: 500}}>Hủy lịch</Text>
+                        {selectAppointment.appointment.status === 1 &&
+                            <TouchableOpacity onPress={() => {
+                                setShowModal(true)
+                            }} activeOpacity={1} style={{ borderWidth: .7, borderColor: colors.red, borderRadius: 12, padding: 10, marginHorizontal: 12, marginVertical: 16, flexDirection: 'row', justifyContent: 'center' }}>
+                                <Text style={{ color: colors.red, fontWeight: 500 }}>Hủy lịch</Text>
                             </TouchableOpacity>
                         }
                     </View>
                 </ScrollView>
 
             </View>
-            
-           {selectAppointment?.appointment?.status === 0 &&  <View style={{ padding: 10, borderTopWidth: .8, borderTopColor: colors.gray, backgroundColor: colors.white, paddingVertical: 15, paddingBottom: isIos ? 30 : 15 }}>
+
+
+            {selectAppointment?.appointment?.status === 0 && <View style={{ padding: 10, borderTopWidth: .8, borderTopColor: colors.gray, backgroundColor: colors.white, paddingVertical: 15, paddingBottom: isIos ? 30 : 15 }}>
                 <CommonButton onPress={() => {
                 }} title="Đặt lịch khám khác" style={{ borderRadius: 8, }}></CommonButton>
             </View>}
 
-            {showDetailInfo ? <Backdrop /> : <></>}
+            {showDetailInfo || showModal ? <Backdrop /> : <></>}
 
             <BottomSheet
                 ref={bottomSheetDetailInfoRef}
@@ -249,8 +259,44 @@ const ScheduleExamDetailIndex = () => {
 
                 </BottomSheetView>
             </BottomSheet>
+
+            <Modal
+                animationType='slide'
+                transparent={true}
+                visible={showModal}
+            >
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: -30 }}>
+                    <View style={{
+                        backgroundColor: colors.white,
+                        shadowColor: "#000000",
+                        shadowOffset: {
+                            width: 0,
+                            height: 2,
+                        },
+                        shadowOpacity: 0.17,
+                        shadowRadius: 2.54,
+                        elevation: 3,
+                        borderRadius: 8
+                    }}>
+                        <View style={{ padding: 12, paddingHorizontal: 20 }}>
+                            <Text style={{ fontSize: 18, fontWeight: 500 }}>Bạn có chắc muốn hủy lịch </Text>
+                        </View>
+                        <View style={{ borderTopWidth: .8, borderColor: colors.gray, padding: 10, flexDirection: 'row', gap: 10, }}>
+                            <TouchableOpacity activeOpacity={1} onPress={() => setShowModal(false)} style={{ borderWidth: 1, borderColor: colors.gray, padding: 10, borderRadius: 8, flexDirection: 'row', justifyContent: 'center', flex: 1 }}>
+                                <Text style={{ color: colors.black, fontWeight: 500 }}>Đóng</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => {
+                                handleCancelAppointment(selectAppointment?.appointment?._id)
+                                navigation.goBack()
+                            }} activeOpacity={1} style={{ backgroundColor: colors.blue, padding: 10, borderRadius: 8, flexDirection: 'row', justifyContent: 'center', flex: 1 }}>
+                                <Text style={{ color: colors.white, fontWeight: 500 }}>Xác nhận hủy</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </GestureHandlerRootView>
     )
 }
 
-export default ScheduleExamDetailIndex
+export default observer(ScheduleExamDetailIndex) 

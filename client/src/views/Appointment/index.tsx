@@ -10,13 +10,14 @@ import AppointmentList from './AppointmentList';
 import Header from '@/src/components/Header';
 import AppointmentHeader from './AppointmentHeader';
 
-const AppointmentIndex = () => {
+const AppointmentIndex = ({route, navigation}: any) => {
+    
     return (
         <>
         <Header isHeaderBack={false}><AppointmentHeader /></Header>
             <ViewComponent style={{paddingTop: 10, flex: 1}} >
                 <ScrollView showsVerticalScrollIndicator={false} style={{marginTop: -10, flexGrow: 1}}>
-                        <AppointmentList/>
+                        <AppointmentList route={route} navigation={navigation}/>
                 </ScrollView>
             </ViewComponent>
         </>

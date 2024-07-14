@@ -1,98 +1,146 @@
 [
-    {
-        "name": "Khám tổng quát",
-        "price": 200000,
-        "description": "Đánh giá sức khỏe răng miệng, phát hiện sớm các vấn đề.",
-        "category_Id": "667ab9bd0bca78167cd8c0e0"
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c0f9"
     },
-    {
-        "name": "Chụp X-quang răng",
-        "price": 400000,
-        "description": " Phát hiện sâu răng, các vấn đề với chân răng và cấu trúc xương hàm.",
-        "category_Id": "667ab9bd0bca78167cd8c0e0"
+    "name": "Khám tổng quát",
+    "price": 200000,
+    "description": "Đánh giá sức khỏe răng miệng, phát hiện sớm các vấn đề.",
+    "category_Id": "667ab9bd0bca78167cd8c0e0"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c0fa"
     },
-    {
-        "name": "Tư vấn vệ sinh răng miệng",
-        "price": 0,
-        "description": "Hướng dẫn cách chăm sóc răng miệng hàng ngày.",
-        "category_Id": "667ab9bd0bca78167cd8c0e0"
+    "name": "Chụp X-quang răng",
+    "price": 400000,
+    "description": " Phát hiện sâu răng, các vấn đề với chân răng và cấu trúc xương hàm.",
+    "category_Id": "667ab9bd0bca78167cd8c0e0"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c0fb"
     },
-    {
-        "name": "Trám răng (Fillings)",
-        "price": 1000000,
-        "description": "Sửa chữa các lỗ hổng do sâu răng gây ra.",
-        "category_Id": "667ab9bd0bca78167cd8c0e1"
+    "name": "Tư vấn vệ sinh răng miệng",
+    "price": 0,
+    "description": "Hướng dẫn cách chăm sóc răng miệng hàng ngày.",
+    "category_Id": "667ab9bd0bca78167cd8c0e0"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c0fc"
     },
-    {
-        "name": "Điều trị viêm nướu (Gingivitis) và viêm nha chu (Periodontitis)",
-        "price": 2000000,
-        "description": "Làm sạch sâu và điều trị các bệnh liên quan đến nướu.",
-        "category_Id": "667ab9bd0bca78167cd8c0e1"
+    "name": "Trám răng (Fillings)",
+    "price": 1000000,
+    "description": "Sửa chữa các lỗ hổng do sâu răng gây ra.",
+    "category_Id": "667ab9bd0bca78167cd8c0e1"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c0fd"
     },
-    {
-        "name": "Lấy cao răng (Scaling)",
-        "price": 300000,
-        "description": "Loại bỏ cao răng và mảng bám.",
-        "category_Id": "667ab9bd0bca78167cd8c0e2"
+    "name": "Điều trị viêm nướu (Gingivitis) và viêm nha chu (Periodontitis)",
+    "price": 2000000,
+    "description": "Làm sạch sâu và điều trị các bệnh liên quan đến nướu.",
+    "category_Id": "667ab9bd0bca78167cd8c0e1"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c0fe"
     },
-    {
-        "name": "Đánh bóng răng (Polishing)",
-        "price": 100000,
-        "description": "Làm sạch và làm bóng bề mặt răng.",
-        "category_Id": "667ab9bd0bca78167cd8c0e2"
+    "name": "Lấy cao răng (Scaling)",
+    "price": 300000,
+    "description": "Loại bỏ cao răng và mảng bám.",
+    "category_Id": "667ab9bd0bca78167cd8c0e2"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c0ff"
     },
-    {
-        "name": "Niềng răng (Braces)",
-        "price": 45000000,
-        "description": "Sử dụng mắc cài hoặc khay trong suốt để chỉnh hình răng.",
-        "category_Id": "667ab9bd0bca78167cd8c0e3"
+    "name": "Đánh bóng răng (Polishing)",
+    "price": 100000,
+    "description": "Làm sạch và làm bóng bề mặt răng.",
+    "category_Id": "667ab9bd0bca78167cd8c0e2"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c100"
     },
-    {
-        "name": "Khay niềng trong suốt (Clear Aligners)",
-        "price": 80000000,
-        "description": "Các loại như Invisalign để điều chỉnh vị trí răng.",
-        "category_Id": "667ab9bd0bca78167cd8c0e3"
+    "name": "Niềng răng (Braces)",
+    "price": 45000000,
+    "description": "Sử dụng mắc cài hoặc khay trong suốt để chỉnh hình răng.",
+    "category_Id": "667ab9bd0bca78167cd8c0e3"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c101"
     },
-    {
-        "name": "Cầu răng (Bridges)",
-        "price": 4000000,
-        "description": "Phục hồi răng bị mất bằng cách gắn vào răng kế bên.",
-        "category_Id": "667ab9bd0bca78167cd8c0e4"
+    "name": "Khay niềng trong suốt (Clear Aligners)",
+    "price": 80000000,
+    "description": "Các loại như Invisalign để điều chỉnh vị trí răng.",
+    "category_Id": "667ab9bd0bca78167cd8c0e3"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c102"
     },
-    {
-        "name": "Răng giả (Dentures)",
-        "price": 2000000,
-        "description": "Răng giả toàn phần hoặc một phần.",
-        "category_Id": "667ab9bd0bca78167cd8c0e4"
+    "name": "Cầu răng (Bridges)",
+    "price": 4000000,
+    "description": "Phục hồi răng bị mất bằng cách gắn vào răng kế bên.",
+    "category_Id": "667ab9bd0bca78167cd8c0e4"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c103"
     },
-    {
-        "name": "Răng sứ (Crowns)",
-        "price": 5000000,
-        "description": "Bọc răng bị hỏng hoặc yếu.",
-        "category_Id": "667ab9bd0bca78167cd8c0e4"
+    "name": "Răng giả (Dentures)",
+    "price": 2000000,
+    "description": "Răng giả toàn phần hoặc một phần.",
+    "category_Id": "667ab9bd0bca78167cd8c0e4"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c104"
     },
-    {
-        "name": "Tẩy trắng răng (Teeth Whitening)",
-        "price": 5000000,
-        "description": "Làm sáng màu răng.",
-        "category_Id": "667ab9bd0bca78167cd8c0e5"
+    "name": "Răng sứ (Crowns)",
+    "price": 5000000,
+    "description": "Bọc răng bị hỏng hoặc yếu.",
+    "category_Id": "667ab9bd0bca78167cd8c0e4"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c105"
     },
-    {
-        "name": "Dán sứ Veneer",
-        "price": 10000000,
-        "description": "Dán lớp sứ mỏng lên bề mặt răng để cải thiện hình dạng và màu sắc.",
-        "category_Id": "667ab9bd0bca78167cd8c0e5"
+    "name": "Tẩy trắng răng (Teeth Whitening)",
+    "price": 5000000,
+    "description": "Làm sáng màu răng.",
+    "category_Id": "667ab9bd0bca78167cd8c0e5"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c106"
     },
-    {
-        "name": "Bonding",
-        "price": 500000,
-        "description": "Sử dụng vật liệu composite để sửa chữa và cải thiện vẻ ngoài của răng.",
-        "category_Id": "667ab9bd0bca78167cd8c0e5"
+    "name": "Dán sứ Veneer",
+    "price": 10000000,
+    "description": "Dán lớp sứ mỏng lên bề mặt răng để cải thiện hình dạng và màu sắc.",
+    "category_Id": "667ab9bd0bca78167cd8c0e5"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c107"
     },
-    {
-        "name": "Khám và điều trị cho trẻ em",
-        "price": 300000,
-        "description": "Bao gồm các biện pháp phòng ngừa và điều trị các vấn đề răng miệng của trẻ.",
-        "category_Id": "667ab9bd0bca78167cd8c0e6"
-    }
+    "name": "Bonding",
+    "price": 500000,
+    "description": "Sử dụng vật liệu composite để sửa chữa và cải thiện vẻ ngoài của răng.",
+    "category_Id": "667ab9bd0bca78167cd8c0e5"
+  },
+  {
+    "_id": {
+      "$oid": "667abc7a0bca78167cd8c108"
+    },
+    "name": "Khám và điều trị cho trẻ em",
+    "price": 300000,
+    "description": "Bao gồm các biện pháp phòng ngừa và điều trị các vấn đề răng miệng của trẻ.",
+    "category_Id": "667ab9bd0bca78167cd8c0e6"
+  }
 ]

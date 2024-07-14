@@ -15,14 +15,15 @@ import { formatCurrency, getDate, getTime } from '@/src/constants/LocalFunction'
 import Backdrop from '@/src/components/Backdrop'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
+import Loading from '@/src/components/Loading'
+import { observer } from 'mobx-react'
 
-const MakeAppointmentDetail = () => {
-    const navigation = useNavigation()
+const MakeAppointmentDetail = ({navigation}: any) => {
     const bottomSheetDetailInfoRef = useRef<BottomSheet>(null);
 
     const [showDetailInfo, setShowDetailInfo] = useState(false);
 
-    const {  selectAppointment, pagingAppointment, setNext } = useStore().apointment
+    const { selectAppointment, pagingAppointment, setNext, isLoading } = useStore().apointment
 
     useEffect(() => {
         pagingAppointment()
@@ -31,8 +32,8 @@ const MakeAppointmentDetail = () => {
     return (
         <GestureHandlerRootView>
             <View style={{ flex: 1 }}>
-                <StatusBar style='dark'/>
-                <TouchableOpacity onPress={() => navigation.navigate("tabs")} style={{marginTop: isIos ? 45 : 40, paddingHorizontal: 20}}>
+                <StatusBar style='dark' />
+                <TouchableOpacity onPress={() => navigation.navigate("tabs")} style={{ marginTop: isIos ? 45 : 40, paddingHorizontal: 20 }}>
                     <Ionicons name="close" size={24} color="black" />
                 </TouchableOpacity>
                 <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
@@ -44,13 +45,13 @@ const MakeAppointmentDetail = () => {
                             <View style={{ marginHorizontal: 12, flexDirection: 'column' }}>
                                 <View>
                                     <View style={{ padding: 18, borderRadius: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: colors.white }}>
-                                        <View style={{flexDirection: 'row',}}>
+                                        <View style={{ flexDirection: 'row', }}>
                                             <Text style={{ fontSize: 24, fontWeight: 500 }}>STT: </Text>
                                             <Text style={{ fontSize: 24, fontWeight: 900, color: colors['green-200'] }}>{selectAppointment.appointment.serialNumber}</Text>
                                         </View>
-                                        <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 5}}>
-                                            <Text style={{color: colors['green-200'], fontSize: 16, fontWeight: 500}}>Đã đặt lịch</Text>
-                                            <Text style={{fontSize: 16}}> {getTime(new Date())} {getDate(new Date())} </Text>
+                                        <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
+                                            <Text style={{ color: colors['green-200'], fontSize: 16, fontWeight: 500 }}>Đã đặt lịch</Text>
+                                            <Text style={{ fontSize: 16 }}> {getTime(new Date())} {getDate(new Date())} </Text>
                                         </View>
                                     </View>
                                     <View style={{ marginHorizontal: 10, backgroundColor: colors.white }}><DashedLine dashLength={6} dashGap={4} dashThickness={1} dashColor={colors.gray} /></View>
@@ -154,7 +155,7 @@ const MakeAppointmentDetail = () => {
                                     <View style={[style.row]}>
                                         <Text style={{ opacity: .7 }}>Trạng thái</Text>
                                         <View style={style.row}>
-                                            <Text style={{ fontWeight: 500, paddingRight: 4 }}>{selectAppointment.appointment.status === 1 ? <Text style={{color: colors['green-200']}}>Đã đặt lịch</Text> : <Text style={{color: colors.red}}>Đã hủy</Text>}</Text>
+                                            <Text style={{ fontWeight: 500, paddingRight: 4 }}>{selectAppointment.appointment.status === 1 ? <Text style={{ color: colors['green-200'] }}>Đã đặt lịch</Text> : <Text style={{ color: colors.red }}>Đã hủy</Text>}</Text>
                                         </View>
                                     </View>
                                     <View style={[style.row]}>
@@ -176,8 +177,8 @@ const MakeAppointmentDetail = () => {
                 </ScrollView>
 
             </View>
-            <View style={{  padding: 12, backgroundColor: "#fff", paddingBottom: isIos ? 40 : 15, borderTopWidth: .5, borderTopColor: "#e7ebed", flexDirection: 'row', gap: 10 }}>
-                <TouchableOpacity onPress={() => navigation.navigate("tabs")} style={{borderWidth: .7, borderColor: colors.gray, padding: 15, borderRadius: 10, flex: 1 }}><Text style={{  fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Về trang chủ</Text></TouchableOpacity>
+            <View style={{ padding: 12, backgroundColor: "#fff", paddingBottom: isIos ? 40 : 15, borderTopWidth: .5, borderTopColor: "#e7ebed", flexDirection: 'row', gap: 10 }}>
+                <TouchableOpacity onPress={() => navigation.navigate("tabs")} style={{ borderWidth: .7, borderColor: colors.gray, padding: 15, borderRadius: 10, flex: 1 }}><Text style={{ fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Về trang chủ</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => {
                     // navigation.navigate("")
                 }} style={{ backgroundColor: colors.blue, padding: 15, borderRadius: 10, flex: 1 }}><Text style={{ color: colors.white, fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Chat với bác sĩ</Text></TouchableOpacity>
@@ -256,8 +257,9 @@ const MakeAppointmentDetail = () => {
 
                 </BottomSheetView>
             </BottomSheet>
+            <Loading visible={isLoading} />
         </GestureHandlerRootView>
     )
 }
 
-export default MakeAppointmentDetail
+export default observer(MakeAppointmentDetail) 

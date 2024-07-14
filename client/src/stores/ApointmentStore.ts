@@ -1,10 +1,11 @@
 
 import { isAction, makeAutoObservable, runInAction } from "mobx";
-import { workhourDoctor } from "../services/DoctorServices";
+import { getAllWorkhour, workhourDoctor } from "../services/DoctorServices";
 import { Workhour, WorkhourDoctor } from "../models/workhour";
 import { Service } from "../models/service";
-import { bookAppointment, checkDateTime, getAppointment, pagingAppointment } from "../services/AppointmentServices";
+import { bookAppointment, cancelAppoinment, checkDateTime, getAppointment, pagingAppointment } from "../services/AppointmentServices";
 import Toast from "react-native-toast-message";
+import { Appointment } from "../models/appointment";
 
 interface initialValues {
     doctorId: string,
@@ -17,7 +18,7 @@ interface initialValues {
 
 interface workhourResult{
     status: number,
-    workhour: WorkhourDoctor[]
+    workhour: Workhour[]
 }
 
 export default class ApointmentStore {
@@ -37,12 +38,30 @@ export default class ApointmentStore {
         workhour: []
     }
     bookAppointment = {}
-    pageAppointment = []
+    pageAppointment: Appointment[] = []
     selectAppointment = {}
+    workhours: Workhour[] = []
 
     constructor() {
         makeAutoObservable(this)
     }
+
+    getAllWorkhour = async() => {
+        try {
+            this.setIsLoading(true)
+            const res = await getAllWorkhour()
+
+            runInAction(() => {
+                this.workhours = res.data
+            })
+            this.setIsLoading(false)
+        } catch (error) {
+            this.setIsLoading(false)
+            console.log('lấy lịch khám có lỗi', error);
+        }
+    }
+
+    setSearchObject = (searchObject: object) => this.searchObject = {...this.searchObject, ...searchObject}
 
     getAppointment = async (id: string) => {
         try {
@@ -65,7 +84,10 @@ export default class ApointmentStore {
             const res = await pagingAppointment()
 
             runInAction(() => {
-                this.pageAppointment = res.data
+                this.pageAppointment = res.data.sort((a: any, b:any) => {
+                    const order = [1, 3, 2, 0]
+                    return order.indexOf(a.status) - order.indexOf(b.status)  
+                })
             })
 
             this.setIsLoading(false)
@@ -88,6 +110,17 @@ export default class ApointmentStore {
             this.setIsLoading(false)
             console.log('book appointment failed', error);
         }
+    }
+
+    handleCancelAppointment = async (id: string) => {
+        this.setIsLoading(true)
+        cancelAppoinment({_id: id}).then(data => {
+            this.setIsLoading(false)
+            this.pagingAppointment()
+        }).catch(err => {
+            this.setIsLoading(false)
+            console.log('Hủy lịch hẹn thất bại',err);
+        })
     }
 
     getWorkhours = async (id: string) => {

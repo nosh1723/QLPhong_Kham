@@ -6,3 +6,10 @@ exports.getCode = (arr, pre) => {
     })
     return code;
 }
+
+//đặt thời gian về 0
+exports.normalizeDate= (date) => {
+    const normalizedDate = new Date(date);
+    normalizedDate.setHours(0, 0, 0, 0);
+    return normalizedDate;
+}

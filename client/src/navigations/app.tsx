@@ -12,7 +12,7 @@ const RootRoute = () => {
   const [isShowSplash, setIsShowSplash] = useState(true);
   const auth = useSelector(authSelector)
   const dispatch = useDispatch()
-  
+
   const { getItem } = useAsyncStorage("auth")
 
   useEffect(() => {
@@ -27,15 +27,15 @@ const RootRoute = () => {
 
   const checkLogin = async () => {
     const res = await getItem()
-    
+
     res && dispatch(
       addAuth(JSON.parse(res))
     )
   }
+  
   return (
     <>
-      {isShowSplash ? <SplashScreen /> : auth?.token ? <MainRoute /> : <AuthRoute />}
-      <Toast/>
+      {isShowSplash ? <SplashScreen /> : auth?.accessToken ? <MainRoute /> : <AuthRoute />}
     </>
 
   )

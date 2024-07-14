@@ -8,11 +8,12 @@ import ScheduleExamHeader from './ScheduleExamHeader';
 import { useStore } from '@/src/root-store';
 import { useIsFocused } from '@react-navigation/native';
 import Loading from '@/src/components/Loading';
+import { observer } from 'mobx-react';
 
 const ScheduleExamIndex = () => {
     const isFocused = useIsFocused();
-    const { pageAppointment, pagingAppointment, isLoading, setIsLoading } = useStore().apointment
-
+    const { pageAppointment, isLoading } = useStore().apointment
+    
     return (
         <View style={{flex: 1}}>
             <Loading visible={isLoading} />
@@ -22,7 +23,7 @@ const ScheduleExamIndex = () => {
                     <Text style={{ fontSize: 20, color: "#9eabb9" }}>Bạn chưa có lịch khám nào!</Text>
                 </View>
             :   
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView >
                 <ScheduleExamCard />
             </ScrollView>
             }
@@ -32,4 +33,4 @@ const ScheduleExamIndex = () => {
     );
 };
 
-export default ScheduleExamIndex;
+export default observer(ScheduleExamIndex) ;

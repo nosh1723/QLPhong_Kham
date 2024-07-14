@@ -11,7 +11,4 @@ router.get('/getDoctorServices/:doctorId', doctorServiceController.getDoctorServ
 // Lấy thông tin một dịch vụ theo ID
 router.get('/id/:id', doctorServiceController.getDoctorServiceById);
 
-// Lấy thông tin một dịch vụ theo ID 
-router.get('/id/:id', doctorServiceController.getDoctorServiceById);
-
 module.exports = router;

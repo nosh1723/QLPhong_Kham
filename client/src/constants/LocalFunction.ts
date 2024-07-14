@@ -39,3 +39,11 @@ export function formatPhoneNumber(phoneNumber: string) {
     else if (phoneNumber.startsWith('84') && phoneNumber.length === 11) return '+' + phoneNumber;
     else throw new Error('Số điện thoại không hợp lệ');
 }
+
+
+//kiểm tra thời gian so với ngày hiện tại
+export const checkTime = (specificTime: Date) => {
+    const nowTime = new Date().setHours(0, 0, 0, 0)
+    if(nowTime > specificTime.setHours(0, 0, 0, 0)) return true
+    return false
+}

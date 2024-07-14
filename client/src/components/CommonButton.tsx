@@ -1,5 +1,7 @@
 import * as React from "react";
 import { Button } from "@rneui/base";
+import { colors } from "../constants/Colors";
+
 
 export default ({
     color = "#006778",
@@ -13,11 +15,11 @@ export default ({
 }) => {
   return (
     <Button
-      buttonStyle={{ width: "auto", backgroundColor: color, borderRadius: 4, ...style }}
+      buttonStyle={{ width: "auto", backgroundColor: color, borderRadius: 8, ...style }}
       // containerStyle={{ margin: 5 }}
       disabledStyle={{
-        borderColor: "#000",
-        backgroundColor: "#ccc"
+        borderColor: colors.gray,
+        backgroundColor: colors.bgGray
       }}
       disabledTitleStyle={{ color: "#fff" }}
       icon={icon}
@@ -27,7 +29,7 @@ export default ({
       onPress={onPress}
       title={title}
       disabled={disabled}
-      titleStyle={{...titleStyle, marginHorizontal: 5, fontWeight: 500 }}
+      titleStyle={{...titleStyle, marginHorizontal: 5, fontWeight: 500, fontSize: 16 }}
       {...props}
     />
   );

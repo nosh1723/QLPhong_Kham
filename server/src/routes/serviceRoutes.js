@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const serviceController = require('../controllers/serviceController');
+const roleMiddleware = require('../middleware/roleMiddleware')
 
 // Route để tạo mới một dịch vụ
 router.post('/', serviceController.createService);
@@ -21,5 +22,7 @@ router.put('/:id', serviceController.updateServiceById);
 router.delete('/:id', serviceController.deleteServiceById);
 
 router.get('/servicesCategoryById/:id', serviceController.getServiceCatogeryById)
+
+router.get('/doctor-service-by-id/:id', serviceController.getDoctorService)
 
 module.exports = router;

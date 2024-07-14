@@ -67,7 +67,11 @@ const appointmentRoutes = require('./routes/appointmentRoutes');
 const patientRoutes = require('./routes/patientRoutes');
 const workHouseDoctorRoutes = require('./routes/workHouseDoctorRoutes');
 const errorMiddleware = require('./middleware/errorMiddleware');
-const socketHandler = require('./socketHandler'); // Thêm handler
+const socketHandler = require('./socketHandler'); 
+//const medicalHistoryRoutes = require('./routes/medicalHistoryRoutes');
+const medicalReportRoutes = require('./routes/medicalReportRoutes');
+const medicalResultRoutes = require('./routes/medicalResultRoutes');
+
 
 const app = express();
 const server = http.createServer(app); // Tạo server HTTP
@@ -94,6 +98,9 @@ app.use('/api/branch', branchRoutes);
 app.use('/api/appointments', appointmentRoutes); 
 app.use('/api/patient', patientRoutes);
 app.use('/api/workhouses', workHouseDoctorRoutes);
+//app.use('/api/medicalhistory', medicalHistoryRoutes);
+app.use('/api/medicalreport', medicalReportRoutes);
+app.use('/api/medicalresult', medicalResultRoutes);
 
 app.use(errorMiddleware);
 

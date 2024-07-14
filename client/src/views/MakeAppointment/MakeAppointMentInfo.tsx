@@ -2,31 +2,31 @@ import Backdrop from "@/src/components/Backdrop";
 import CommonButton from '@/src/components/CommonButton';
 import Loading from "@/src/components/Loading";
 import { colors } from "@/src/constants/Colors";
-import { getDate, getDateFormat, getGenderFomat, getTime } from '@/src/constants/LocalFunction';
+import { checkTime, getDate, getDateFormat, getGenderFomat, getTime } from '@/src/constants/LocalFunction';
 import { Workhour } from "@/src/models/workhour";
 import { useStore } from "@/src/root-store";
 import { style } from "@/src/styles";
 import { AntDesign, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import BottomSheet, { BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation } from "@react-navigation/native";
 import { Image } from '@rneui/themed';
 import { useFormikContext } from "formik";
 import { observer } from "mobx-react";
 import React, { useEffect, useRef, useState } from 'react';
 import { Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import Toast from "react-native-toast-message";
 
-export default observer(function Makeappointment() {
-    const navigation = useNavigation()
+export default observer(function Makeappointment({ navigation }: any) {
     const isIos = Platform.OS === "ios"
 
-    const { values, setFieldValue, submitForm, errors} = useFormikContext()
+    const { values, setFieldValue, submitForm, errors, handleChange }: any = useFormikContext()
 
     const bottomSheetCalendarRef = useRef<BottomSheet>(null);
     const bottomSheetMoreInfoRef = useRef<BottomSheet>(null);
     const bottomSheetDetailInfoRef = useRef<BottomSheet>(null);
     const bottomSheetServiceRef = useRef<BottomSheet>(null);
 
+    const [note, setNote] = useState(values?.note)
     const [date, setDate] = useState(new Date());
     const [timeWork, setTimeWork] = useState(1);
     const [activeDayExam, setActiveDayExam] = useState(0);
@@ -37,10 +37,10 @@ export default observer(function Makeappointment() {
     const [showDetailInfo, setShowDetailInfo] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    const { doctor } = useStore().home
+    const { doctor, workhourDoctor, getWorkhourDoctor } = useStore().home
     const { patient } = useStore().user
-    const { pageService } = useStore().service
-    const { next, setNext, workhourDoctor, searchObject, checkDateTime, isLoading, workhourResult, resetStore } = useStore().apointment
+    const { pageService, doctorService } = useStore().service
+    const { isLoading, workhourResult, resetStore, workhours } = useStore().apointment
 
     const onChange = (event: any, selectedDate: any) => {
         if (!isIos) {
@@ -48,7 +48,7 @@ export default observer(function Makeappointment() {
             setShowCalendar(false);
             setDate(currentDate);
             setFieldValue("date", currentDate)
-            checkDateTime(currentDate)
+            getWorkhourDoctor(currentDate)
             return
         }
 
@@ -61,36 +61,41 @@ export default observer(function Makeappointment() {
         setShowCalendar(false);
         setDate(currentDate);
         setFieldValue("date", currentDate)
-        checkDateTime(currentDate)
+        getWorkhourDoctor(currentDate)
         bottomSheetCalendarRef.current?.close()
     }
 
     useEffect(() => {
         setDate(values.date)
         setActiveTimeWork(values.appointmentTime._id)
+        getWorkhourDoctor(new Date())
 
-        if(new Date().getTime() === new Date(values.date).getTime()){
-            checkDateTime(new Date())
-        }else {
-            checkDateTime(values.date)
+        if (new Date().getTime() === new Date(values.date).getTime()) {
+            getWorkhourDoctor(new Date())
+        } else {
+            getWorkhourDoctor(values.date)
         }
 
         return () => resetStore()
     }, [])
 
     useEffect(() => {
-        const check = workhourResult.workhour.some(i => i.workHourId === values.appointmentTime._id)
-        if(check) {
+        const check = workhourResult.workhour.some(i => i._id === values.appointmentTime._id)
+        if (check) {
             setActiveTimeWork("")
             setFieldValue("appointmentTime", new Workhour())
         }
-    }, [workhourResult.workhour.length])    
-    
+    }, [workhourResult?.workhour?.length])
+
+    useEffect(() => {
+        if (checkTime(date)) setActiveTimeWork('')
+    }, [date])
+
     return (
         <>
 
             {/* view container */}
-            <Loading visible={isLoading}/>
+            <Loading visible={isLoading} />
             <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{ flex: 1 }}>
                 <View style={{ backgroundColor: '#f0f5fa', flexDirection: "column", paddingHorizontal: 10, gap: 15, paddingVertical: 15 }}>
 
@@ -153,25 +158,30 @@ export default observer(function Makeappointment() {
                             </View>
                         </View>
 
-                        <View style={{flexDirection: "row", alignItems: "flex-end", marginTop: 10, marginBottom: 10,}}>
-                            <Text style={{ fontWeight: '500', fontSize: 16, marginRight: 6 }}>Chọn dịch vụ <Text style={{color: colors.red}}>*</Text></Text>
+                        <View style={{ flexDirection: "row", alignItems: "flex-end", marginTop: 10, marginBottom: 10, }}>
+                            <Text style={{ fontWeight: '500', fontSize: 16, marginRight: 6 }}>Chọn dịch vụ <Text style={{ color: colors.red }}>*</Text></Text>
                             {errors.service?.name &&
-                                <Text style={{color: "red", marginTop: -10}}>{errors.service?.name}</Text>
+                                <Text style={{ color: "red", marginTop: -10 }}>{errors.service?.name}</Text>
                             }
                         </View>
-                        <View style={{ backgroundColor: "#fff", borderRadius: 15,}}>
+                        <View style={{ backgroundColor: "#fff", borderRadius: 15, }}>
                             <View style={{ borderWidth: 1, borderColor: "#e7ebed", borderRadius: 8, marginVertical: 15, marginHorizontal: 10, position: 'relative' }} >
-                                    <TouchableOpacity onPress={() => {
-                                        setShowService(true)
-                                        bottomSheetServiceRef.current?.expand()
-                                    }} style={{padding: 10, flexDirection: "row", justifyContent: "center"}}>
-                                        <Text style={{ fontWeight: 600 }}>{values.service.name ? values.service.name : "Chọn dịch vụ"}</Text>
-                                        <FontAwesome name="angle-down" size={20} color="black" style={{ paddingLeft: 3, marginTop: -3 }} />
-                                    </TouchableOpacity>
+                                <TouchableOpacity onPress={() => {
+                                    setShowService(true)
+                                    bottomSheetServiceRef.current?.expand()
+                                }} style={{ padding: 10, flexDirection: "row", justifyContent: "center" }}>
+                                    <Text style={{ fontWeight: 600 }}>{values.service.name ? values.service.name : "Chọn dịch vụ"}</Text>
+                                    <FontAwesome name="angle-down" size={20} color="black" style={{ paddingLeft: 3, marginTop: -3 }} />
+                                </TouchableOpacity>
                             </View>
                         </View>
 
-                        <Text style={{ fontWeight: '500', fontSize: 16, marginTop: 10, marginBottom: 10 }}>Chọn Ngày khám</Text>
+                        <View style={{ flexDirection: "row", alignItems: "flex-end", marginTop: 10, marginBottom: 10, }}>
+                            <Text style={{ fontWeight: '500', fontSize: 16, marginRight: 6 }}>Chọn Ngày khám <Text style={{ color: colors.red }}>*</Text></Text>
+                            {errors.date &&
+                                <Text style={{ color: "red", marginTop: -10 }}>{errors.date}</Text>
+                            }
+                        </View>
                         <View style={{ backgroundColor: "#fff", borderRadius: 15, }}>
                             <CommonButton onPress={() => {
                                 showCalendar ? bottomSheetCalendarRef.current?.close() : bottomSheetCalendarRef.current?.expand()
@@ -195,10 +205,10 @@ export default observer(function Makeappointment() {
 
                         </View>
 
-                        <View style={{flexDirection: "row", alignItems: "flex-end", marginTop: 10, marginBottom: 10,}}>
-                            <Text style={{ fontWeight: '500', fontSize: 16, marginRight: 6 }}>Chọn giờ khám <Text style={{color: colors.red}}>*</Text></Text>
+                        <View style={{ flexDirection: "row", alignItems: "flex-end", marginTop: 10, marginBottom: 10, }}>
+                            <Text style={{ fontWeight: '500', fontSize: 16, marginRight: 6 }}>Chọn giờ khám <Text style={{ color: colors.red }}>*</Text></Text>
                             {errors.appointmentTime?._id &&
-                                <Text style={{color: "red", marginTop: -10}}>{errors.appointmentTime?._id}</Text>
+                                <Text style={{ color: "red", marginTop: -10 }}>{errors.appointmentTime?._id}</Text>
                             }
                         </View>
                         <View style={{ marginTop: 10 }}>
@@ -219,19 +229,37 @@ export default observer(function Makeappointment() {
                                 {/* Header */}
                                 {/* Rows */}
                                 <View style={{ flexDirection: "row", justifyContent: "space-around", flexWrap: "wrap", rowGap: 10 }}>
-                                    {workhourDoctor?.map((i, index) => {
-                                        const checkTimeExist = workhourResult.workhour?.some(time => time.workHourId === i._id)
+                                    {workhours?.map((i, index) => {
+                                        const checkTimeExist = workhourDoctor?.some(time => time.workhour._id === i._id)
+                                        let btninfo = {
+                                            borderColor: "#ccd3dd",
+                                            bgColor: "transparent"
+                                        }
+                                        let workhourExist: any
+                                        if (checkTimeExist) {
+                                            workhourExist = workhourDoctor?.find(j => j.workhour._id === i._id)
+                                            btninfo = {
+                                                borderColor: workhourExist?.status === 1 ? colors['green-200'] : workhourExist?.status === 2 ? colors.orange : workhourExist?.status === 3 ? colors.blue : colors.red,
+                                                bgColor: workhourExist?.status === 1 ? "#E0FBE2" : workhourExist?.status === 2 ? "#F3F6D0" : workhourExist?.status === 3 ? "rgba(222, 235, 246, .7)" : "#fbe9dd",
+                                            }
+                                        }
                                         if (i.typeShiftWork === timeWork)
                                             return <TouchableOpacity
+                                                activeOpacity={1}
                                                 key={"workhour doctor" + i._id}
                                                 onPress={() => {
-                                                    if(!checkTimeExist){
+                                                    if (!checkTimeExist && !checkTime(date)) {
                                                         setActiveTimeWork(i._id)
                                                         setFieldValue("appointmentTime", i)
+                                                        return
                                                     }
+                                                    Toast.show({
+                                                        type: "info",
+                                                        text1: "Giờ khám đã có người đặt, vui lòng chọn giờ khám khác!"
+                                                    })
+
                                                 }}
-                                                disabled={checkTimeExist}
-                                                style={{ padding: 10, paddingHorizontal: 13, borderRadius: 12, borderWidth: 1.5, borderColor: activeTimeWork === i._id ? colors.blue : "#ccd3dd", backgroundColor: checkTimeExist ? colors.bgGray : (activeTimeWork === i._id ? "#e7f1fd" : "transparent")  , }}
+                                                style={{ padding: 10, paddingHorizontal: 13, borderRadius: 12, borderWidth: 1.5, borderColor: activeTimeWork === i._id ? colors.blue : "#ccd3dd", backgroundColor: checkTimeExist || checkTime(date) ? colors.bgGray : (activeTimeWork === i._id ? "#e7f1fd" : "transparent"), }}
                                             >
                                                 <Text style={{}}>
                                                     {getTime(i.startTime)} - {getTime(i.endTime)}
@@ -245,14 +273,23 @@ export default observer(function Makeappointment() {
                             <View>
                                 <Text style={{ fontWeight: '500', fontSize: 16, marginTop: 30, }}>Thông tin bổ sung (Không bắt buộc)</Text>
                                 <Text style={{ marginTop: 8, color: colors.textGray }}>Bạn có thể cung cấp thêm các thông tin như lý do khám, triệu chứng, đơn thuốc sử dụng gần đây</Text>
-                                <TouchableOpacity onPress={() => {
-                                    bottomSheetMoreInfoRef.current?.expand();
-                                    bottomSheetCalendarRef.current?.close()
-                                    setShowMoreInfo(true)
-                                }} style={{ borderRadius: 10, backgroundColor: '#ffffff', marginTop: 15, paddingVertical: 4, flexDirection: "row", justifyContent: 'center', alignItems: "center", gap: 3 }}>
-                                    <Text style={{ color: colors.blue, lineHeight: 40, fontWeight: 500 }}>Tôi muốn gửi thêm thông tin </Text>
-                                    <View style={{ padding: 3, backgroundColor: "rgba(131, 180, 255, .3)", borderRadius: 1000 }}><AntDesign name="arrowright" size={16} color={colors.blue} /></View>
-                                </TouchableOpacity>
+                                <View style={{ borderRadius: 10, backgroundColor: '#ffffff', marginTop: 15, padding: 12, gap: 10 }}>
+                                    {note !== "" &&
+                                        <>
+                                            <Text style={{ fontSize: 16 }}>Lý do khám, triệu chứng</Text>
+                                            <Text>{note}</Text>
+                                        </>
+                                    }
+                                    <TouchableOpacity onPress={() => {
+                                        bottomSheetMoreInfoRef.current?.expand();
+                                        bottomSheetCalendarRef.current?.close()
+                                        setShowMoreInfo(true)
+                                    }} style={{ flexDirection: "row", justifyContent: 'center', alignItems: "center", gap: 3 }}>
+                                        <Text style={{ color: colors.blue, lineHeight: 40, fontWeight: 500 }}>Tôi muốn gửi thêm thông tin </Text>
+                                        <View style={{ padding: 3, backgroundColor: "rgba(131, 180, 255, .3)", borderRadius: 1000 }}><AntDesign name="arrowright" size={16} color={colors.blue} /></View>
+                                    </TouchableOpacity>
+                                </View>
+
                             </View>
                         </View>
                     </View>
@@ -280,6 +317,7 @@ export default observer(function Makeappointment() {
                         <View style={{ flexDirection: "row", justifyContent: "center", paddingBottom: 16, paddingTop: 10 }}>
                             <Text style={{ fontWeight: 600, fontSize: 18 }}>Chọn ngày khám</Text>
                         </View>
+
                         <DateTimePicker
                             testID="dateTimePicker"
                             value={date}
@@ -311,9 +349,13 @@ export default observer(function Makeappointment() {
                     <View style={{ flexDirection: "row", justifyContent: "center", paddingBottom: 16, paddingTop: 10 }}>
                         <Text style={{ fontWeight: 600, fontSize: 18 }}>Lý do thăm khám</Text>
                     </View>
-                    <TextInput numberOfLines={2} placeholder="Lý do khám, triệu trứng, trạng thái, tiền sử bệnh..." style={[style.input, { marginHorizontal: 15 }]}></TextInput>
+                    <TextInput value={values?.note} onChangeText={handleChange('note')} numberOfLines={2} placeholder="Lý do khám, triệu trứng, trạng thái, tiền sử bệnh..." style={[style.input, { marginHorizontal: 15 }]}></TextInput>
                     <View style={{ flexDirection: 'row', padding: 10, marginTop: 10, position: "absolute", bottom: isIos ? 30 : 10, borderTopWidth: .8, borderColor: colors.gray, justifyContent: "center", width: "100%" }}>
-                        <TouchableOpacity style={{ backgroundColor: "#006778", padding: 15, borderRadius: 10, flex: 1 }} onPress={() => { }}><Text style={{ color: "#fff", fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Xác nhận</Text></TouchableOpacity>
+                        <TouchableOpacity style={{ backgroundColor: "#006778", padding: 15, borderRadius: 10, flex: 1 }} onPress={() => {
+                            setNote(values?.note)
+                            setShowMoreInfo(false)
+                            bottomSheetMoreInfoRef.current?.close()
+                        }}><Text style={{ color: "#fff", fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Xác nhận</Text></TouchableOpacity>
                     </View>
 
                 </BottomSheetView>
@@ -403,28 +445,29 @@ export default observer(function Makeappointment() {
                 onClose={() => { setShowService(false) }}
                 backgroundStyle={{ backgroundColor: "transparent" }}
             >
-                <BottomSheetScrollView style={{  backgroundColor: "#fff", borderTopRightRadius: 20, borderTopLeftRadius: 20}}>
+                <BottomSheetScrollView style={{ backgroundColor: "#fff", borderTopRightRadius: 20, borderTopLeftRadius: 20 }}>
                     {/* <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 20 }}>
                         <Text style={{ fontWeight: 600, fontSize: 18 }}>Chọn dịch vụ</Text>
                     </View>
                     <View style={{paddingHorizontal: 20, paddingTop: 10, flexGrow: 1, height: 10, overflow: 'hidden'}}> */}
-                        <View style={{marginTop: 20, marginBottom: 50,  flexDirection: 'column', gap: 10, paddingVertical: 10}}>
-                           <View style={{paddingBottom: 10}}>
-                                {pageService?.map(i => {
-                                    return <TouchableOpacity key={"btSV" + i._id} onPress={() => {
-                                        setFieldValue('service', i)
-                                        setShowService(false)
-                                        bottomSheetServiceRef.current?.close()
-                                    }} style={{paddingVertical: 14, marginHorizontal: 25, paddingHorizontal: 10, flexDirection: 'row', borderBottomWidth: .8, borderColor: colors.gray, backgroundColor: i._id === values.service._id ? "rgba(225, 225, 225, .7)" : "transparent", borderRadius: 10}}><Text>{i.name}</Text></TouchableOpacity>
-                                })}
-                           </View>
-                            
+                    <View style={{ marginTop: 20, marginBottom: 50, flexDirection: 'column', gap: 10, paddingVertical: 10 }}>
+                        <View style={{ paddingBottom: 10 }}>
+                            {doctorService?.map(i => {
+                                return <TouchableOpacity key={"btSV" + i._id} onPress={() => {
+                                    setFieldValue('service', i)
+                                    setShowService(false)
+                                    bottomSheetServiceRef.current?.close()
+                                }} style={{ paddingVertical: 14, marginHorizontal: 25, paddingHorizontal: 10, flexDirection: 'row', borderBottomWidth: .8, borderColor: colors.gray, backgroundColor: i._id === values.service._id ? "rgba(225, 225, 225, .7)" : "transparent", borderRadius: 10 }}><Text>{i.name}</Text></TouchableOpacity>
+                            })}
                         </View>
+
+                    </View>
                     {/* </View> */}
                 </BottomSheetScrollView>
             </BottomSheet>
 
             {/* end bottom sheet view */}
+            <Toast position="top" topOffset={10} visibilityTime={2000} />
         </>
     );
 })

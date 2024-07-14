@@ -9,7 +9,7 @@ import Header from '@/src/components/Header';
 import Loading from '@/src/components/Loading';
 import { observer } from 'mobx-react';
 
-const Service = () => {
+const Service = ({navigation}: any) => {
     const { listServiceByCate, isLoading } = useStore().service
 
     return (
@@ -19,8 +19,8 @@ const Service = () => {
             <View style={{flex: 1}}>
                 <ScrollView style={{paddingTop: -10, flexGrow: 1}}>
                     {listServiceByCate?.length > 0 && 
-                        listServiceByCate?.map(item => {
-                            return <ServiceList data={item} key={"service" + item?._id}/>
+                        listServiceByCate?.map((item: any) => {
+                            return <ServiceList data={item} key={"service" + item?._id} navigation={navigation}/>
                         })
                     }
                 </ScrollView>

@@ -52,7 +52,7 @@ export default observer(function MakeappointmentIndex({navigation}: any) {
 
     useEffect(() => {
         pagingService()
-        getDoctorService(doctor.id)
+        getDoctorService(doctor?.id)
 
         return () => resetWorkhour()
     }, [])

@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "6688058b886335013c964449"
+  },
+  "appointmentId": {
+    "$oid": "6687fdf100c3483c9b85de0e"
+  },
+  "reExamination": false,
+  "dateReExam": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "668805a2886335013c96445f"
+  },
+  "appointmentId": {
+    "$oid": "668800fe00c3483c9b85df6b"
+  },
+  "reExamination": true,
+  "dateReExam": {
+    "$date": "2024-07-14T17:00:00.000Z"
+  },
+  "__v": 0
+}]

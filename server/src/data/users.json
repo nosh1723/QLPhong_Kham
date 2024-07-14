@@ -1,12 +1,21 @@
-[
-    {
-        "email": "123@gmail.com",
-        "password": "password123",
-        "role": "user"
-    },
-    {
-        "email": "456@gmail.com",
-        "password": "password123",
-        "role": "user"
-    }
-]
+[{
+  "_id": {
+    "$oid": "667a9ed025f5c59bfa0d0baa"
+  },
+  "email": "0702201088abc@gmail.com",
+  "password": "$2a$10$/.t/dz/L3niyiw.Bq4kaI.ysnZmfoal73VlDrwMhj2.Wp1TaJV8BS",
+  "role": "user",
+  "__v": 0,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2N2E5ZWQwMjVmNWM1OWJmYTBkMGJhYSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE5NTc0MDUwLCJleHAiOjE3MjAxNzg4NTB9.CkMO5ouPH8yMyaKQNQGLXt0NbVfRFLY8TYDbFLCyMOo",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2N2E5ZWQwMjVmNWM1OWJmYTBkMGJhYSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzIwOTMwMDYzLCJleHAiOjE3MjE1MzQ4NjN9.RJPJN3o5QORQ_zVrNU_ohSceTF18fFeYupE0u4bRepc"
+},
+{
+  "_id": {
+    "$oid": "66814d0ac69a4a6b7717d8fd"
+  },
+  "email": "doctor1@gmail.com",
+  "password": "$2a$10$MJ6RNovTjMAwrKIZdyyI8ucXwBhpCS2qV8z3WAmJxhFD3DocrePya",
+  "role": "doctor",
+  "__v": 0,
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ODE0ZDBhYzY5YTRhNmI3NzE3ZDhmZCIsInJvbGUiOiJkb2N0b3IiLCJpYXQiOjE3MjA5MzAwNDQsImV4cCI6MTcyMTUzNDg0NH0.uyj-3SoNCV2dtPc0qiM8SUJN5kbtj-aleeYC66j8KYo"
+}]

@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, BackHandler } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import Header from '@/src/components/Header'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -13,21 +13,37 @@ import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { useStore } from '@/src/root-store'
 import { formatCurrency, getDate, getTime } from '@/src/constants/LocalFunction'
 import Backdrop from '@/src/components/Backdrop'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
 import Loading from '@/src/components/Loading'
 import { observer } from 'mobx-react'
+import ModalConfirm from '@/src/components/ModalConfirm'
 
 const MakeAppointmentDetail = ({navigation}: any) => {
     const bottomSheetDetailInfoRef = useRef<BottomSheet>(null);
 
+    const [open ,setOpen] = useState(false)
     const [showDetailInfo, setShowDetailInfo] = useState(false);
 
-    const { selectAppointment, pagingAppointment, setNext, isLoading } = useStore().apointment
+    const { selectAppointment, pagingAppointment, setNext, isLoading }: any = useStore().apointment
 
     useEffect(() => {
         pagingAppointment()
     }, [])
+
+    useFocusEffect(
+        React.useCallback(() => {
+          const onBackPress = () => {
+            navigation.navigate('Home')
+            return true;
+          };
+    
+          BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    
+          return () =>
+            BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+        }, [navigation])
+      );
 
     return (
         <GestureHandlerRootView>
@@ -184,7 +200,7 @@ const MakeAppointmentDetail = ({navigation}: any) => {
                 }} style={{ backgroundColor: colors.blue, padding: 15, borderRadius: 10, flex: 1 }}><Text style={{ color: colors.white, fontSize: 16, fontWeight: 600, textAlign: 'center' }}>Chat với bác sĩ</Text></TouchableOpacity>
             </View>
 
-            {showDetailInfo ? <Backdrop /> : <></>}
+            {showDetailInfo || open ? <Backdrop /> : <></>}
 
             <BottomSheet
                 ref={bottomSheetDetailInfoRef}
@@ -257,6 +273,15 @@ const MakeAppointmentDetail = ({navigation}: any) => {
 
                 </BottomSheetView>
             </BottomSheet>
+
+            <ModalConfirm 
+                open={open}
+                onClose={setOpen}
+                title='Bạn có chắc chắn muốn quay lại?'
+                onPress={() => {
+                    navigation.navigate('doctor')
+                }}
+            />
             <Loading visible={isLoading} />
         </GestureHandlerRootView>
     )

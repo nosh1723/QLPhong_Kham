@@ -1,7 +1,6 @@
 import Backdrop from '@/src/components/Backdrop'
 import CommonButton from '@/src/components/CommonButton'
 import Header from '@/src/components/Header'
-import ModalConfirm from '@/src/components/ModalConfirm'
 import { colors } from '@/src/constants/Colors'
 import { isIos, SCHEDULE_EXAM_STATUS } from '@/src/constants/LocalConst'
 import { formatCurrency, getDate, getTime } from '@/src/constants/LocalFunction'
@@ -9,11 +8,10 @@ import { useStore } from '@/src/root-store'
 import { style } from '@/src/styles'
 import { Ionicons } from '@expo/vector-icons'
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
-import { useFocusEffect } from '@react-navigation/native'
 import { Image } from '@rneui/themed'
 import { observer } from 'mobx-react'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { BackHandler, Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import DashedLine from 'react-native-dashed-line'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -23,27 +21,13 @@ const ScheduleExamDetailIndex = ({ navigation }: any) => {
     const [status, setStatus] = useState<any>({})
     const [showModal, setShowModal] = useState(false)
     const [showDetailInfo, setShowDetailInfo] = useState(false);
-    const [open, setOpen] = useState(false)
 
-    const { selectAppointment, handleCancelAppointment, pagingAppointment } = useStore().apointment
+    const { selectAppointment, handleCancelAppointment }: any = useStore().apointment
 
     useEffect(() => {
         const res = SCHEDULE_EXAM_STATUS.find(i => i.status === selectAppointment?.appointment?.status)
         setStatus(res)
     }, [])
-
-    useFocusEffect(() => {
-        const onBackPress: any = () => {
-            setOpen(true)
-        };
-
-        const subscription = BackHandler.addEventListener(
-            'hardwareBackPress',
-            onBackPress
-        );
-
-        return () => subscription.remove();
-    })
 
     return (
         <GestureHandlerRootView>
@@ -311,11 +295,6 @@ const ScheduleExamDetailIndex = ({ navigation }: any) => {
                     </View>
                 </View>
             </Modal>
-
-            <ModalConfirm 
-                open={open}
-                onClose={setOpen}
-            />
         </GestureHandlerRootView>
     )
 }

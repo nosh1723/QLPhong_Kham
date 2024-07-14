@@ -1,11 +1,11 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, BackHandler } from 'react-native'
 import React, { useState } from 'react'
 import Header from '@/src/components/Header'
 import { Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 import { colors } from '@/src/constants/Colors'
 import { ScrollView } from 'react-native'
 import CommonButton from '@/src/components/CommonButton'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { isIos } from '@/src/constants/LocalConst'
 import { Image } from '@rneui/themed'
 import { useStore } from '@/src/root-store'
@@ -14,15 +14,33 @@ import { useFormikContext } from 'formik'
 import { formatCurrency, getDate, getGenderFomat, getTime } from '@/src/constants/LocalFunction'
 import Loading from '@/src/components/Loading'
 import Toast from 'react-native-toast-message'
+import ModalConfirm from '@/src/components/ModalConfirm'
+import Backdrop from '@/src/components/Backdrop'
 
 const MakeAppointMentComfirm = ({navigation}: any) => {
-    const { setSubmitting, submitForm, values }: any = useFormikContext()
+    const {  values }: any = useFormikContext()
     
     const [extend, setExtend] = useState(true)
     
     const { doctor } = useStore().home
     const { patient } = useStore().user
     const { handleBookAppointment, isLoading, getAppointment, resetStore, setNext } = useStore().apointment
+
+
+    
+    useFocusEffect(
+        React.useCallback(() => {
+          const onBackPress = () => {
+            setNext(0)
+            return true;
+          };
+    
+          BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    
+          return () =>
+            BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+        }, [navigation])
+      );
     
     return (
         <>

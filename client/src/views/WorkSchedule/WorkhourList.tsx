@@ -1,23 +1,19 @@
-import { View, Text, Modal } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { useStore } from '@/src/root-store'
-import { TouchableOpacity } from 'react-native'
-import Toast from 'react-native-toast-message'
-import { getDate, getGenderFomat, getTime } from '@/src/constants/LocalFunction'
-import { colors } from '@/src/constants/Colors'
-import { Appointment } from '@/src/models/appointment'
 import ModalComponent from '@/src/components/Modal'
+import { colors } from '@/src/constants/Colors'
+import { getDate, getGenderFomat, getTime } from '@/src/constants/LocalFunction'
+import { useStore } from '@/src/root-store'
 import { style } from '@/src/styles'
-import CommonButton from '@/src/components/CommonButton'
 import { FontAwesome } from '@expo/vector-icons'
 import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
+import Toast from 'react-native-toast-message'
 
 const WorkhourList = ({ title, type, navigation, style: WorkhourList }: any) => {
     const { workhourResult, workhours, } = useStore().apointment
     const { workhourDoctor, workhourExist, resetWorkhourExist, setWorkhourExist } = useStore().home
     const { getMedicalRecord, selectMedicalRecord, hasDisable, setSelectMedicalRecord } = useStore().medicalResultStore
     const [opneModal, setOpenModal] = useState(false)
-    // console.log(selectMedicalRecord);
 
     return (
         <View style={{ flexDirection: 'column', alignItems: 'center' }}>
@@ -125,6 +121,12 @@ const WorkhourList = ({ title, type, navigation, style: WorkhourList }: any) => 
                             <Text>Dịch vụ</Text>
                             <Text style={{ fontWeight: 500 }}>{workhourExist.service.name}</Text>
                         </View>
+                        {workhourExist.note && 
+                            <View style={[style.row, {}]}>
+                                <Text>Lý do khám</Text>
+                            <Text style={{ fontWeight: 500 }}>{workhourExist.note}</Text>
+                        </View>
+                        }
                     </View>
 
                     {

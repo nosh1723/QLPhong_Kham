@@ -1,7 +1,9 @@
 import Backdrop from "@/src/components/Backdrop";
 import CommonButton from '@/src/components/CommonButton';
 import Loading from "@/src/components/Loading";
+import ModalConfirm from "@/src/components/ModalConfirm";
 import { colors } from "@/src/constants/Colors";
+import { isIos } from "@/src/constants/LocalConst";
 import { checkTime, getDate, getDateFormat, getGenderFomat, getTime } from '@/src/constants/LocalFunction';
 import { Workhour } from "@/src/models/workhour";
 import { useStore } from "@/src/root-store";
@@ -9,23 +11,23 @@ import { style } from "@/src/styles";
 import { AntDesign, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import BottomSheet, { BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useFocusEffect } from "@react-navigation/native";
 import { Image } from '@rneui/themed';
 import { useFormikContext } from "formik";
 import { observer } from "mobx-react";
 import React, { useEffect, useRef, useState } from 'react';
-import { Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { BackHandler, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Toast from "react-native-toast-message";
 
 export default observer(function Makeappointment({ navigation }: any) {
-    const isIos = Platform.OS === "ios"
-
     const { values, setFieldValue, submitForm, errors, handleChange }: any = useFormikContext()
 
     const bottomSheetCalendarRef = useRef<BottomSheet>(null);
     const bottomSheetMoreInfoRef = useRef<BottomSheet>(null);
-    const bottomSheetDetailInfoRef = useRef<BottomSheet>(null);
     const bottomSheetServiceRef = useRef<BottomSheet>(null);
+    const bottomSheetDetailInfoRef = useRef<BottomSheet>(null);
 
+    const [open ,setOpen] = useState(false)
     const [note, setNote] = useState(values?.note)
     const [date, setDate] = useState(new Date());
     const [timeWork, setTimeWork] = useState(1);
@@ -37,9 +39,9 @@ export default observer(function Makeappointment({ navigation }: any) {
     const [showDetailInfo, setShowDetailInfo] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    const { doctor, workhourDoctor, getWorkhourDoctor } = useStore().home
     const { patient } = useStore().user
     const { pageService, doctorService } = useStore().service
+    const { doctor, workhourDoctor, getWorkhourDoctor } = useStore().home
     const { isLoading, workhourResult, resetStore, workhours } = useStore().apointment
 
     const onChange = (event: any, selectedDate: any) => {
@@ -90,6 +92,21 @@ export default observer(function Makeappointment({ navigation }: any) {
     useEffect(() => {
         if (checkTime(date)) setActiveTimeWork('')
     }, [date])
+
+    useFocusEffect(
+        React.useCallback(() => {
+          const onBackPress = () => {
+            setOpen(true)
+            return true;
+          };
+    
+          BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    
+          return () =>
+            BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+        }, [navigation])
+      );
+    
 
     return (
         <>
@@ -302,7 +319,7 @@ export default observer(function Makeappointment({ navigation }: any) {
                     submitForm()
                 }} title="Tiếp tục" style={{ borderRadius: 8, }}></CommonButton>
             </View>
-            {(showCalendar && isIos) || showMoreInfo || showDetailInfo || showService ? <Backdrop /> : <></>}
+            {(showCalendar && isIos) || showMoreInfo || showDetailInfo || showService || open ? <Backdrop /> : <></>}
 
             {/* start bottom sheet view */}
             {isIos &&
@@ -465,8 +482,17 @@ export default observer(function Makeappointment({ navigation }: any) {
                     {/* </View> */}
                 </BottomSheetScrollView>
             </BottomSheet>
-
             {/* end bottom sheet view */}
+
+            <ModalConfirm 
+                open={open}
+                onClose={setOpen}
+                title='Bạn có chắc chắn muốn quay lại?'
+                onPress={() => {
+                    navigation.navigate('doctor')
+                }}
+            />
+
             <Toast position="top" topOffset={10} visibilityTime={2000} />
         </>
     );

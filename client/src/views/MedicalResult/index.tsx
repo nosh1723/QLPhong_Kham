@@ -18,6 +18,7 @@ import { isIos } from '@/src/constants/LocalConst'
 import Backdrop from '@/src/components/Backdrop'
 import { observer } from 'mobx-react'
 import Loading from '@/src/components/Loading'
+import ModalConfirm from '@/src/components/ModalConfirm'
 
 const MedicalResultIndex = ({navigation}: any) => {
 
@@ -70,7 +71,6 @@ const MedicalResultIndex = ({navigation}: any) => {
                 }}
             >
                 {({ values, setFieldValue, handleChange, handleSubmit, errors, touched }: any) => {
-                    console.log(values);
                     return (
                         <>
                             <Header textHeaderBack={values?._id ? 'Sửa bệnh án' : 'Nhập bệnh án'} />
@@ -116,6 +116,12 @@ const MedicalResultIndex = ({navigation}: any) => {
                                                 <Text>Dịch vụ</Text>
                                                 <Text style={{ fontWeight: 500 }}>{workhourExist.service.name}</Text>
                                             </View>
+                                            {workhourExist.note && 
+                                                <View style={[style.row, {}]}>
+                                                    <Text>Lý do khám</Text>
+                                                    <Text style={{ fontWeight: 500 }}>{workhourExist.note}</Text>
+                                                </View>
+                                            }
                                         </View>
     
                                         <Text style={{ marginTop: 20, marginBottom: 8 }}>Nhập kết quả</Text>
@@ -269,45 +275,20 @@ const MedicalResultIndex = ({navigation}: any) => {
                                 </BottomSheet>
                             }
 
-                            <Modal
-                                animationType='slide'
-                                transparent={true}
-                                visible={showModal}
-                            >
-                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: -30 }}>
-                                    <View style={{
-                                        backgroundColor: colors.white,
-                                        shadowColor: "#000000",
-                                        shadowOffset: {
-                                            width: 0,
-                                            height: 2,
-                                        },
-                                        shadowOpacity: 0.17,
-                                        shadowRadius: 2.54,
-                                        elevation: 3,
-                                        borderRadius: 8
-                                    }}>
-                                        <View style={{ padding: 12, paddingHorizontal: 20 }}>
-                                            <Text style={{ fontSize: 18, fontWeight: 500 }}>Bạn có chắc chắn muốn xóa "{values?.listResult[indexResult]?.description}"</Text>
-                                        </View>
-                                        <View style={{ borderTopWidth: .8, borderColor: colors.gray, padding: 10, flexDirection: 'row', gap: 10, }}>
-                                            <TouchableOpacity activeOpacity={1} onPress={() => setShowModal(false)} style={{ borderWidth: 1, borderColor: colors.gray, padding: 10, borderRadius: 8, flexDirection: 'row', justifyContent: 'center', flex: 1 }}>
-                                                <Text style={{ color: colors.black, fontWeight: 500 }}>Đóng</Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity onPress={() => {
-                                                const res = values?.listResult?.filter((item: any, index2: number) => {
-                                                    return index2 !== indexResult
-                                                })
+                            <ModalConfirm 
+                                open={showModal}
+                                onClose={setShowModal}
+                                title={`Bạn có chắc chắn muốn xóa "${values?.listResult[indexResult]?.description}"`}
+                                onPress={() => {
+                                    const res = values?.listResult?.filter((item: any, index2: number) => {
+                                        return index2 !== indexResult
+                                    })
 
-                                                setFieldValue('listResult', res)
-                                                setShowModal(false)
-                                            }} activeOpacity={1} style={{ backgroundColor: colors.blue, padding: 10, borderRadius: 8, flexDirection: 'row', justifyContent: 'center', flex: 1 }}>
-                                                <Text style={{ color: colors.white, fontWeight: 500 }}>Xác nhận hủy</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-                                </View>
-                            </Modal>
+                                    setFieldValue('listResult', res)
+                                    setShowModal(false)
+                                }}
+                            />
+
                         </>
                     )
                 }}

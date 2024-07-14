@@ -39,6 +39,7 @@ const DoctorIndex = ({ navigation }: any) => {
 
     useEffect(() => {
         checkDateTime(new Date())
+        getDoctorService(doctor?.id)
     }, [])
 
     const handleComfirmCalendar = () => {

@@ -3,7 +3,7 @@ import { API_ENPOINT } from "@/src/constants/LocalConst";
 
 const API_PATH = API_ENPOINT + "/appointments";
 
-export const pagingAppointment = () => axios.get(API_PATH)
+export const pagingAppointment = (obj: object) => axios.post(API_PATH + '/search-by-page', obj)
 
 export const getAppointment = (id: string) => axios.get(API_PATH + `/${id}`)
 

@@ -20,8 +20,9 @@ async function checkAppointmentAvailability(doctorId, date, time) {
 //get all lịch hẹn
 exports.getAllAppontment = async (req, res) => {
   try {
+    const {patientId} = req.body
     const nowDate = normalizeDate(new Date());
-    const appointment = await Appointment.find();
+    const appointment = await Appointment.find({patientId});
     await Appointment.updateMany(
       { date: { $lt: nowDate }, status: 1 },
       { $set: { status: 2 } }

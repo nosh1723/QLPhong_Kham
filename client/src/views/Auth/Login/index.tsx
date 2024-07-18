@@ -18,17 +18,8 @@ export default observer(function Login({navigation}: any) {
     const auth = useSelector(authSelector)
 
     const { user, isLoading,  reset, searchObject, handleLogin} = useStore().auth
+    const { patient, getPatient } = useStore().user
 
-    // React.useEffect(() => {
-    //     if(user) {
-    //         Toast.show({
-    //             type: "success",
-    //             text1: "Đăng ký thành công"
-    //         }) 
-    //     }
-        
-    //     return reset()
-    // },[])
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().nullable().email("Email không đúng định dạng!").required("Không được bỏ trống!"),

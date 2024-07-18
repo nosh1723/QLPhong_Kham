@@ -1,10 +1,9 @@
-import ViewComponent from '@/src/components/ViewComponent';
-import React, { useState } from 'react';
-import { Platform, ScrollView, View } from 'react-native';
-import UserContent from './UserContent';
+import Backdrop from '@/src/components/Backdrop';
 import { colors } from '@/src/constants/Colors';
 import { StatusBar } from 'expo-status-bar';
-import Backdrop from '@/src/components/Backdrop';
+import React, { useState } from 'react';
+import { ScrollView, View } from 'react-native';
+import UserContent from './UserContent';
 
 const User = ({navigation}: any) => {
     const [showModal, setShowModal] = useState(false)

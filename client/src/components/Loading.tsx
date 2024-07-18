@@ -2,7 +2,7 @@ import { ActivityIndicator, Modal, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 interface Props {
-    visible: boolean,
+    visible?: boolean,
     mess?: string
 }
 

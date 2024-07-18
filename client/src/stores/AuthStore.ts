@@ -97,8 +97,6 @@ export default class AuthStore {
                 this.user = data
             })
 
-            this.setUser(data)
-
             await AsyncStorage.setItem("auth", JSON.stringify(data))
 
             this.setIsLoading(false)

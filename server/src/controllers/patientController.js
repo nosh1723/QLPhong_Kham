@@ -1,5 +1,4 @@
 const Patient = require('../models/Patient');
-const Counter = require('../models/Counter');
 const { getCode } = require('../LocalFunction');
 
 // Hàm tạo mã bệnh nhân theo định dạng "000000"

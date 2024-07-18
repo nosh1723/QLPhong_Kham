@@ -41,6 +41,7 @@ export default class ApointmentStore {
     pageAppointment: Appointment[] = []
     selectAppointment = {}
     workhours: Workhour[] = []
+    patientId = ''
 
     constructor() {
         makeAutoObservable(this)
@@ -81,7 +82,8 @@ export default class ApointmentStore {
     pagingAppointment = async () => {
         try {
             this.setIsLoading(true)
-            const res = await pagingAppointment()
+            const res = await pagingAppointment({patientId: this.patientId})
+            
 
             runInAction(() => {
                 this.pageAppointment = res.data.sort((a: any, b:any) => {
@@ -152,6 +154,8 @@ export default class ApointmentStore {
         }
     } 
 
+    setPatientId = async (id: string) => this.patientId = id
+
     setIsLoading = (isLoading: boolean) => {
         this.isLoading = isLoading
     }
@@ -175,5 +179,6 @@ export default class ApointmentStore {
             appointmentTime: new Workhour,
             note: ""
         }
+        this.patientId = ''
     }
 }

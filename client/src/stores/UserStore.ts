@@ -29,16 +29,18 @@ export default class UserStore {
     }
   };
 
-  createOrUpdatePatient = async(obj: object) => {
+  createOrUpdatePatient = async(obj: any) => {
     try {
       this.setIsLoading(true)
       const res = await createOrUpdatePatient(obj)
       this.getPatient(res.data.user_id)
       this.setIsLoading(false)
-      Toast.show({
-        type: "success",
-        text1: "Sửa thông tin cá nhân thành công !"
-      })
+      if(obj?._id){
+        Toast.show({
+          type: "success",
+          text1: "Sửa thông tin cá nhân thành công !"
+        })
+      }
     } catch (error) {
       this.setIsLoading(false)
       console.log("create or update failed!", error);

@@ -1,3 +1,4 @@
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createSlice } from "@reduxjs/toolkit";
 import Toast from "react-native-toast-message";
@@ -24,7 +25,6 @@ const authSlice = createSlice({
         removeAuth: (state, action) => {
             state.authData = initialState
             AsyncStorage.setItem("auth", JSON.stringify(null))
-            
         }
     }
 })

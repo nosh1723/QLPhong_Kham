@@ -12,6 +12,7 @@ import { observer } from 'mobx-react';
 import Toast from 'react-native-toast-message';
 import ModalConfirm from '@/src/components/ModalConfirm';
 import Backdrop from '@/src/components/Backdrop';
+import { useStore } from '@/src/root-store';
 
 
 
@@ -20,6 +21,7 @@ const HomeFuncList = ({ navigation, open, setOpen }: any) => {
     const dispatch = useDispatch()
 
     const listFunc = auth?.user?.role === 'user' ? LIST_FUNC_PATIENT : LIST_FUNC_DOCTOR
+    const { resetStore } = useStore().user
 
     return (
         <Card style={{ marginTop: 20 }}>
@@ -50,7 +52,10 @@ const HomeFuncList = ({ navigation, open, setOpen }: any) => {
                     open={open}
                     onClose={setOpen}
                     title="Đăng xuất khỏi tài khoản của bạn?"
-                    onPress={() => dispatch(removeAuth({}))}
+                    onPress={() => {
+                        dispatch(removeAuth({}))
+                        resetStore()
+                    }}
                 />
             </View>
         </Card>

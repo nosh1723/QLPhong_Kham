@@ -17,6 +17,7 @@ import { formatPhoneNumber } from '@/src/constants/LocalFunction';
 import { colors } from '@/src/constants/Colors';
 import Backdrop from '@/src/components/Backdrop';
 import ModalConfirm from '@/src/components/ModalConfirm';
+import { observer } from 'mobx-react';
 
 
 const UserContent = ({ navigation, showModal, setShowModal }: any) => {
@@ -26,10 +27,9 @@ const UserContent = ({ navigation, showModal, setShowModal }: any) => {
 
     const dispatch = useDispatch()
 
-    const { patient } = useStore().user
+    const { patient, resetStore } = useStore().user
     const { doctor } = useStore().home
 
-    const userName = user === 'user' ? patient?.name : doctor?.name
 
     const toggleDialog = () => {
         setIsVisivle(!isVisible)
@@ -69,7 +69,7 @@ const UserContent = ({ navigation, showModal, setShowModal }: any) => {
                         </View>
                         <View style={{ justifyContent: "flex-start" }}>
                             <Text style={{ fontWeight: 600, fontSize: 18 }}>
-                                {userName}
+                                { patient?.name }
                             </Text>
                             <Text>
                                 {patient?.phone_number ? formatPhoneNumber(patient?.phone_number) : "Chưa cập nhật"}
@@ -103,10 +103,13 @@ const UserContent = ({ navigation, showModal, setShowModal }: any) => {
                 open={showModal}
                 onClose={setShowModal}
                 title="Đăng xuất khỏi tài khoản của bạn?"
-                onPress={() => dispatch(removeAuth({}))}
+                onPress={() => {
+                    dispatch(removeAuth({}))
+                    resetStore()
+                }}
             />
         </>
     );
 };
 
-export default UserContent;
+export default observer( UserContent);

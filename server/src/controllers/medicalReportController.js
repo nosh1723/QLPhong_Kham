@@ -194,6 +194,7 @@ exports.deleteMedicalReport = async (req, res) => {
 
 exports.getALLMedicalReport = async(req, res) => {
   try {
+    console.log(1);
     const medicalReport = await MedicalReport.find()
     .populate({
       path: "appointmentId",
@@ -204,16 +205,16 @@ exports.getALLMedicalReport = async(req, res) => {
         { path: "workHourId" },
       ],
     })
+    console.log(2);
 
     if (!medicalReport) {
       return res.status(404).json({ message: "Báo cáo y tế không tồn tại" });
     }
 
     const medicalResult = await MedicalResult.find()
-
     // Chuẩn bị dữ liệu cho giao diện
     const reportData = medicalReport.map(i => {
-      const appointment = i.appointmentId;
+      const appointment = i?.appointmentId;
       return {
         appointment: {
           _id: appointment._id,
@@ -232,7 +233,6 @@ exports.getALLMedicalReport = async(req, res) => {
         dateReExam: medicalReport.dateReExam 
       };
     })
-    
     res.status(200).json(reportData);
   } catch (error) {
     res.status(500).json({ message: "Lỗi server", error });

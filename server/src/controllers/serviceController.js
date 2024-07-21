@@ -145,6 +145,7 @@ exports.getDoctorService = async (req, res) => {
         const {id} = req.params
         const doctorServive = await DoctorService.findOne({doctor_id: id})
         const service = await Service.find({category_Id: doctorServive.category_Id})
+        console.log();
         
         res.status(200).json(service)
     } catch (error) {

@@ -73,7 +73,7 @@ const MedicalResultIndex = ({navigation}: any) => {
                 {({ values, setFieldValue, handleChange, handleSubmit, errors, touched }: any) => {
                     return (
                         <>
-                            <Header textHeaderBack={values?._id ? 'Sửa bệnh án' : 'Nhập bệnh án'} />
+                            <Header textHeaderBack={'Nhập bệnh án'} />
                             {/* <View style={{ flex: 1,}}> */}
                                 <ScrollView style={{flex: 1, }}>
                                     <View style={{paddingHorizontal: 15, paddingVertical: 15}}>

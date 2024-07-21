@@ -73,13 +73,13 @@ const WorkhourList = ({ title, type, navigation, style: WorkhourList }: any) => 
             <ModalComponent
                 open={opneModal}
                 setOpen={setOpenModal}
-                titleButton={workhourExist?.status === 3 ? "Sửa bệnh án" : "Nhập bệnh án"}
+                titleButton={workhourExist?.status === 1 && "Nhập bệnh án"}
                 // animationType={"fade"}
                 onClickBtn={() => {
                     navigation.navigate('medicalResult')
                     setOpenModal(false)
                 }}
-                hideButton={workhourExist.status !== 1 && workhourExist.status !== 3 ? true : false}
+                hideButton={workhourExist.status !== 1 ? true : false}
             >
                 <View style={{ marginTop: 20 }}>
                     <View style={{ backgroundColor: colors.white, padding: 10, borderRadius: 8, flexDirection: 'column', gap: 8, paddingVertical: 15 }}>

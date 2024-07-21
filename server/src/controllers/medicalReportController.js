@@ -26,21 +26,21 @@ exports.createOrUpdateMedicalReport = async (req, res) => {
       return res.status(404).json({ message: "Lịch hẹn không tồn tại" });
     }
 
-    if(_id !== '') {
-      medicalReport = MedicalReport.findByIdAndUpdate(_id, {
-        appointmentId: appointmentId,
-        reExamination: reExamination,
-        dateReExam: reExamination ? dateReExamFomat : null,
-      });
+    // if(_id !== '') {
+    //   medicalReport = MedicalReport.findByIdAndUpdate(_id, {
+    //     appointmentId: appointmentId,
+    //     reExamination: reExamination,
+    //     dateReExam: reExamination ? dateReExamFomat : null,
+    //   });
       
-      // lấy kq theo id báo cáo
-      const newListResult = listResult?.map(i => ({
-          description: i,
-          medicalReportId: medicalReport._id,
-      }))
+    //   // lấy kq theo id báo cáo
+    //   const newListResult = listResult?.map(i => ({
+    //       description: i,
+    //       medicalReportId: medicalReport._id,
+    //   }))
   
-      MedicalResult.updateMany(newListResult).then(data => {}).catch(err => console.log('loi luu medical result', err))
-    }else {
+    //   MedicalResult.updateMany(newListResult).then(data => {}).catch(err => console.log('loi luu medical result', err))
+    // }else {
       // Tạo báo cáo y tế mới
       medicalReport = new MedicalReport({
         appointmentId: appointmentId,
@@ -61,7 +61,7 @@ exports.createOrUpdateMedicalReport = async (req, res) => {
       res
       .status(201)
       .json({ message: "Tạo báo cáo y tế thành công", medicalReport });
-    }
+    // }
   } catch (error) {
     res.status(500).json({ message: "Lỗi server", error });
   }

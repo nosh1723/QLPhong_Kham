@@ -1,7 +1,7 @@
 import { Platform } from "react-native"
 import { colors } from "./Colors"
 
-export const API_ENPOINT = "http://30.90.0.106:5000/api"
+export const API_ENPOINT = "http:/192.168.1.8:5000/api"
 
 export const isIos = Platform.OS === "ios"
 

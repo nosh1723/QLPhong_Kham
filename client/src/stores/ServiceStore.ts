@@ -36,7 +36,7 @@ export default class ServiceStore {
     
         } catch (error) {
             this.setIsLoading(false)
-            console.log(error);
+            console.log('get service doctor failed',error);
         }
     }
 
